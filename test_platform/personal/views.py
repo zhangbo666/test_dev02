@@ -6,14 +6,22 @@ from django.http import HttpResponse
 
 def say_hello(request):
 
-    name = request.GET.get("name","")
+    input_name = request.GET.get("name","")
 
-    talk = []
+    if input_name == "":
 
-    for n in  range(3):
+        return HttpResponse("请输入参数?name=name值")
 
-        # print ("hello," + name)
+    #第一种显示
+    # talk = []
+    # for n in  range(3):
+    #     print ("hello," + input_name)
+    #     talk.append("hello," + input_name + "<br>")
 
-        talk.append("hello," + name + '\n')
+    #第二种显示
+    # html = '<h1 style = "color:red">hello,' + input_name + "</h1><br>"
 
-    return HttpResponse(talk)
+    #第三种显示render
+    # return HttpResponse(html)
+
+    return render(request,"index.html",{"name" : input_name})
