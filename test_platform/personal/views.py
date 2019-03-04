@@ -25,3 +25,12 @@ def say_hello(request):
     # return HttpResponse(html)
 
     return render(request,"index.html",{"name" : input_name})
+
+def index(request):
+
+    """
+    登录的首页
+    """
+
+    return render(request,"index_1.html")
+
