@@ -32,8 +32,37 @@ def index(request):
     登录的首页
     """
 
-    return render(request,"index_1.html")
+    if request.method== "GET":
 
+       return render(request,"index_1.html")
+
+    elif request.method == "POST":
+
+            '''
+            处理登录请求
+            :param request:
+            :return:
+            '''
+
+            username = request.POST.get("username","")
+            password = request.POST.get("password","")
+
+            if username == "" or password == "":
+
+                # print (username)
+                # print (password)
+
+                # return HttpResponse("用户名或密码为空")
+
+                return render(request,"index_1.html",{"error":"用户名或密码为空！！！"})
+
+            if username == "admin" and password == "123456":
+
+                return HttpResponse("登录成功！！！")
+
+            else:
+
+                return render(request,"index_1.html",{"error":"用户名或密码错误！！！"})
 
 def login_action(request):
 
@@ -42,26 +71,27 @@ def login_action(request):
     :param request: 
     :return: 
     '''
-
-    username = request.GET.get("username","")
-    password = request.GET.get("password","")
-
-    if username == "" or password == "":
-
-        # print (username)
-        # print (password)
-
-        # return HttpResponse("用户名或密码为空")
-
-        return render(request,"index_1.html",{"error":"用户名或密码为空！！！"})
-
-    if username == "admin" and password == "123456":
-
-        return HttpResponse("登录成功！！！")
-
-    else:
-
-        return render(request,"index_1.html",{"error":"用户名或密码错误！！！"})
+    # print (request.method)
+    #
+    # username = request.POST.get("username","")
+    # password = request.POST.get("password","")
+    #
+    # if username == "" or password == "":
+    #
+    #     # print (username)
+    #     # print (password)
+    #
+    #     # return HttpResponse("用户名或密码为空")
+    #
+    #     return render(request,"index_1.html",{"error":"用户名或密码为空！！！"})
+    #
+    # if username == "admin" and password == "123456":
+    #
+    #     return HttpResponse("登录成功！！！")
+    #
+    # else:
+    #
+    #     return render(request,"index_1.html",{"error":"用户名或密码错误！！！"})
 
 
 

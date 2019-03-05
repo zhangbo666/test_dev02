@@ -5,15 +5,16 @@
     <title>测试平台</title>
 </head>
 <body>
-    <form action="/login_action" method="get">
-        <p>用户名：
+    <form action="/index/" method="post">
+        <p>username：
             <input type="text" name="username"/>
         </p>
-        <p>密码：
+        <p>password：
             <input type="password" name="password"/>
         </p>
         <p style="color:red">{{ error }}</p> <br>
         <input type="submit" value="Login">
+        {% csrf_token %}
     </form>
 </body>
 </html>
