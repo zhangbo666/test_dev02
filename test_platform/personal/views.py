@@ -34,3 +34,34 @@ def index(request):
 
     return render(request,"index_1.html")
 
+
+def login_action(request):
+
+    '''
+    处理登录请求
+    :param request: 
+    :return: 
+    '''
+
+    username = request.GET.get("username","")
+    password = request.GET.get("password","")
+
+    if username == "" or password == "":
+
+        # print (username)
+        # print (password)
+
+        # return HttpResponse("用户名或密码为空")
+
+        return render(request,"index_1.html",{"error":"用户名或密码为空！！！"})
+
+    if username == "admin" and password == "123456":
+
+        return HttpResponse("登录成功！！！")
+
+    else:
+
+        return render(request,"index_1.html",{"error":"用户名或密码错误！！！"})
+
+
+

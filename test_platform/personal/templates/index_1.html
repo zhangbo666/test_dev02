@@ -5,13 +5,14 @@
     <title>测试平台</title>
 </head>
 <body>
-    <form action="login_action" method="get">
+    <form action="/login_action" method="get">
         <p>用户名：
             <input type="text" name="username"/>
         </p>
         <p>密码：
             <input type="password" name="password"/>
         </p>
+        <p style="color:red">{{ error }}</p> <br>
         <input type="submit" value="Login">
     </form>
 </body>
