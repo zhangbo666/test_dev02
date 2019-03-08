@@ -6,6 +6,8 @@ from django.http import HttpResponse,HttpResponseRedirect
 
 from django.contrib import auth
 
+from django.contrib.auth.decorators import login_required
+
 
 def say_hello(request):
 
@@ -76,14 +78,30 @@ def index(request):
 
                 # return render(request, "manage.html")
 
+                #记录用户的登录状态
+                auth.login(request,userLoginInfo)
+
                 return HttpResponseRedirect("/manage/")
 
             # else:
 
-#登录后跳转
+# 登录成功，管理页面
+
+@login_required
 def manage(request):
 
     return render(request,"manage.html")
+
+
+# 处理用户的退出
+
+def logout(request):
+
+    #退出登录
+    auth.logout(request)
+
+    return HttpResponseRedirect("/index/")
+
 
 
 def login_action(request):
