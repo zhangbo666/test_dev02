@@ -2,7 +2,10 @@ from django.shortcuts import render
 
 # Create your views here.
 
-from django.http import HttpResponse
+from django.http import HttpResponse,HttpResponseRedirect
+
+from django.contrib import auth
+
 
 def say_hello(request):
 
@@ -56,13 +59,32 @@ def index(request):
 
                 return render(request,"index_1.html",{"error":"用户名或密码为空！！！"})
 
-            if username == "admin" and password == "123456":
+            userLoginInfo = auth.authenticate(username=username,password=password)
 
-                return HttpResponse("登录成功！！！")
+            print (userLoginInfo)
+
+            if userLoginInfo is None:
+
+                return render(request, "index_1.html", {"error": "用户名或密码错误！！！"})
+
+
+            # if username == "admin" and password == "123456":
 
             else:
 
-                return render(request,"index_1.html",{"error":"用户名或密码错误！！！"})
+                # return HttpResponse("登录成功！！！")
+
+                # return render(request, "manage.html")
+
+                return HttpResponseRedirect("/manage/")
+
+            # else:
+
+#登录后跳转
+def manage(request):
+
+    return render(request,"manage.html")
+
 
 def login_action(request):
 
