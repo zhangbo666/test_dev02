@@ -84,7 +84,6 @@ def index(request):
             # else:
 
 # 登录成功，管理页面
-
 @login_required
 def manage(request):
 
@@ -92,7 +91,6 @@ def manage(request):
 
 
 # 处理用户的退出
-
 def logout(request):
 
     #退出登录
