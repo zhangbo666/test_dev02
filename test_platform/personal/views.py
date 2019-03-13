@@ -79,15 +79,23 @@ def index(request):
                 #记录用户的登录状态
                 auth.login(request,userLoginInfo)
 
-                return HttpResponseRedirect("/manage/")
+                return HttpResponseRedirect("/project/")
 
             # else:
 
-# 登录成功，管理页面
+# 登录成功，默认项目管理页
 @login_required
-def manage(request):
+def project_manage(request):
 
-    return render(request,"manage.html")
+    return render(request,"project.html")
+
+# 模块管理页
+@login_required
+def moduel_manage(request):
+
+    return render(request,"moduel.html")
+
+
 
 
 # 处理用户的退出

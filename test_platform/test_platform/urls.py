@@ -24,9 +24,11 @@ urlpatterns = [
     path('index/', views.index),
     path('', views.index),
     # path('login_action/',views.login_action),
-    path('manage/',views.manage),
+    path('logout', views.logout),
+    path('project/',views.project_manage),
+    path('moduel/',views.moduel_manage),
     path('accounts/login/',views.index),
-    path('logout',views.logout),
+
 
 
 
