@@ -18,6 +18,8 @@ from django.urls import path
 
 # from personal.views import say_hello
 from personal import views
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('hello/', views.say_hello),

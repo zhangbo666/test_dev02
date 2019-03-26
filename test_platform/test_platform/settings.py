@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-# APPEND_SLASH = False
+APPEND_SLASH = False
 
 # Application definition
 
@@ -75,7 +75,7 @@ WSGI_APPLICATION = 'test_platform.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
-
+#
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
