@@ -84,6 +84,35 @@ DATABASES = {
 }
 
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'OPTIONS':{
+#             'read_default_file':BASE_DIR +'/my.cnf',
+#         }
+#     }
+# }
+
+
+# DATABASES = {
+#         'default':{
+#                         'ENGINE':'django.db.backends.mysql',
+#                         'HOST':'127.0.0.1',
+#                         'PORT':'3306',
+#                         'NAME':'sign_db',
+#                         'USER':'root',
+#                         'PASSWORD':'1234qwer',
+#                         # 'PASSWORD':'123456',
+#                         'OPTIONS':{
+#                                             'init_command':"SET sql_mode='STRICT_TRANS_TABLES'",
+#                                             },
+#                         }
+# }
+
+
+
+
+
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
 

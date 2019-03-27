@@ -10,11 +10,11 @@ class Project(models.Model):
       项目表
 
       '''
-      name = models.CharField(max_length=50,null=False)
+      name = models.CharField("名称",max_length=50,null=False)
 
-      describe = models.TextField(default="",max_length=50)
+      describe = models.TextField("描述",default="",max_length=50)
 
-      status = models.BooleanField(default=1)
+      status = models.BooleanField("状态",default=1)
 
       update_time = models.DateTimeField(auto_now=True)
 

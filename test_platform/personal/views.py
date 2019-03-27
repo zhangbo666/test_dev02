@@ -8,6 +8,10 @@ from django.contrib import auth
 
 from django.contrib.auth.decorators import login_required
 
+from personal.models.module import Module
+
+from personal.models.project import Project
+
 
 def say_hello(request):
 
@@ -30,6 +34,7 @@ def say_hello(request):
     # return HttpResponse(html)
 
     return render(request,"index.html",{"name" : input_name})
+
 
 def index(request):
 
@@ -89,7 +94,10 @@ def index(request):
 @login_required
 def project_manage(request):
 
-    return render(request,"project.html")
+    project_all = Project.objects.all()
+
+    return render(request,"project.html",{"projects":project_all})
+
 
 # 模块管理页
 @login_required

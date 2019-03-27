@@ -75,6 +75,14 @@
           <h3 class="sub-header">项目列表</h3>
           <div class="table-responsive">
             <table class="table table-striped">
+
+              {% for project in projects %}
+
+                  {{ project.name }}<Br>
+                  {{ project.describe }}<Br>
+
+              {% endfor%}
+
               <thead>
                 <tr>
                   <th>项目编号</th>
