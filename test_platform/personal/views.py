@@ -63,6 +63,8 @@ def index(request):
 
             userLoginInfo = auth.authenticate(username=username,password=password)
 
+            print (userLoginInfo)
+
             if userLoginInfo is None:
 
                 return render(request, "index_1.html", {"error": "用户名或密码错误！！！"})

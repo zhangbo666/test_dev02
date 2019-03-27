@@ -22,3 +22,9 @@ class Module(models.Model):
       describe = models.TextField(default="",max_length=50)
 
       create_time = models.DateTimeField(auto_now_add=True)
+
+
+
+      # def __str__(self):
+      #
+      #       return self.name

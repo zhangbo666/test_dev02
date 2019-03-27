@@ -16,4 +16,10 @@ class Project(models.Model):
 
       status = models.BooleanField(default=1)
 
+      update_time = models.DateTimeField(auto_now=True)
+
       create_time = models.DateTimeField(auto_now_add=True)
+
+      def __str__(self):
+
+            return self.name
