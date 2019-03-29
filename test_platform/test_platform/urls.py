@@ -28,7 +28,7 @@ urlpatterns = [
     # path('login_action/',views.login_action),
     path('logout', views.logout),
     path('project/',views.project_manage),
-    path('moduel/',views.moduel_manage),
+    path('module/',views.moduel_manage),
     path('accounts/login/',views.index),
 
 

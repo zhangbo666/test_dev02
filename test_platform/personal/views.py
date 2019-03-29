@@ -103,7 +103,9 @@ def project_manage(request):
 @login_required
 def moduel_manage(request):
 
-    return render(request,"moduel.html")
+    module_all = Module.objects.all()
+
+    return render(request,"module.html",{"modules":module_all})
 
 
 
