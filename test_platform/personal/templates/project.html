@@ -87,7 +87,6 @@
                                 <th>项目名称</th>
                                 <th>项目描述</th>
                                 <th>项目状态</th>
-                                <th>项目更新时间</th>
                                 <th>项目创建时间</th>
                                 <th>操作</th>
                             </tr>
@@ -100,13 +99,23 @@
                                   <td>{{ project.id}}</td>
                                   <td>{{ project.name}}</td>
                                   <td>{{ project.describe}}</td>
-                                  <td>{{ project.status}}</td>
-                                  <td>{{ project.update_time}}</td>
-                                  <td>{{ project.create_time}}</td>
+                                  <td>
+                                      {% if project.status == True %}
+
+                                          <span>开启</span>
+
+                                      {% elif project.status == False %}
+
+                                          <span>禁用</span>
+
+                                      {% endif %}
+
+                                  </td>
+                                  <td>{{ project.create_time|date:"Y-m-d H:i:s" }}</td>
                                   <td>
                                       <button type="submit" name="update-data">更新</button>
                                       <button type="submit" name="delete-data">删除</button>
-                                      <button type="submit" name="">查看项目报告</button>
+                                      <button type="submit" name="">查看报告</button>
                                   </td>
 
                             </tr>
