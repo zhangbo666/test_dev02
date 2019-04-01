@@ -90,24 +90,6 @@ def index(request):
 
             # else:
 
-# 登录成功，默认项目管理页
-@login_required
-def project_manage(request):
-
-    project_all = Project.objects.all()
-
-    return render(request,"project.html",{"projects":project_all})
-
-
-# 模块管理页
-@login_required
-def moduel_manage(request):
-
-    module_all = Module.objects.all()
-
-    return render(request,"module.html",{"modules":module_all})
-
-
 
 
 # 处理用户的退出

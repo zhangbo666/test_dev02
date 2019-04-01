@@ -17,19 +17,29 @@ from django.contrib import admin
 from django.urls import path
 
 # from personal.views import say_hello
-from personal import views
+from personal.views import login_views
+from personal.views import project_views
+from personal.views import module_views
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('hello/', views.say_hello),
-    path('index/', views.index),
-    path('', views.index),
-    # path('login_action/',views.login_action),
-    path('logout', views.logout),
-    path('project/',views.project_manage),
-    path('module/',views.moduel_manage),
-    path('accounts/login/',views.index),
+    path('hello/', login_views.say_hello),
+    path('index/', login_views.index),
+    path('', login_views.index),
+    # path('login_action/',login_views.login_action),
+    path('logout/', login_views.logout),
+    path('accounts/login/',login_views.index),
+
+    # project管理
+    path('project/',project_views.project_manage),
+    path('project/add_project/',project_views.add_project),
+
+    # module管理
+    path('module/',module_views.moduel_manage),
+
+
+
 
 
 

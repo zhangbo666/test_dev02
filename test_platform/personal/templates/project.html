@@ -24,7 +24,7 @@
 
   <!--<body>-->
 
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -34,18 +34,18 @@
                     <span class="icon-bar"></span>
               </button>
             <a class="navbar-brand" href="#">接口测试平台 </a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">Settings</a></li>
+                    <li><a href="/logout/">logout</a></li>
+                </ul>
+                <form class="navbar-form navbar-right">
+                    <input type="text" class="form-control" placeholder="Search...">
+                </form>
+            </div>
         </div>
-        <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Settings</a></li>
-                <li><a href="/logout">logout</a></li>
-            </ul>
-            <form class="navbar-form navbar-right">
-                <input type="text" class="form-control" placeholder="Search...">
-            </form>
-        </div>
-      </div>
-    </nav>
+     </nav>
 
     <div class="container-fluid">
         <div class="row">
@@ -73,21 +73,27 @@
             </div>
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                 <form class="project" method="post" name="project-page">
-                    <button class="btn btn-success" type="submit" name="insert-project-data">添加项目</button>
+                    <button  class="btn btn-success" type="submit" name="insert-project-data">添加项目</button>
                     <input  type="text" name="search-project" placeholder="搜索项目名称">
                 </form>
 
-                <h3 class="sub-header">项目列表</h3>
+                <!--这块内容可变的-->
+                <!--项目列表-->
+                {% if type == "list" %}
+                <h3 class="sub-header">项目列表
+                    <button class="btn btn-primary" name="submit" style="float:right"
+                            onclick="location.href='/project/add_project/'">创建</button>
+                </h3>
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>
 
                             <tr style="text-align: center">
-                                <th>项目编号</th>
-                                <th>项目名称</th>
-                                <th>项目描述</th>
-                                <th>项目状态</th>
-                                <th>项目创建时间</th>
+                                <th>id</th>
+                                <th>名称</th>
+                                <th>描述</th>
+                                <th>状态</th>
+                                <th>创建时间</th>
                                 <th>操作</th>
                             </tr>
                         </thead>
@@ -111,7 +117,7 @@
                                       {% endif %}
 
                                   </td>
-                                  <td>{{ project.create_time|date:"Y-m-d H:i:s" }}</td>
+                                  <td>{{ project.create_time | date:"Y-m-d H:i:s" }}</td>
                                   <td>
                                       <button type="submit" name="update-data">更新</button>
                                       <button type="submit" name="delete-data">删除</button>
@@ -121,10 +127,20 @@
                             </tr>
 
                             {% endfor %}
+
                             {% csrf_token %}
+
                         </tbody>
                     </table>
                 </div>
+                {% endif %}
+
+                <!--添加项目-->
+                {% if type == "add" %}
+
+                <h3>添加项目</h3>
+
+                {% endif %}
 
             </div>
         </div>
