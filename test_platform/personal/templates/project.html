@@ -72,16 +72,16 @@
                </ul>
             </div>
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                <form class="project" method="post" name="project-page">
-                    <button  class="btn btn-success" type="submit" name="insert-project-data">添加项目</button>
-                    <input  type="text" name="search-project" placeholder="搜索项目名称">
-                </form>
+{#                <form class="project" method="post" name="project-page">#}
+{#                    <button  class="btn btn-success" type="submit" name="insert-project-data">添加项目</button>#}
+{#                    <input  type="text" name="search-project" placeholder="搜索项目名称">#}
+{#                </form>#}
 
                 <!--这块内容可变的-->
                 <!--项目列表-->
                 {% if type == "list" %}
                 <h3 class="sub-header">项目列表
-                    <button class="btn btn-primary" name="submit" style="float:right"
+                    <button class="btn btn-primary" name="submit" style="float:right;"
                             onclick="location.href='/project/add_project/'">创建</button>
                 </h3>
                 <div class="table-responsive">
@@ -140,8 +140,47 @@
 
                 <h3>添加项目</h3>
 
-                {% endif %}
+                <form class="form-horizontal" method="post" action="/project/add_project/">
+                    <fieldset>
+                        <div class="control-group">
+                            <label class="control-label" for="input01">名称</label>
+                            <div class="controls">
+                                <input type="text" name='project_name' class="input-xlarge">
+                            </div>
+                        </div>
 
+                        <div class="control-group">
+                            <label class="control-label">描述</label>
+                            <div class="controls">
+                                <div class="textarea">
+                                    <textarea name="project_describe" style="width: 174px;"> </textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label">状态</label>
+                            <div class="controls" style="height:30px;">
+                                <label class="radio inline" style="left: 50px;float: left">
+                                    <input type="radio" value="1" checked="checked" name="status">开启
+                                </label>
+                                <label class="radio inline" style="left: 80px;float: left;">
+                                    <input type="radio" value="0" name="status">关闭
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="control-group" style="left:100px;float: left">
+                            <div class="controls">
+                                <button class="btn btn-success">保存</button>
+                            </div>
+                        </div>
+
+                    </fieldset>
+                </form>
+
+                {% endif %}
+                {% csrf_token %}
             </div>
         </div>
     </div>
