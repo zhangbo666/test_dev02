@@ -119,9 +119,15 @@
                                   </td>
                                   <td>{{ project.create_time | date:"Y-m-d H:i:s" }}</td>
                                   <td>
-                                      <button type="submit" name="update-data">更新</button>
-                                      <button type="submit" name="delete-data">删除</button>
-                                      <button type="submit" name="">查看报告</button>
+                                      <a href="/project/edit_project/{{ project.id }}">
+                                          <i class="glyphicon glyphicon-pencil">编辑</i>
+                                      </a>
+                                      <a href="/project/delete_project/" style="margin-left:20px;">
+                                          <i class="glyphicon glyphicon-trash">删除</i>
+                                      </a>
+                                      <!--<button type="submit" name="update-data">更新</button>-->
+                                      <!--<button type="submit" name="delete-data">删除</button>-->
+                                      <!--<button type="submit" name="">查看报告</button>-->
                                   </td>
 
                             </tr>
@@ -143,9 +149,10 @@
                 <form class="form-horizontal" method="post" action="/project/add_project/">
                     <fieldset>
                         <div class="control-group">
-                            <label class="control-label" for="input01">名称</label>
+                            <label class="control-label">名称</label>
                             <div class="controls">
                                 <input type="text" name='project_name' class="input-xlarge">
+                                <span style="color:red">{{ name_error }}</span>
                             </div>
                         </div>
 
@@ -180,7 +187,54 @@
                 </form>
 
                 {% endif %}
-                {% csrf_token %}
+
+                <!--编辑项目-->
+                {% if type == "edit" %}
+
+                <h3>编辑项目</h3>
+
+                <form class="form-horizontal" method="post" action="/project/add_project/">
+                    <fieldset>
+                        <div class="control-group">
+                            <label class="control-label">名称</label>
+                            <div class="controls">
+                                <input type="text" name='project_name' class="input-xlarge">
+                                <span style="color:red">{{ name_error }}</span>
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label">描述</label>
+                            <div class="controls">
+                                <div class="textarea">
+                                    <textarea name="project_describe" style="width: 174px;"> </textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label">状态</label>
+                            <div class="controls" style="height:30px;">
+                                <label class="radio inline" style="left: 50px;float: left">
+                                    <input type="radio" value="1" checked="checked" name="status">开启
+                                </label>
+                                <label class="radio inline" style="left: 80px;float: left;">
+                                    <input type="radio" value="0" name="status">关闭
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="control-group" style="left:100px;float: left">
+                            <div class="controls">
+                                <button class="btn btn-success">保存</button>
+                            </div>
+                        </div>
+
+                    </fieldset>
+                </form>
+
+                {% endif %}
+
             </div>
         </div>
     </div>
