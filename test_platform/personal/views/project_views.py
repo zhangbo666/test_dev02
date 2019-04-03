@@ -90,21 +90,3 @@ def edit_project(request,pid):
              return HttpResponseRedirect("/project/")
 
 
-             # elif request.method == 'POST':
-    #
-    #     project_name = request.POST.get("project_name","")
-    #
-    #     project_describe = request.POST.get("project_describe","")
-    #
-    #     status = request.POST.get("status","")
-    #
-    #     if project_name == "":
-    #
-    #         return render(request,"project.html",{"type":"add","name_error":"项目名称不能为空"})
-    #
-    #     else:
-    #
-    #         Project.objects.create(name=project_name,describe=project_describe,status=status,
-    #                                create_time=datetime(2019,4,3,00,10,00))
-    #
-    #         return HttpResponseRedirect("/project/")
