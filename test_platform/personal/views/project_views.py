@@ -10,6 +10,10 @@ from personal.models.project import Project
 
 from datetime import datetime
 
+from personal.forms import ProjectForm
+
+
+
 # 登录成功，默认项目管理页
 @login_required
 def project_manage(request):
@@ -53,15 +57,40 @@ def edit_project(request,pid):
 
     if request.method == 'GET':
 
-        pro = Project.objects.get(id=pid)
-        print (pro.status)
-        print (pro.name)
-        print (pro.describe)
-        print (pro.create_time)
+        if pid :
 
-        return render(request,"project.html",{"type":"edit"})
+            pro = Project.objects.get(id=pid)
 
-    # elif request.method == 'POST':
+            form = ProjectForm(instance=pro)
+
+            return render(request,"project.html",{"type":"edit","form":form,"pid":pid})
+
+    elif request.method == 'POST':
+
+         form = ProjectForm(request.POST)
+
+         if form.is_valid():
+
+             name = form.cleaned_data['name']
+
+             describe = form.cleaned_data['describe']
+
+             status   = form.cleaned_data['status']
+
+             p_update = Project.objects.get(id=pid)
+
+             p_update.name = name
+
+             p_update.describe = describe
+
+             p_update.status = status
+
+             p_update.save()
+
+             return HttpResponseRedirect("/project/")
+
+
+             # elif request.method == 'POST':
     #
     #     project_name = request.POST.get("project_name","")
     #

@@ -3,7 +3,7 @@
 
 <!--<!DOCTYPE html>-->
 <!--<html lang="zh-CN">-->
-  <!--<head>-->q
+  <!--<head>-->
     <!--<meta charset="utf-8">-->
     <!--<meta http-equiv="X-UA-Compatible" content="IE=edge">-->
     <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
@@ -119,7 +119,7 @@
                                   </td>
                                   <td>{{ project.create_time | date:"Y-m-d H:i:s" }}</td>
                                   <td>
-                                      <a href="/project/edit_project/{{ project.id }}">
+                                      <a href="/project/edit_project/{{ project.id }}/">
                                           <i class="glyphicon glyphicon-pencil">编辑</i>
                                       </a>
                                       <a href="/project/delete_project/" style="margin-left:20px;">
@@ -177,12 +177,11 @@
                             </div>
                         </div>
 
-                        <div class="control-group" style="left:100px;float: left">
+                        <div class="control-group" style="margin-left:20px;float: left">
                             <div class="controls">
                                 <button class="btn btn-success">保存</button>
                             </div>
                         </div>
-
                     </fieldset>
                 </form>
 
@@ -193,7 +192,8 @@
 
                 <h3>编辑项目</h3>
 
-                <form class="form-horizontal" method="post" action="/project/add_project/">
+                <!--
+                <form class="form-horizontal" method="post" action="/project/edit_project/">
                     <fieldset>
                         <div class="control-group">
                             <label class="control-label">名称</label>
@@ -231,6 +231,15 @@
                         </div>
 
                     </fieldset>
+                </form>
+                -->
+
+                <form action="/project/edit_project/{{ pid }}/" method="post">
+
+                    {{ form.as_p }}
+
+                    <input class="btn btn-success" type="submit" value="submit">
+
                 </form>
 
                 {% endif %}
