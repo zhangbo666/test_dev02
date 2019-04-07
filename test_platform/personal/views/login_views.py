@@ -88,9 +88,6 @@ def index(request):
 
                 return HttpResponseRedirect("/project/")
 
-            # else:
-
-
 
 # 处理用户的退出
 def logout(request):
