@@ -1,3 +1,7 @@
+#!/usr/bin/python
+#encoding:utf-8
+
+
 __author__ = 'zhangbo'
 
 from django.http import HttpResponse,HttpResponseRedirect
