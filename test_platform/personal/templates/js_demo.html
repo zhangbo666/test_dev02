@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery ajax使用</title>
+    <!--<script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>-->
+    <script type="text/javascript" src="http://lib.sinaapp.com/js/jquery/1.12.4/jquery-1.12.4.min.js"></script>
+
+
+</head>
+<body>
+    <input type="text" id="number1">
+    <input type="text" id="number2">
+    <button type="button" id="jisuan" onclick="jisuan()">计算</button>
+
+<script type="text/javascript">
+
+    function jisuan()
+   {
+
+//       alert("xxx")
+
+       let number1 = document.querySelector("#number1").value;
+
+       let number2 = document.querySelector("#number2").value;
+
+//       console.log("数字1",number1,"123");
+
+//       console.log("数字2",number2);
+        
+//        $.get("/js_jisuan",{"number1":number1,"number2":number2},
+//                function (result) {
+//                    alert("结果：" + result)
+//                })
+
+        $.post("/js_jisuan/",{num1:number1,num2:number2},
+        function (result) {
+            alert("结果：" + result)
+        })
+
+
+
+   }
+</script>
+
+</body>
+</html>

@@ -1,3 +1,6 @@
+#!/usr/bin/python
+#encoding:utf-8
+
 from django import forms
 
 from personal.models import Project

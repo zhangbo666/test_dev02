@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'personal',
     # 'personal.apps.PersonalConfig',
+    # 'js_demo',
 ]
 
 MIDDLEWARE = [

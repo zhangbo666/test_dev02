@@ -21,6 +21,7 @@ from personal.views import login_views
 from personal.views import project_views
 from personal.views import module_views
 
+from js_demo import js_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -38,6 +39,10 @@ urlpatterns = [
 
     # module管理
     path('module/',module_views.moduel_manage),
+
+    #js_demo
+    path('js/',js_views.index),
+    path('js_jisuan/',js_views.js_jisuan),
 
 
 
