@@ -85,7 +85,7 @@ forms django表单
    form = ProjectForm(instance=pro)
 
    return render(request,"project.html",{"type":"edit","form":form})
-     
+
 '''
 
 

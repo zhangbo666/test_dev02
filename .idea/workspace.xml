@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="457de4dc-fd11-49e5-ae63-694f81f5dc26" name="Default" comment="2019-04-07 23:50 提交" />
+    <list default="true" id="457de4dc-fd11-49e5-ae63-694f81f5dc26" name="Default" comment="2019-04-07 23:50 提交">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_platform/db.sqlite3" afterPath="$PROJECT_DIR$/test_platform/db.sqlite3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_platform/personal/forms.py" afterPath="$PROJECT_DIR$/test_platform/personal/forms.py" />
+    </list>
     <ignored path="test_dev02.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -24,8 +27,8 @@
       <file leaf-file-name="js_demo.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test_platform/personal/templates/js_demo.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="24" column="62" lean-forward="true" selection-start-line="24" selection-start-column="62" selection-end-line="24" selection-end-column="62" />
+            <state relative-caret-position="18">
+              <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -193,14 +196,14 @@
     <property name="recentsLimit" value="5" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/test_platform/personal/views" />
+      <recent name="E:\51talk\python\class_dev\test_dev02\test_dev02\test_platform\test_platform" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/test_platform/personal/models" />
       <recent name="E:\51talk\python\class_dev\test_dev02\test_dev02\test_platform\personal\templates" />
       <recent name="$PROJECT_DIR$/test_platform/personal/templates" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/test_platform/personal/views" />
-      <recent name="E:\51talk\python\class_dev\test_dev02\test_dev02\test_platform\test_platform" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -906,8 +909,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/test_platform/personal/templates/js_demo.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="24" column="62" lean-forward="true" selection-start-line="24" selection-start-column="62" selection-end-line="24" selection-end-column="62" />
+        <state relative-caret-position="18">
+          <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
           <folding />
         </state>
       </provider>
