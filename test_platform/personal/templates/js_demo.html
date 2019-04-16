@@ -9,9 +9,12 @@
 
 </head>
 <body>
-    <input type="text" id="number1">
-    <input type="text" id="number2">
-    <button type="button" id="jisuan" onclick="jisuan()">计算</button>
+ <input type="text" id="number1">+
+ <input type="text" id="number2">
+    <button type="button" id="jisuan" onclick="jisuan()">&nbsp;&nbsp; = &nbsp;&nbsp;</button>
+    <textarea rows="3" cols="20" id="result">
+
+    </textarea>
 
 <script type="text/javascript">
 
@@ -35,10 +38,15 @@
 
         $.post("/js_jisuan/",{num1:number1,num2:number2},
         function (result) {
-            alert("结果：" + result)
+//            alert("结果：" + result)
+            if (result.status_code !== 200)
+
+                document.querySelector("#result").value = result.message;
+
+            else
+
+                document.querySelector("#result").value = result.data;
         })
-
-
 
    }
 </script>
