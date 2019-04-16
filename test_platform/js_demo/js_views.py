@@ -13,6 +13,7 @@ def index(request):
     return render(request,"js_demo.html")
 
 
+#测试的接口
 def js_jisuan(request):
 
     if request.method == "POST":

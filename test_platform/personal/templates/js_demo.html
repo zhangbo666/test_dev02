@@ -27,25 +27,51 @@
 
        let number2 = document.querySelector("#number2").value;
 
-//       console.log("数字1",number1,"123");
+       console.log("数字1",number1,"123");
 
-//       console.log("数字2",number2);
-        
+       console.log("数字2",number2);
+
+       if (number1 == ""){
+
+           document.querySelector("#number1").style.border = "2px solid red";
+
+           return;
+       }
+       else{
+
+           document.querySelector("#number1").style.border = "";
+
+       }
+       if (number2 == ""){
+
+           document.querySelector("#number2").style.border = "2px solid red";
+
+           return;
+
+       }
+       else{
+
+           document.querySelector("#number2").style.border = ""
+       }
+
+
 //        $.get("/js_jisuan",{"number1":number1,"number2":number2},
 //                function (result) {
 //                    alert("结果：" + result)
 //                })
 
+//       用后端接口
         $.post("/js_jisuan/",{num1:number1,num2:number2},
         function (result) {
 //            alert("结果：" + result)
-            if (result.status_code !== 200)
+            if (result.status_code !== 200) {
 
                 document.querySelector("#result").value = result.message;
-
-            else
+            }
+            else {
 
                 document.querySelector("#result").value = result.data;
+            }
         })
 
    }
