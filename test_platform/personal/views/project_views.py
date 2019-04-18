@@ -94,3 +94,25 @@ def edit_project(request,pid):
              return HttpResponseRedirect("/project/")
 
 
+# 删除项目
+@login_required
+def delete_project(request,pid):
+
+    if request.method == "GET":
+
+        try:
+
+            project = Project.objects.get(id=pid)
+
+            project.delete()
+
+        except Project.DoesNotExist:
+
+            return HttpResponseRedirect("/project/")
+
+        return HttpResponseRedirect("/project/")
+
+    else:
+
+        return HttpResponseRedirect("/project/")
+
