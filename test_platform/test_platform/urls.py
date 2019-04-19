@@ -40,6 +40,9 @@ urlpatterns = [
 
     # module管理
     path('module/',module_views.moduel_manage),
+    path('module/add_module/',module_views.add_module),
+    path('module/edit_module/<int:mid>/', module_views.edit_module),
+    path('module/delete_module/<int:mid>/', module_views.delete_module),
 
     #js_demo
     path('js/',js_views.index),

@@ -78,16 +78,16 @@
                <!--</form>-->
 
                 <!--这块内容可变的-->
-                <!--项目列表-->
+                <!--项目list-->
                 {% if type == "list" %}
-                <form class="project" method="post" name="project-page">
-                    <button  class="btn btn-success" type="submit" name="insert-project-data">添加项目</button>
+                <form class="project" method="post" name="project-page" action="search/">
                     <input  type="text" name="search-project" placeholder="搜索项目名称">
+                    <button class="btn btn-primary" type="submit" disabled="disabled">搜索项目</button>
                 </form>
 
                 <h3 class="sub-header">项目列表
                     <button class="btn btn-primary" name="submit" style="float:right;"
-                            onclick="location.href='/project/add_project/'">创建</button>
+                            onclick="location.href='/project/add_project/'">创建项目</button>
                 </h3>
                 <div class="table-responsive">
                     <table class="table table-striped">

@@ -65,6 +65,8 @@ def edit_project(request,pid):
 
             pro = Project.objects.get(id=pid)
 
+            print (pro)
+
             form = ProjectForm(instance=pro)
 
             return render(request,"project.html",{"type":"edit","form":form,"pid":pid})

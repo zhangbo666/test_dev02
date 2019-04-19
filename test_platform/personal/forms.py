@@ -5,6 +5,7 @@ from django import forms
 
 from personal.models import Project
 
+from personal.models import Module
 
 '''
 forms django表单
@@ -103,3 +104,18 @@ class ProjectForm(forms.ModelForm):
         model = Project
 
         fields = ['name','describe','status']
+
+
+class ModuleForm(forms.ModelForm):
+
+    class Meta:
+
+        model = Module
+
+        fields = ['project','name','describe']
+
+
+
+
+
+
