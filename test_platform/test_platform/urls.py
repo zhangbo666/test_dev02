@@ -53,6 +53,9 @@ urlpatterns = [
     # path('module/edit_module/<int:mid>/', module_views.edit_module),
     # path('module/delete_module/<int:mid>/', module_views.delete_module),
 
+    # 用例管理
+    path('testcase/', include('testcase_app.urls')),
+
     # js例子
     path('js/',js_views.index),
     path('js_jisuan/',js_views.js_jisuan),
