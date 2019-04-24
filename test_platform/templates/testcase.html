@@ -121,7 +121,7 @@
                 <div style="margin-top:10px;">
                     <label>* 参数类型:</label>
                     <label class="radio-inline">
-                        <input type="radio" name="req_type" id="from" value="from" checked="check"> FROM
+                        <input type="radio" name="req_type" id="from" value="from" checked="check"> form-data
                     </label>
                     <label class="radio-inline">
                         <input type="radio" name="req_type" id="json" value="json"> JSON
@@ -135,7 +135,7 @@
                 <p style="color:#8B8989">说明：以字典的方式设置参数，如：{"id":1,"name":"名称"}</p>
 
                 <div style="float:right;margin-right: 10px">
-                    <button type="button" class="btn btn-primary" id="assert"> 发送 </button>
+                    <button type="button" class="btn btn-primary" id="assert" onclick="jsFun()"> 发送 </button>
                 </div>
 
                 <div style="margin-top: 30px;">
@@ -150,8 +150,40 @@
         </div>
     </div>
 
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+    <script type="text/javascript">
+
+        function jsFun() {
+
+            var url = document.querySelector("#req_url").value;
+
+            var header = $("#header").val();
+
+            var method = $('input[name="req_method"]:checked').val();
+
+            var type = $('input[name="req_type"]:checked').val();
+
+            var parameter = document.querySelector("#req_parameter").value;
+            
+            
+            $.post("/testcase/debug",{url:url,header:header,method:method,type:type,parameter:parameter},
+                function(data,status){
+
+                document.querySelector("#result").value = data.result
+
+                }
+
+            )
+
+        };
+
+    </script>
+
 
 {% endblock %}
+
+
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
