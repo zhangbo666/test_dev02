@@ -167,7 +167,9 @@
             var parameter = document.querySelector("#req_parameter").value;
             
             
-            $.post("/testcase/debug",{url:url,header:header,method:method,type:type,parameter:parameter},
+            $.post("/testcase/debug",{url:url,header:header,
+                                      method:method,type:type,
+                                      parameter:parameter},
                 function(data,status){
 
                 document.querySelector("#result").value = data.result

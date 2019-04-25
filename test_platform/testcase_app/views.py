@@ -30,7 +30,12 @@ def debug(request):
         type_     = request.POST.get("type")
         parameter = request.POST.get("parameter")
 
-        payload   = json.loads(parameter)
+        json_par  = parameter.replace("\'","\"")
+
+        # 字符串转json串
+        payload   = json.loads(json_par)
+
+
 
         # print ("method",method)
         # print ("url",url)
@@ -44,21 +49,23 @@ def debug(request):
 
             print ("结果",r.json())
 
+            return JsonResponse({"result":r.text})
+
         elif method == "post":
 
             if type_ == "from":
 
                 r = requests.post(url, data=payload)
 
-                print (r.text)
+                print (r.json())
 
-            if type_ == "json":
+            elif type_ == "json":
 
                 r = requests.post(url, json=payload)
 
                 print (r.text)
 
-        return JsonResponse({"result":r.text})
+            return JsonResponse({"result":r.text})
 
     elif request.method == "GET":
 
