@@ -1,3 +1,7 @@
+#!/usr/bin/python
+#encoding:utf-8
+
+
 from django.shortcuts import render
 
 from django.http import HttpResponse,JsonResponse
@@ -30,20 +34,28 @@ def debug(request):
         type_     = request.POST.get("type","")
         parameter = request.POST.get("parameter","")
 
+        # 判断header 是否为数字型
+        if header.isdigit():
 
+            return JsonResponse({"result": "headers值为数字型字符串，请更改headers传参"})
+
+        #参数中用单引号，用字符串替换 replace()，替换单引号为双引号
         json_header = header.replace("\'","\"")
 
         try:
 
-            header      = json.loads(json_header)
+            if header == "":
+
+                pass
+
+            else:
+
+                header      = json.loads(json_header)
 
         except ValueError:
 
-                return JsonResponse({"result":"headers传值错误"})
+                return JsonResponse({"result":"headers传参数错误！！！"})
 
-        # except AttributeError:
-
-                # return JsonResponse({"result":"headers属性错误"})
 
         #参数中用单引号，用字符串替换 replace()，替换单引号为双引号
         json_par  = parameter.replace("\'","\"")
@@ -55,10 +67,9 @@ def debug(request):
 
         except ValueError:
 
-                return JsonResponse({"result":"参数类型错误"})
+                return JsonResponse({"result":"参数类型返回错误！！！"})
 
-
-
+        print ("payload--->",payload)
         # print ("method",method)
         # print ("url",url)
         # print ("header",header)
@@ -105,12 +116,11 @@ def debug(request):
 
                     print (r.text)
 
-
                 else:
 
                     r = requests.post(url, json=payload,headers=header)
 
-                    print (r.text)
+                    print (r.json())
 
         return JsonResponse({"result":r.text})
 
