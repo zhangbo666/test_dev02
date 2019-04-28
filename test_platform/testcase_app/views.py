@@ -143,6 +143,9 @@ def debug(request):
 # headers
 # {'user-agent':'my-app/0.0.1'}
 
+# http://127.0.0.1:8000/js_jisuan/
+# {"num1":1,"num2":'12'}
+
 
 
 
