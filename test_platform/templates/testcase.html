@@ -195,11 +195,13 @@
 
                 function(data,status){
 
-                document.querySelector("#result").style.color = "red";
+                    alert("数据：" + data.result);
 
-                document.querySelector("#result").value = data.result;
+                    document.querySelector("#result").style.color = "red";
 
-                console.log("结果：",data.result);
+                    document.querySelector("#result").value = data.result;
+
+                    console.log("返回结果：",data.result);
 
                 }
 

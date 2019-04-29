@@ -40,17 +40,14 @@ def testcase_debug(request):
 
             return JsonResponse({"result": "headers值为数字型字符串，请更改headers传参"})
 
+        # 判断parameter 是否为数字型
+        if parameter.isdigit():
+
+            return JsonResponse({"result": "parameter值为数字型字符串，请更改parameter传参"})
+
+
         #参数中用单引号，用字符串替换 replace()，替换单引号为双引号
         json_header = header.replace("\'","\"")
-
-        try:
-
-            pass
-
-        except:
-
-            return JsonResponse({"result": "请求的URL地址错误1！！！"})
-
 
         try:
 
@@ -60,6 +57,7 @@ def testcase_debug(request):
 
             else:
 
+                # 字符串转json串
                 header      = json.loads(json_header)
 
         except ValueError:
@@ -68,18 +66,22 @@ def testcase_debug(request):
 
 
         #参数中用单引号，用字符串替换 replace()，替换单引号为双引号
-        json_par  = parameter.replace("\'","\"")
+        json_parameter  = parameter.replace("\'","\"")
 
         try:
 
+            if parameter == "":
+
+                return JsonResponse({"result":"参数数据传值为空！！！"})
+
             # 字符串转json串
-            payload   = json.loads(json_par)
+            parameter   = json.loads(json_parameter)
 
         except ValueError:
 
-                return JsonResponse({"result":"参数类型返回错误！！！"})
+                return JsonResponse({"result":"参数数据传值错误！！！"})
 
-        print ("payload--->",payload)
+        # print ("parameter--->",parameter)
         # print ("method",method)
         # print ("url",url)
         # print ("header",header)
@@ -90,15 +92,27 @@ def testcase_debug(request):
 
             if header == "":
 
-                r = requests.get(url,params=payload)
+                r = requests.get(url,params=parameter)
 
-                print ("结果",r.json())
+                try:
+
+                    print ("结果",r.json())
+
+                except ValueError:
+
+                    return JsonResponse({"result":"URL地址请求错误，请查看原因！！！"})
 
             else:
 
-                r = requests.get(url,params=payload,headers=header)
+                r = requests.get(url,params=parameter,headers=header)
 
-                print ("结果",r.text)
+                try:
+
+                    print ("结果",r.json())
+
+                except ValueError:
+
+                    return JsonResponse({"result":"URL地址请求错误，请查看原因！！！"})
 
             return JsonResponse({"result":r.text})
 
@@ -108,31 +122,55 @@ def testcase_debug(request):
 
                 if header == "":
 
-                    r = requests.post(url, data=payload)
+                    r = requests.post(url, data=parameter)
 
-                    print (r.json())
+                    try:
+
+                        print ("结果",r.json())
+
+                    except ValueError:
+
+                        return JsonResponse({"result":"URL地址请求错误，请查看原因！！！"})
 
                 else:
 
-                    r = requests.post(url, data=payload,headers=header)
+                    r = requests.post(url, data=parameter,headers=header)
 
-                    print (r.text)
+                    try:
+
+                        print ("结果",r.json())
+
+                    except ValueError:
+
+                        return JsonResponse({"result":"URL地址请求错误，请查看原因！！！"})
 
             elif type_ == "json":
 
                 if header == "":
 
-                    r = requests.post(url, json=payload)
+                    r = requests.post(url, json=parameter)
 
-                    print (r.json())
+                    try:
+
+                        print ("结果",r.json())
+
+                    except ValueError:
+
+                        return JsonResponse({"result":"URL地址请求错误，请查看原因！！！"})
 
                 else:
 
-                    r = requests.post(url, json=payload,headers=header)
+                    r = requests.post(url, json=parameter,headers=header)
 
-                    print (r.text)
+                    try:
 
-        return JsonResponse({"result":r.text})
+                        print ("结果",r.json())
+
+                    except ValueError:
+
+                        return JsonResponse({"result":"URL地址请求错误，请查看原因！！！"})
+
+            return JsonResponse({"result":r.text})
 
     elif request.method == "GET":
 
@@ -142,7 +180,7 @@ def testcase_debug(request):
 def testcase_assert(request):
 
     '''测试用例的断言'''
-
+    # return HttpResponse({})
 
 
 
