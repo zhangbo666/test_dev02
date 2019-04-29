@@ -87,7 +87,7 @@
                 </h4>
                 <div class="input-group">
                     <span class="input-group-addon">* URL</span>
-                    <input id="req_url" value="http://" type="text" class="form-control" placeholder="url">
+                    <input id="req_url" value="http://127.0.0.1:8000/" type="text" class="form-control" placeholder="url">
                 </div>
 
                 <br>
@@ -175,9 +175,10 @@
 
             var parameter = document.querySelector("#req_parameter").value;
 
-            if (url == ""){
+            if (url === ""){
 
                 window.alert("URL不能为空！");
+
                 return;
             }
 
@@ -213,10 +214,36 @@
 
             var assert_text = $("#assert").val();
 
+            if (result_text === "" || assert_text === ""){
+
+                window.alert("要断言的文本不能为空");
+
+                return;
+
+            }
+
             console.log("得到的结果",result_text);
 
             console.log("得到的结果",assert_text);
 
+
+            $.post("/testcase/assert",
+                    {
+                        result:result_text,
+                        assert:assert_text
+                    },
+
+                function(data){
+
+                document.querySelector("#result").style.color = "red";
+
+                document.querySelector("#result").value = data.result;
+
+                console.log("结果：",data.result);
+
+                }
+
+            )
         }
 
      </script>

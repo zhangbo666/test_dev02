@@ -22,8 +22,9 @@ def testcase_manage(request):
     return render(request,"testcase.html",{"type":"debug"})
 
 
-def debug(request):
+def testcase_debug(request):
 
+    '''测试用例的调试'''
     print (request.method)
 
     if request.method == "POST":
@@ -41,6 +42,15 @@ def debug(request):
 
         #参数中用单引号，用字符串替换 replace()，替换单引号为双引号
         json_header = header.replace("\'","\"")
+
+        try:
+
+            pass
+
+        except:
+
+            return JsonResponse({"result": "请求的URL地址错误1！！！"})
+
 
         try:
 
@@ -88,7 +98,7 @@ def debug(request):
 
                 r = requests.get(url,params=payload,headers=header)
 
-                print ("结果",r.json())
+                print ("结果",r.text)
 
             return JsonResponse({"result":r.text})
 
@@ -106,7 +116,7 @@ def debug(request):
 
                     r = requests.post(url, data=payload,headers=header)
 
-                    print (r.json())
+                    print (r.text)
 
             elif type_ == "json":
 
@@ -114,19 +124,26 @@ def debug(request):
 
                     r = requests.post(url, json=payload)
 
-                    print (r.text)
+                    print (r.json())
 
                 else:
 
                     r = requests.post(url, json=payload,headers=header)
 
-                    print (r.json())
+                    print (r.text)
 
         return JsonResponse({"result":r.text})
 
     elif request.method == "GET":
 
         return JsonResponse({"result":"请求方法错误"})
+
+
+def testcase_assert(request):
+
+    '''测试用例的断言'''
+
+
 
 
 # example
