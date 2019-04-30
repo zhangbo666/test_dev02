@@ -93,7 +93,7 @@
                 <br>
 
                 <div>
-                    <laber>* 请求方法:</laber>
+                    <laber>* 请求方法：</laber>
                     <label class="radio-inline">
                         <input type="radio" name="req_method" id="get" value="get" checked="check"> GET
                     </label>
@@ -146,7 +146,18 @@
                     <button type="button" class="btn btn-primary" onclick="assertFun()"> 断言 </button>
                 </div>
 
-                <div style="margin-top: 30px;">
+                <div style="margin-top:25px;">
+                    <laber>* 断言类型：</laber>
+                    <label class="radio-inline">
+                        <input type="radio" name="assert_type" id="contains" value="contains" checked="check"> 包含
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="assert_type" id="mathches" value="mathches"> 匹配
+                    </label>
+                </div>
+
+
+                <div style="margin-top: 10px;">
                     <p style="color:blue;">断言:</p>
                     <textarea id="assert" class="form-control" rows="5" name=textarea"></textarea>
                 </div>
@@ -197,11 +208,12 @@
 
                     alert("数据：" + data.result);
 
+                    console.log("返回结果：",data.result);
+
                     document.querySelector("#result").style.color = "red";
 
                     document.querySelector("#result").value = data.result;
 
-                    console.log("返回结果：",data.result);
 
                 }
 
@@ -215,6 +227,8 @@
             var result_text = $("#result").val();
 
             var assert_text = $("#assert").val();
+
+            var assert_type = $('input[name="assert_type"]:checked').val();
 
             if (result_text === "" || assert_text === ""){
 
@@ -232,16 +246,20 @@
             $.post("/testcase/assert",
                     {
                         result:result_text,
-                        assert:assert_text
+                        assert:assert_text,
+                        assert_type:assert_type
                     },
 
-                function(data){
+                function(data,status){
 
-                document.querySelector("#result").style.color = "red";
+                alert("数据：" + data.result);
 
-                document.querySelector("#result").value = data.result;
+                console.log("返回结果：",data.result);
 
-                console.log("结果：",data.result);
+//                document.querySelector("#assert").style.color = "blue";
+//
+//                document.querySelector("#assert").value = data.result;
+
 
                 }
 
