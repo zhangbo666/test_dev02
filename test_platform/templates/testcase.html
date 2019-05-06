@@ -1,283 +1,251 @@
 {% extends "base.html" %}
 {% block base %}
 
-<!--<!DOCTYPE html>-->
-<!--<html lang="zh-CN">-->
-<!--<head>-->
-    <!--<meta charset="utf-8">-->
-    <!--<meta http-equiv="X-UA-Compatible" content="IE=edge">-->
-    <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
-    <!--&lt;!&ndash; 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ &ndash;&gt;-->
-    <!--<meta name="description" content="">-->
-    <!--<meta name="author" content="">-->
-    <!--<link rel="icon" href="../../favicon.ico">-->
-
-    <!--<title>接口项目测试平台</title>-->
-
-    <!--&lt;!&ndash; Bootstrap core CSS &ndash;&gt;-->
-    <!--<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">-->
-
-    <!--&lt;!&ndash; Custom styles for this template &ndash;&gt;-->
-    <!--<link href="https://v3.bootcss.com/examples/dashboard/dashboard.css" rel="stylesheet">-->
-
-  <!--</head>-->
-
-  <!--<body>-->
-
-     <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>~~~
-              </button>
-            <a class="navbar-brand" href="#">接口项目测试平台</a>
-            </div>
-            <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">Settings</a></li>
-                    <li><a href="/logout/">logout</a></li>
-                </ul>
-                <form class="navbar-form navbar-right">
-                    <input type="text" class="form-control" placeholder="Search...">
-                </form>
-            </div>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>~~~
+          </button>
+        <a class="navbar-brand" href="#">接口项目测试平台</a>
         </div>
-     </nav>
-
-     <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-3 col-md-2 sidebar">
-                <ul class="nav nav-sidebar">
-                    <li>
-                        <a href="/project/">
-                            <i class="glyphicon glyphicon-th-large"></i>&nbsp;&nbsp;项目管理
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/module/">
-                            <i class="glyphicon glyphicon-th"></i>&nbsp;&nbsp;模块管理
-                        </a>
-                    </li>
-               </ul>
-               <ul class="nav nav-sidebar">
-                 <li class="active">
-                     <a href="/testcase/">
-                         <i class="glyphicon glyphicon-briefcase"></i>&nbsp;&nbsp;用例管理
-                     </a>
-                 </li>
-                 <li>
-                     <a href="">任务管理</a>
-                 </li>
-               </ul>
-               <ul class="nav nav-sidebar">
-                    <li><a href="">报告管理</a></li>
-                    <li><a href="">测试平台设置</a></li>
-               </ul>
-            </div>
-            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-
-                <!--这块内容可变的-->
-                <!--项目list-->
-                {% if type == "debug" %}
-
-                <h4 class="sub-header">postman调试小工具
-                </h4>
-                <div class="input-group">
-                    <span class="input-group-addon">* URL</span>
-                    <input id="req_url" value="http://127.0.0.1:8000/" type="text" class="form-control" placeholder="url">
-                </div>
-
-                <br>
-
-                <div>
-                    <laber>* 请求方法：</laber>
-                    <label class="radio-inline">
-                        <input type="radio" name="req_method" id="get" value="get" checked="check"> GET
-                    </label>
-                    <label class="radio-inline">
-                        <input type="radio" name="req_method" id="post" value="post"> POST
-                    </label>
-                    <label class="radio-inline">
-                        <input type="radio" name="req_method" id="put" value="pust"> PUT
-                    </label>
-                    <label class="radio-inline">
-                        <input type="radio" name="req_method" id="delete" value="delete"> DELETE
-                    </label>
-                </div>
-
-                <br>
-
-                <div class="input-group">
-                    <span class="input-group-addon">header</span>
-                    <input id="header" value="{}" type="text" class="form-control" placeholder="header">
-                </div>
-
-                <br>
-
-                <div style="margin-top:10px;">
-                    <label>* 参数类型:</label>
-                    <label class="radio-inline">
-                        <input type="radio" name="req_type" id="from" value="from" checked="check"> form-data
-                    </label>
-                    <label class="radio-inline">
-                        <input type="radio" name="req_type" id="json" value="json"> JSON
-                    </label>
-                </div>
-
-                <div class="input-group">
-                    <span class="input-group-addon">参数</span>
-                    <input id="req_parameter" value="{}" type="text" class="form-control">
-                </div>
-                <p style="color:#8B8989">说明：以字典的方式设置参数，如：{"id":1,"name":"名称"}</p>
-
-                <div style="float:right;margin-right: 10px">
-                    <button type="button" class="btn btn-primary" id="send" onclick="sendFun()"> 发送 </button>
-                </div>
-
-                <div style="margin-top: 30px;">
-                    <p style="color:blue;">返回结果:</p>
-                    <textarea id="result" class="form-control" rows="10" name=textarea"></textarea>
-                </div>
-
-                <div style="float:right;margin-right: 10px;margin-top:15px;">
-                    <button type="button" class="btn btn-primary" onclick="assertFun()"> 断言 </button>
-                </div>
-
-                <div style="margin-top:25px;">
-                    <laber>* 断言类型：</laber>
-                    <label class="radio-inline">
-                        <input type="radio" name="assert_type" id="contains" value="contains" checked="check"> 包含
-                    </label>
-                    <label class="radio-inline">
-                        <input type="radio" name="assert_type" id="mathches" value="mathches"> 匹配
-                    </label>
-                </div>
-
-
-                <div style="margin-top: 10px;">
-                    <p style="color:blue;">断言:</p>
-                    <textarea id="assert" class="form-control" rows="5" name=textarea"></textarea>
-                </div>
-
-
-                {% endif %}
-
-            </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">Settings</a></li>
+                <li><a href="/logout/">logout</a></li>
+            </ul>
+            <form class="navbar-form navbar-right">
+                <input type="text" class="form-control" placeholder="Search...">
+            </form>
         </div>
-     </div>
+    </div>
+</nav>
 
-     <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li>
+                    <a href="/project/">
+                        <i class="glyphicon glyphicon-th-large"></i>&nbsp;&nbsp;项目管理
+                    </a>
+                </li>
+                <li>
+                    <a href="/module/">
+                        <i class="glyphicon glyphicon-th"></i>&nbsp;&nbsp;模块管理
+                    </a>
+                </li>
+           </ul>
+           <ul class="nav nav-sidebar">
+             <li class="active">
+                 <a href="/testcase/">
+                     <i class="glyphicon glyphicon-briefcase"></i>&nbsp;&nbsp;用例管理
+                 </a>
+             </li>
+             <li>
+                 <a href="">任务管理</a>
+             </li>
+           </ul>
+           <ul class="nav nav-sidebar">
+                <li><a href="">报告管理</a></li>
+                <li><a href="">测试平台设置</a></li>
+           </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
-     <script type="text/javascript">
+            <!--这块内容可变的-->
+            <!--项目list-->
+            {% if type == "debug" %}
 
-        //发送方法
-        function sendFun() {
+            <h4 class="sub-header">postman调试小工具
+            </h4>
+            <div class="input-group">
+                <span class="input-group-addon">* URL</span>
+                <input id="req_url" value="http://127.0.0.1:8000/" type="text" class="form-control" placeholder="url">
+            </div>
 
-            var url = document.querySelector("#req_url").value;
+            <br>
 
-            var header = $("#header").val();
+            <div>
+                <laber>* 请求方法：</laber>
+                <label class="radio-inline">
+                    <input type="radio" name="req_method" id="get" value="get" checked="check"> GET
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="req_method" id="post" value="post"> POST
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="req_method" id="put" value="pust"> PUT
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="req_method" id="delete" value="delete"> DELETE
+                </label>
+            </div>
 
-            var method = $('input[name="req_method"]:checked').val();
+            <br>
 
-            var type = $('input[name="req_type"]:checked').val();
+            <div class="input-group">
+                <span class="input-group-addon">header</span>
+                <input id="header" value="{}" type="text" class="form-control" placeholder="header">
+            </div>
 
-            var parameter = document.querySelector("#req_parameter").value;
+            <br>
 
-            if (url === ""){
+            <div style="margin-top:10px;">
+                <label>* 参数类型:</label>
+                <label class="radio-inline">
+                    <input type="radio" name="req_type" id="from" value="from" checked="check"> form-data
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="req_type" id="json" value="json"> JSON
+                </label>
+            </div>
 
-                window.alert("URL不能为空！");
+            <div class="input-group">
+                <span class="input-group-addon">参数</span>
+                <input id="req_parameter" value="{}" type="text" class="form-control">
+            </div>
+            <p style="color:#8B8989">说明：以字典的方式设置参数，如：{"id":1,"name":"名称"}</p>
 
-                return;
-            }
+            <div style="float:right;margin-right: 10px">
+                <button type="button" class="btn btn-primary" id="send" onclick="sendFun()"> 发送 </button>
+            </div>
 
-            window.alert("parameter:" + parameter);
+            <div style="margin-top: 30px;">
+                <p style="color:blue;">返回结果:</p>
+                <textarea id="result" class="form-control" rows="10" name=textarea"></textarea>
+            </div>
 
-            $.post("/testcase/debug",
-                    {
-                        url:url,
-                        header:header,
-                        method:method,
-                        type:type,
-                        parameter:parameter
-                    },
+            <div style="float:right;margin-right: 10px;margin-top:15px;">
+                <button type="button" class="btn btn-primary" onclick="assertFun()"> 断言 </button>
+            </div>
 
-                function(data,status){
-
-                    alert("数据：" + data.result);
-
-                    console.log("返回结果：",data.result);
-
-                    document.querySelector("#result").style.color = "red";
-
-                    document.querySelector("#result").value = data.result;
+            <div style="margin-top:25px;">
+                <laber>* 断言类型：</laber>
+                <label class="radio-inline">
+                    <input type="radio" name="assert_type" id="contains" value="contains" checked="check"> 包含
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="assert_type" id="mathches" value="mathches"> 匹配
+                </label>
+            </div>
 
 
-                }
+            <div style="margin-top: 10px;">
+                <p style="color:blue;">断言:</p>
+                <textarea id="assert" class="form-control" rows="5" name=textarea"></textarea>
+            </div>
 
-            )
 
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+    //发送方法
+    function sendFun() {
+
+        var url = document.querySelector("#req_url").value;
+
+        var header = $("#header").val();
+
+        var method = $('input[name="req_method"]:checked').val();
+
+        var type = $('input[name="req_type"]:checked').val();
+
+        var parameter = document.querySelector("#req_parameter").value;
+
+        if (url === ""){
+
+            window.alert("URL不能为空！");
+
+            return;
         }
 
-        //断言方法
-        function assertFun(){
+        window.alert("parameter:" + parameter);
 
-            var result_text = $("#result").val();
+        $.post("/testcase/debug",
+                {
+                    url:url,
+                    header:header,
+                    method:method,
+                    type:type,
+                    parameter:parameter
+                },
 
-            var assert_text = $("#assert").val();
-
-            var assert_type = $('input[name="assert_type"]:checked').val();
-
-            if (result_text === "" || assert_text === ""){
-
-                window.alert("要断言的文本不能为空");
-
-                return;
-
-            }
-
-            console.log("得到的结果",result_text);
-
-            console.log("得到的结果",assert_text);
-
-
-            $.post("/testcase/assert",
-                    {
-                        result:result_text,
-                        assert:assert_text,
-                        assert_type:assert_type
-                    },
-
-                function(data,status){
+            function(data,status){
 
                 alert("数据：" + data.result);
 
                 console.log("返回结果：",data.result);
 
-//                document.querySelector("#assert").style.color = "blue";
-//
-//                document.querySelector("#assert").value = data.result;
+                document.querySelector("#result").style.color = "red";
+
+                document.querySelector("#result").value = data.result;
 
 
-                }
+            }
 
-            )
+        )
+
+    }
+
+    //断言方法
+    function assertFun(){
+
+        var result_text = $("#result").val();
+
+        var assert_text = $("#assert").val();
+
+        var assert_type = $('input[name="assert_type"]:checked').val();
+
+        window.alert(assert_type);
+
+        if (result_text === "" || assert_text === ""){
+
+            window.alert("要断言的文本不能为空");
+
+            return;
+
         }
 
-     </script>
+        console.log("得到的结果",result_text);
+
+        console.log("得到的结果",assert_text);
+
+
+        $.post("/testcase/assert",
+                {
+                    result:result_text,
+                    assert:assert_text,
+                    assert_type:assert_type
+                },
+
+            function(data,status){
+
+            alert("数据：" + data.result);
+
+            console.log("返回结果：",data.result);
+
+//            document.querySelector("#assert").style.color = "blue";
+//
+//            document.querySelector("#assert").value = data.result;
+
+
+            }
+
+        )
+    }
+
+</script>
 
 
 {% endblock %}
-
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <!--<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>-->
-    <!--<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>-->
-    <!--<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
-
-  <!--</body>-->
-<!--</html>-->

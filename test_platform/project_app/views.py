@@ -116,3 +116,9 @@ def delete_project(request,pid):
 
         return HttpResponseRedirect("/project/")
 
+
+# 接口：获取项目list_info数据
+@login_required
+def get_project_list(request):
+
+    pass
