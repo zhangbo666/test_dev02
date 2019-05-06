@@ -57,7 +57,7 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
             <!--这块内容可变的-->
-            <!--项目list-->
+            <!--用例管理-->
             {% if type == "debug" %}
 
             <h4 class="sub-header">postman调试小工具
@@ -137,6 +137,24 @@
             <div style="margin-top: 10px;">
                 <p style="color:blue;">断言:</p>
                 <textarea id="assert" class="form-control" rows="5" name=textarea"></textarea>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <label>*项目：</label>
+                <select class="selectpicker">
+                    <option>11</option>
+                    <option>22</option>
+                    <option>33</option>
+                </select>
+                <label>*模块：</label>
+                <select class="selectpicker">
+                    <option>11</option>
+                    <option>22</option>
+                    <option>33</option>
+                </select>
+                <div style="float:right;margin-right: 10px;margin-top:15px;">
+                    <button type="button" class="btn btn-primary" onclick="savetFun()"> 保存 </button>
+                </div>
             </div>
 
 

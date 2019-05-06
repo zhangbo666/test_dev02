@@ -4,7 +4,7 @@
 
 __author__ = 'zhangbo'
 
-from django.http import HttpResponse,HttpResponseRedirect
+from django.http import HttpResponse,HttpResponseRedirect,JsonResponse
 
 from django.shortcuts import render
 
@@ -121,4 +121,18 @@ def delete_project(request,pid):
 @login_required
 def get_project_list(request):
 
-    pass
+    if request.method=="GET":
+
+        projects = Project.objects.all()
+
+        project_list = []
+
+        for pro in projects:
+
+            project_list.append(pro.name)
+
+        return JsonResponse({"result":project_list})
+
+    else:
+
+        return JsonResponse({"result":"请求方法错误"})
