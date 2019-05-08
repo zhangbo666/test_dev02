@@ -121,7 +121,7 @@ def delete_project(request,pid):
 @login_required
 def get_project_list(request):
 
-    if request.method=="GET":
+    if request.method == "GET":
 
         projects = Project.objects.all()
 
@@ -131,8 +131,8 @@ def get_project_list(request):
 
             project_list.append(pro.name)
 
-        return JsonResponse({"result":project_list})
+        return JsonResponse({"status":10200,"data":project_list,"message":"请求成功",})
 
     else:
 
-        return JsonResponse({"result":"请求方法错误"})
+        return JsonResponse({"status":10101,"message":"请求方法错误"})
