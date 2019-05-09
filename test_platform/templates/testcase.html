@@ -141,13 +141,11 @@
 
             <div style="margin-top: 20px;">
                 <label>*项目：</label>
-                <select class="selectpicker">
-                    <option>11</option>
-                    <option>22</option>
-                    <option>33</option>
+                <select class="selectpicker" id="project_name">
+
                 </select>
                 <label>*模块：</label>
-                <select class="selectpicker">
+                <select class="selectpicker" id="modult_name">
                     <option>11</option>
                     <option>22</option>
                     <option>33</option>
@@ -169,7 +167,7 @@
 <script type="text/javascript">
 
     // 调用项目的初始化
-    projectInit()
+    projectInit("project_name")
 
     //发送方法
     function sendFun() {
