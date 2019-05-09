@@ -12,7 +12,7 @@ var projectInit = function(_cmbProject){
     // 创建下拉选项
     function cmbAddOption(cmb,project_obj){
 
-        console.log(str);
+        console.log(project_obj);
 
         // 创建option标签元素
         var option = document.createElement("option");
@@ -20,11 +20,11 @@ var projectInit = function(_cmbProject){
         // 添加option到选项
         cmb.options.add(option);
 
-        // 元素name值
-        option.innerHTML = str;
+        // 元素值
+        option.innerHTML = project_obj.name;
 
         // 元素value值
-        option.value = str;
+        option.value = project_obj.id;
 
     }
 
@@ -40,7 +40,7 @@ var projectInit = function(_cmbProject){
 
                 for(var i = 0; i < dataList.length; i++){
 
-                    cmbAddOption(cmbProject,dataList[i],dataList[i]);
+                    cmbAddOption(cmbProject,dataList[i]);
 
                 }
 

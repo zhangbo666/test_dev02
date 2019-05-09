@@ -125,15 +125,25 @@ def get_project_list(request):
 
         projects = Project.objects.all()
 
-        # project_list = []
-        project_dict = {}
+        project_list = []
+        # project_dict = {}
 
         for pro in projects:
 
             # project_list.append(pro.name)
-            project_dict[pro.id] = pro.name
+            # project_dict[pro.id] = pro.name
 
-        return JsonResponse({"status":10200,"data":project_dict,"message":"请求成功",})
+            project_dict = {
+
+                "id":pro.id,
+                "name":pro.name
+            }
+
+            project_list.append(project_dict)
+
+        print (project_list)
+
+        return JsonResponse({"status":10200,"data":project_list,"message":"请求成功",})
 
     else:
 
