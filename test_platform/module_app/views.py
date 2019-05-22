@@ -9,7 +9,7 @@ from module_app.models import Module
 
 from project_app.models import Project
 
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect,JsonResponse
 
 from module_app.forms import ModuleForm
 
@@ -147,3 +147,36 @@ def delete_module(request,mid):
     else:
 
         return HttpResponseRedirect("/module/")
+
+
+# 接口：获取模块list_info数据
+@login_required
+def get_module_list(request):
+
+    if request.method == "POST":
+
+        pid = request.POST.get("pid","")
+
+        if pid == "":
+
+            return JsonResponse({"status":10102,"message":"项目id不能为空"})
+
+        modules = Module.objects.filter(project=pid)
+
+        modules_list = []
+
+        for mod in modules:
+
+            modules_dict = {
+
+                "id":mod.id,
+                "name":mod.name,
+            }
+
+            modules_list.append(modules_dict)
+
+        return JsonResponse({"status":10200,"message":"请求成功","data":modules_list})
+
+    else:
+
+        return JsonResponse({"status":10101,"message":"请求方法错误"})
