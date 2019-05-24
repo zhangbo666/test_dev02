@@ -18,11 +18,10 @@ from module_app.forms import ModuleForm
 @login_required
 def moduel_manage(request):
 
-    if request.method == "GET":
 
-        module_all = Module.objects.all()
+    module_all = Module.objects.all()
 
-        return render(request,"module.html",{"modules":module_all,"type":"list"})
+    return render(request,"module.html",{"modules":module_all,"type":"list"})
 
 
 # 添加模块
@@ -30,7 +29,8 @@ def moduel_manage(request):
 def add_module(request):
 
     '''第一种方式：html的form表单'''
-    '''
+
+
     project_all = Project.objects.all()
 
     if request.method == 'GET':
@@ -59,10 +59,11 @@ def add_module(request):
             Module.objects.create(name=module_name,describe=module_describe,project_id=project_id)
 
             return HttpResponseRedirect("/module/")
-    '''
 
 
     '''第二种方式：django的form表单'''
+
+    '''
     if request.method == "GET":
 
         module_form = ModuleForm()
@@ -86,6 +87,7 @@ def add_module(request):
 
             return HttpResponseRedirect("/module/")
 
+    '''
 
 # 编辑模块
 @login_required
@@ -159,7 +161,7 @@ def get_module_list(request):
 
         if pid == "":
 
-            return JsonResponse({"status":10102,"message":"项目id不能为空"})
+            return JsonResponse({"status":10102,"message":"项目未选择，请选择"})
 
         modules = Module.objects.filter(project=pid)
 

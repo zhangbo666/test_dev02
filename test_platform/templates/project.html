@@ -33,7 +33,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>~~~
               </button>
-            <a class="navbar-brand" href="#">接口项目测试平台</a>
+            <a class="navbar-brand" href="#">灵猫智能管理平台--CCIMP</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
@@ -68,7 +68,11 @@
                            <i class="glyphicon glyphicon-briefcase"></i>&nbsp;&nbsp;用例管理
                        </a>
                    </li>
-                   <li><a href="">任务管理</a></li>
+                   <li>
+                       <a href="">
+                           <i class="glyphicon glyphicon-th-list"></i>&nbsp;&nbsp;任务管理
+                       </a>
+                   </li>
                </ul>
                <ul class="nav nav-sidebar">
                     <li><a href="">报告管理</a></li>
@@ -151,44 +155,51 @@
                 {% endif %}
 
                 <!--添加项目-->
+                <!--第一种方式：html的form表单-->
+
                 {% if type == "add" %}
 
                 <h3>添加项目</h3>
-
                 <form class="form-horizontal" method="post" action="/project/add_project/">
                     <fieldset>
                         <div class="control-group">
-                            <label class="control-label">名称</label>
-                            <div class="controls">
-                                <input type="text" name='project_name' class="input-xlarge">
+                            <label class="control-label" style="margin-top: 20px;">项目名称：</label>
+                            <!--<div class="controls">-->
+                                <input type="text" name='project_name' class="input-xlarge"
+                                       style="margin-left: 8px;width:180px;">
                                 <span style="color:red">{{ name_error }}</span>
-                            </div>
+                            <!--</div>-->
                         </div>
 
                         <div class="control-group">
-                            <label for="describe_1" class="control-label">描述</label>
-                            <div class="controls">
-                                <div class="textarea">
-                                    <textarea id= "describe_1" name="project_describe" style="width: 174px;"></textarea>
-                                </div>
-                            </div>
+                            <label for="describe_1" class="control-label" style="margin-top: 100px;">项目描述：</label>
+                            <!--<div class="controls">-->
+                                <span class="textarea">
+                                    <textarea id= "describe_1" name="project_describe"
+                                              style="width: 300px;height: 80px;margin-left:8px;"></textarea>
+                                </span>
+                            <!--</div>-->
                         </div>
 
                         <div class="control-group">
-                            <label class="control-label">状态</label>
-                            <div class="controls" style="height:30px;">
-                                <label class="radio inline" style="left: 50px;float: left">
+                            <label class="control-label" style="margin-top:40px;">项目状态：</label>
+                            <!--<div class="controls" style="height:30px;">-->
+                            <span>
+                                <!--<label class="radio inline"style="left: 100px;height:10px;float: left;">-->
                                     <input type="radio" value="1" checked="checked" name="status">开启
-                                </label>
-                                <label class="radio inline" style="left: 80px;float: left;">
-                                    <input type="radio" value="0" name="status">关闭
-                                </label>
-                            </div>
+                                <!--</label>-->
+                                <!--<label class="radio inline" style="left: 22px;float: left;">-->
+                                    <input type="radio" value="0" name="status"  style="margin-left: 10px;">关闭
+                                <!--</label>-->
+                            </span>
+                            <!--</div>-->
                         </div>
 
-                        <div class="control-group" style="margin-left:20px;float: left">
+                        <div class="control-group" style="margin-left:20px;margin-top:40px;float: left">
                             <div class="controls">
-                                <button class="btn btn-success">保存</button>
+                                <button style="margin-left: 40px;" class="btn btn-success">保存</button>
+                                <button style="margin-left: 20px;" onclick="javascript:this.form.action='/project/';"
+                                        class="btn btn-info">返回</button>
                             </div>
                         </div>
                     </fieldset>
@@ -196,11 +207,56 @@
 
                 {% endif %}
 
+                <!--第二种方式：django的form表单-->
+                <!--
+                {% if type == "add" %}
+
+                <h3>添加项目</h3>
+                <form class="form-horizontal" method="post" action="/project/add_project/">
+                    <fieldset>
+                        <div class="control-group">
+                            <label class="control-label" style="margin-top: 20px;">项目名称：</label>
+                            <span style="margin-left: 27px;">
+                                {{ form.name }}
+                            </span>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label" style="margin-top: 210px;">项目描述：</label>
+                            <span style="margin-left: 27px;">
+                                {{ form.describe }}
+                            </span>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label" style="margin-top: 20px;">项目状态</label>
+                            <span class="controls" style="height:30px;">
+                               {{ form.status }}
+                            </span>
+                        </div>
+
+                        <div class="control-group" style="margin-left:20px;margin-top:20px;">
+                            <div class="controls">
+                                <button style="margin-left: 40px;"class="btn btn-success">保存</button>
+                                <button style="margin-left: 20px;" onclick="javascript:this.form.action='/project/';"
+                                        class="btn btn-info">返回</button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+
+                {% endif %}
+                -->
+
+
+
                 <!--编辑项目-->
+
+                <!--第一种方式：html的form表单-->
+                <!--
                 {% if type == "edit" %}
 
                 <h3>编辑项目</h3>
-
                 <!--
                 <form class="form-horizontal" method="post" action="/project/edit_project/">
                     <fieldset>
@@ -216,7 +272,7 @@
                             <label class="control-label">描述</label>
                             <div class="controls">
                                 <div class="textarea">
-                                    <textarea name="project_describe" style="width: 174px;"> </textarea>
+                                    <textarea name="project_describe" style="width: 174px;"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -235,20 +291,26 @@
 
                         <div class="control-group" style="left:100px;float: left">
                             <div class="controls">
-                                <button class="btn btn-success">保存</button>
+                                <button class="btn btn-success">修改</button>
                             </div>
                         </div>
 
                     </fieldset>
                 </form>
+                {% endif %}
                 -->
+
+                <!--第二种方式：django的form表单-->
+
+                {% if type == "edit" %}
 
                 <form action="/project/edit_project/{{ pid }}/" method="post">
 
                     {{ form.as_p }}
 
                     <input class="btn btn-success" type="submit" value="修改">
-
+                    <button onclick="javascript:this.form.action='/project/';"
+                            class="btn btn-info">返回</button>
                 </form>
 
                 {% endif %}

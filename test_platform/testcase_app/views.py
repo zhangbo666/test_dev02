@@ -6,6 +6,8 @@ from django.shortcuts import render
 
 from django.http import HttpResponse,JsonResponse
 
+from testcase_app.models import TestCase
+
 import requests
 
 import json
@@ -19,13 +21,37 @@ import json
 # 用例管理
 def testcase_manage(request):
 
-    return render(request,"testcase.html",{"type":"debug"})
+    '''测试用例管理列表页'''
+
+    case_list = TestCase.objects.all()
+
+    return render(request,"case_list.html",{"cases":case_list})
+
+
+def add_case(request):
+
+    '''测试用例添加页'''
+
+    return render(request,"case_add.html")
+
+def edit_case(request,cid):
+
+    '''测试用例修改页'''
+
+    return render(request,"case_edit.html")
+
+def delete_case(request):
+
+    '''测试用例删除'''
+
+    return render(request,"case_list.html")
+
+
 
 
 def testcase_debug(request):
 
-    '''测试用例的调试'''
-    print (request.method)
+    '''测试用例调试'''
 
     if request.method == "POST":
 
@@ -100,7 +126,7 @@ def testcase_debug(request):
 
                 except ValueError:
 
-                    return JsonResponse({"result":"URL地址请求错误，请查看原因！！！"})
+                    return JsonResponse({"result":"URL地址请求错误，请查看原因_1！！！"})
 
             else:
 
@@ -112,13 +138,13 @@ def testcase_debug(request):
 
                 except ValueError:
 
-                    return JsonResponse({"result":"URL地址请求错误，请查看原因！！！"})
+                    return JsonResponse({"result":"URL地址请求错误，请查看原因_2！！！"})
 
             return JsonResponse({"result":r.text})
 
         elif method == "post":
 
-            if type_ == "from":
+            if type_ == "form":
 
                 if header == "":
 
@@ -130,7 +156,7 @@ def testcase_debug(request):
 
                     except ValueError:
 
-                        return JsonResponse({"result":"URL地址请求错误，请查看原因！！！"})
+                        return JsonResponse({"result":"URL地址请求错误，请查看原因_3！！！"})
 
                 else:
 
@@ -142,7 +168,7 @@ def testcase_debug(request):
 
                     except ValueError:
 
-                        return JsonResponse({"result":"URL地址请求错误，请查看原因！！！"})
+                        return JsonResponse({"result":"URL地址请求错误，请查看原因_4！！！"})
 
             elif type_ == "json":
 
@@ -179,7 +205,7 @@ def testcase_debug(request):
 
 def testcase_assert(request):
 
-    '''测试用例的断言'''
+    '''测试用例断言'''
 
     if request.method == "POST":
 
@@ -218,25 +244,114 @@ def testcase_assert(request):
 
 # example
 
-# post:http://httpbin.org/post
+# post:
+# http://httpbin.org/post
 # {"key1":"value1","key2":"value2"}
 
-# get:http://httpbin.org/get
+# get:
+# http://httpbin.org/get
 # {"key":"value"}
 
-# json:https://api.github.com/some/endpoint
+# json:
+# https://api.github.com/some/endpoint
 # {'some':'data'}
 
 # headers
 # {'user-agent':'my-app/0.0.1'}
 
+# post:
 # http://127.0.0.1:8000/js_jisuan/
 # {"num1":1,"num2":'12'}
 
 
 
 
+def testcase_save(request):
+
+    '''测试用例保存'''
+
+    if request.method == "POST":
+
+        method    = request.POST.get("method","")
+        url       = request.POST.get("url","")
+        header    = request.POST.get("header","")
+        type_     = request.POST.get("type","")
+        parameter = request.POST.get("parameter","")
+
+        assert_text = request.POST.get("assert","")
+        assert_type = request.POST.get("assert_type","")
+
+        case_name = request.POST.get("name","")
+        module_id = request.POST.get("mid","")
+
+        # print (method)
+        # print (url)
+        # print (header)
+        # print (type_)
+        # print (parameter)
+        # print (assert_text)
+        # print (assert_type)
+        # print (case_name)
+        print ("module_id:",module_id)
 
 
+        # 请求方法判断
+        if method == "get":
+
+            method_number = 1
+
+        elif method == "post":
+
+            method_number = 2
+
+        elif method == "put":
+
+            method_number = 3
+
+        elif method == "delete":
+
+            method_number = 4
+
+        else:
+
+            return JsonResponse({"message":"请求方法错误","status":10101})
+
+        # 请求类型判断
+        if type_ == "form":
+
+            type_number = 1
+
+        elif type_ == "json":
+
+            type_number =2
+
+        else:
+
+            return JsonResponse({"message":"请求参数类型错误","status":10102})
+
+        # 断言类型判断
+        if assert_type == "contains":
+
+            assert_type_number = 1
+
+        elif assert_type == "mathches":
+
+            assert_type_number = 2
+
+        else:
+
+            return JsonResponse({"message":"断言类型错误","status":10103})
 
 
+        TestCase.objects.create(method=method_number,url=url,header=header,
+                                parameter_type=type_number,parameter_body=parameter,
+                                assert_text=assert_text,
+                                assert_type=assert_type_number,
+                                name=case_name,module_id=module_id)
+
+
+        return JsonResponse({"message":"请求成功","status":10200})
+
+    else:
+
+        return JsonResponse({"message":"请求request方法错误","status":10104})

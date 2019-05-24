@@ -11,6 +11,10 @@ urlpatterns = [
     path('',views.testcase_manage),
     path('debug',views.testcase_debug),
     path('assert',views.testcase_assert),
+    path('save_case',views.testcase_save),
+    path('add_case/',views.add_case),
+    path('edit_case/<int:cid>/',views.edit_case),
+    path('delete_case/',views.delete_case),
 
 
 ]

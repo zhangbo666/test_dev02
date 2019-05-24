@@ -31,6 +31,8 @@ def project_manage(request):
 @login_required
 def add_project(request):
 
+    '''第一种方式：html的form表单'''
+    
     if request.method == 'GET':
 
         return render(request,"project.html",{"type":"add"})
@@ -53,6 +55,33 @@ def add_project(request):
                                    create_time=datetime(2019,4,3,00,10,00))
 
             return HttpResponseRedirect("/project/")
+
+    '''第二种方式：django的form表单'''
+
+    '''
+    if request.method == "GET":
+
+        project_form = ProjectForm()
+
+        return render(request, "project.html", {"form": project_form, "type": "add"})
+
+
+    else:
+
+        form = ProjectForm(request.POST)
+
+        if form.is_valid():
+
+            name = form.cleaned_data['name']
+
+            describe = form.cleaned_data['describe']
+
+            status = form.cleaned_data['status']
+
+            Project.objects.create(name=name, describe=describe, status=status)
+
+            return HttpResponseRedirect("/project/")
+    '''
 
 
 # 编辑项目
