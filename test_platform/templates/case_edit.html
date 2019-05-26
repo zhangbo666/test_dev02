@@ -177,6 +177,9 @@
     // 调用js中项目的初始化
     projectInit("project_name");
 
+    // TestCase初始化
+    TestCaseInit();
+
     // 监听项目列表变化
     $("#project_name").change(function(){
 
@@ -192,7 +195,9 @@
     });
 
 
-    //发送方法
+
+
+    // 发送方法
     function sendFun() {
 
         var url = document.querySelector("#req_url").value;
@@ -238,7 +243,7 @@
 
     }
 
-    //断言方法
+    // 断言方法
     function assertFun(){
 
         var result_text = $("#result").val();
@@ -283,7 +288,7 @@
         )
     }
 
-    //保存方法
+    // 保存方法
     function savetFun() {
 
         //接口的基本数据

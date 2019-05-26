@@ -7,6 +7,7 @@ from django.shortcuts import render
 from django.http import HttpResponse,JsonResponse
 
 from testcase_app.models import TestCase
+from module_app.models import Module
 
 import requests
 
@@ -34,19 +35,19 @@ def add_case(request):
 
     return render(request,"case_add.html")
 
+
 def edit_case(request,cid):
 
     '''测试用例修改页'''
 
     return render(request,"case_edit.html")
 
+
 def delete_case(request):
 
     '''测试用例删除'''
 
     return render(request,"case_list.html")
-
-
 
 
 def testcase_debug(request):
@@ -355,3 +356,58 @@ def testcase_save(request):
     else:
 
         return JsonResponse({"message":"请求request方法错误","status":10104})
+
+
+def get_case_info(request):
+
+
+    """获取接口数据"""
+
+    if request.method == "POST":
+
+        cid = request.POST.get("cid","")
+
+        case = TestCase.objects.get(id=cid)
+
+        module = Module.objects.get(id=case.module.id)
+
+        project_id = module.project.id;
+
+        case_dict = {
+
+            "id":case.id,
+            "url":case.url,
+            "name":case.name,
+            "method":case.method,
+            "header":case.header,
+            "parameter_type":case.parameter_type,
+            "parameter_body":case.parameter_body,
+            "assert_text":case.assert_text,
+            "assert_type":case.assert_type,
+            "module_id":case.module.id,
+            "project_id":project_id,
+
+        }
+
+        return JsonResponse({"status":10200,"message":"请求成功","data":case_dict})
+
+    else:
+
+        return JsonResponse({"status":10100,"message":"请求方法错误"})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -16,5 +16,9 @@ urlpatterns = [
     path('edit_case/<int:cid>/',views.edit_case),
     path('delete_case/',views.delete_case),
 
+    # 获取用例接口
+    path('get_case_info',views.get_case_info),
+
+
 
 ]

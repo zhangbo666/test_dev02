@@ -155,12 +155,8 @@ def get_project_list(request):
         projects = Project.objects.all()
 
         project_list = []
-        # project_dict = {}
 
         for pro in projects:
-
-            # project_list.append(pro.name)
-            # project_dict[pro.id] = pro.name
 
             project_dict = {
 
