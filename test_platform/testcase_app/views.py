@@ -52,7 +52,7 @@ def delete_case(request):
 
 def testcase_debug(request):
 
-    '''测试用例调试'''
+    '''测试用例发送请求'''
 
     if request.method == "POST":
 
