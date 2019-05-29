@@ -16,8 +16,11 @@ urlpatterns = [
     path('edit_case/<int:cid>/',views.edit_case),
     path('delete_case/',views.delete_case),
 
-    # 获取用例接口
+    # 获取用例数据接口
     path('get_case_info',views.get_case_info),
+
+    # 获取项目与模块下拉框数据接口
+    path('get_select_data',views.get_select_data),
 
 
 

@@ -8,6 +8,7 @@ from django.http import HttpResponse,JsonResponse
 
 from testcase_app.models import TestCase
 from module_app.models import Module
+from project_app.models import Project
 
 import requests
 
@@ -358,6 +359,7 @@ def testcase_save(request):
         return JsonResponse({"message":"请求request方法错误","status":10104})
 
 
+
 def get_case_info(request):
 
 
@@ -394,6 +396,56 @@ def get_case_info(request):
     else:
 
         return JsonResponse({"status":10100,"message":"请求方法错误"})
+
+
+
+# 获取项目和模块数据
+def get_select_data(request):
+
+    '''
+
+    获取“项目>模块”列表
+
+    '''
+
+    if request.method == "GET":
+
+        projects = Project.objects.all()
+
+        data_list = []
+
+        for project in projects:
+
+            project_dict = {
+
+                "id":project.id,
+                "name":project.name,
+            }
+
+            modules = Module.objects.filter(project_id=project.id)
+
+            module_list = []
+
+            for module in modules:
+
+                module_list.append({
+
+                    "id":module.id,
+                    "name":module.name,
+                })
+
+            project_dict["moduleList"] = module_list
+            data_list.append(project_dict)
+
+        return JsonResponse({"status":10200,"message":"success","data":data_list})
+
+    else:
+
+        return JsonResponse({"status":10100,"message":"请求方法错误"})
+
+
+
+
 
 
 

@@ -1,7 +1,8 @@
-/**
- * Created by zhangbo on 2019/5/7.
- */
 
+
+
+/**
+ * bootstrap-select废弃
 // 创建下拉选项
 function cmbAddOption(cmb,obj){
 
@@ -127,6 +128,7 @@ var SelectModule = function(mid){
 };
 
 
+
 // 获取用例信息
 var TestCaseInit = function() {
 
@@ -229,25 +231,139 @@ var TestCaseInit = function() {
                 }
             }
 
-            //ModuleInit=("module_name",resp.data.project_id);
+            ModuleInit=("module_name",resp.data.project_id);
 
-            //SelectModule(resp.data.module_id);
+            SelectModule(resp.data.module_id);
 
         }
     )
 
 };
+*/
 
 
 
 
+/**
+ * select2
+*/
+
+//初始化 “项目>模块” 二级联动菜单
+var  SelectInit = function(defaultProjectId,defaultModuleId){
+
+     var cmbProject = document.getElementById("selectProject");
+     var cmbModule  = document.getElementById("selectModule");
+     var datalist = [];
+
+     console.log("项目对象：",cmbProject);
+     console.log("模块对象：",cmbModule);
+     console.log("初始化项目前索引：",cmbProject.selectedIndex);
+     console.log("初始化模块前索引：",cmbModule.selectedIndex);
+
+    //设置默认选项
+    function setDefaultOption(obj,id){
+
+        console.log("项目list长度：",obj.options.length);
+        //console.log("select项目value值索引：",obj.options[0].value);
+        //console.log("select项目value值索引：",obj.options[obj.selectedIndex].value);
+
+        for(var i = 0; i < obj.options.length; i++) {
+
+            if (obj.options[i].value == id ){
+
+                        obj.selectedIndex = i;
+
+                        return;
+            }
+        }
+
+    }
+
+    //创建下拉选项
+    function addOption(cmb,obj){
+
+        // 创建option标签元素
+        var option = document.createElement("option");
+
+        // 添加option到选项
+        cmb.options.add(option);
+
+        // 元素值
+        option.innerHTML = obj.name;
+
+        // 元素value值
+        option.value = obj.id;
+
+    }
+
+    //改变项目
+    function changeProject(){
+
+        cmbModule.options.length = 0;
+
+        console.log("项目默认索引id：",cmbProject.selectedIndex);
+
+        if (cmbProject.selectedIndex == -1){
+
+            return;
+        }
+
+        var pid = cmbProject.options[cmbProject.selectedIndex].value;
+
+        for (var i = 0 ; i < datalist.length; i++){
+
+            if (datalist[i].id == pid) {
+
+                let modules = datalist[i].moduleList;
+
+                console.log("改变后模块信息：",modules);
+
+                for (let j = 0 ; j < modules.length; j++){
+
+                    addOption(cmbModule,modules[j]);
+
+                }
+
+            }
+        }
+
+        setDefaultOption(cmbModule,defaultModuleId);
+
+    }
 
 
+    //调取select数据列表
+    function getSelectData(){
 
+        $.get('/testcase/get_select_data',{},function(resp){
 
+            if (resp.status === 10200){
 
+                datalist = resp.data;
 
+                console.log("项目列表数据：",datalist);
 
+                for (var i = 0; i < datalist.length; i++){
+
+                    addOption(cmbProject,datalist[i]);
+                }
+
+                // 调用默认选项
+                setDefaultOption(cmbProject,defaultProjectId);
+
+                changeProject();
+
+                cmbProject.onchange = changeProject;
+            }
+
+            setDefaultOption(cmbProject,defaultProjectId);
+
+        });
+    };
+
+    getSelectData();
+
+};
 
 
 
