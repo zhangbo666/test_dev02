@@ -69,7 +69,7 @@
 
             <div class="input-group" style="margin-top: 35px;">
                 <span class="input-group-addon">* URL</span>
-                <input id="req_url" value="http://127.0.0.1:8000/" type="text" class="form-control" placeholder="url">
+                <input id="req_url" value="http://httpbin.org/post" type="text" class="form-control" placeholder="url">
             </div>
 
             <br>
@@ -111,7 +111,7 @@
 
             <div class="input-group">
                 <span class="input-group-addon">参数</span>
-                <input id="req_parameter" value="{}" type="text" class="form-control">
+                <input id="req_parameter" value='{"key1":"value1","key2":"value2"}' type="text" class="form-control">
             </div>
             <p style="color:#8B8989">说明：以字典的方式设置参数，如：{"id":1,"name":"名称"}</p>
 
@@ -336,7 +336,7 @@
             window.alert("用例名称不能为空！");
             return;
         }
-        else if (module_id == "NULL"){
+        else if (module_id == null || module_id == ""){
 
             window.alert("所属模块不能为空！");
             return;
