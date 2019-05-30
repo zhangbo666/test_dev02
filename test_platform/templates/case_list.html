@@ -1,128 +1,163 @@
 {% extends "base.html" %}
 {% block base %}
-
+<style>
+    .op{
+        text-align: center;
+    }
+</style>
 <nav class="navbar navbar-inverse navbar-fixed-top" xmlns="http://www.w3.org/1999/html">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">灵猫智能管理平台--CCIMP</a>
-            </div>
-            <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">Settings</a></li>
-                    <li><a href="/logout/">logout</a></li>
-                </ul>
-                <form class="navbar-form navbar-right">
-                    <input type="text" class="form-control" placeholder="Search...">
-                </form>
-            </div>
-        </div>
-    </nav>
-
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-3 col-md-2 sidebar">
-                <ul class="nav nav-sidebar">
-                    <li>
-                        <a href="/project/">
-                            <i class="glyphicon glyphicon-th-large"></i>&nbsp;&nbsp;项目管理
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/module/">
-                            <i class="glyphicon glyphicon-th"></i>&nbsp;&nbsp;模块管理
-                        </a>
-                    </li>
-                </ul>
-                <ul class="nav nav-sidebar">
-                    <li class="active">
-                       <a href="/testcase/">
-                           <i class="glyphicon glyphicon-briefcase"></i>&nbsp;&nbsp;用例管理
-                       </a>
-                    </li>
-                    <li>
-                       <a href="">
-                           <i class="glyphicon glyphicon-th-list"></i>&nbsp;&nbsp;任务管理
-                       </a>
-                    </li>
-                </ul>
-                <ul class="nav nav-sidebar">
-                    <li><a href="">报告管理</a></li>
-                    <li><a href="">测试平台设置</a></li>
-                </ul>
-            </div>
-            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-
-                <!--用例list-->
-                <form class="module" method="post" name="module-page" action="search/">
-                    <input  type="text" name="search-module" placeholder="搜索用例名称">
-                    <button class="btn btn-primary" type="submit" disabled="disabled">搜索用例</button>
-                </form>
-
-                <h3 class="sub-header">用例列表
-                    <button class="btn btn-primary" name="submit" style="float:right;"
-                            onclick="location.href='/testcase/add_case/'">创建用例</button>
-                </h3>
-                <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead>
-
-                            <tr>
-
-                                <th>用例编号</th>
-                                <th>所属模块</th>
-                                <th>用例名称</th>
-                                <th>URL</th>
-                                <th>请求方法</th>
-                                <th>创建时间</th>
-                                <th>操作</th>
-
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                            {% for case in cases %}
-
-                            <tr>
-                                  <td>{{ case.id}}</td>
-                                  <td>{{ case.module}}</td>
-                                  <td>{{ case.name}}</td>
-                                  <td>{{ case.url}}</td>
-                                  {% if case.method == 1 %}
-                                    <td>GET</td>
-                                  {% elif case.method == 2 %}
-                                    <td>POST</td>
-                                  {% elif case.method == 3 %}
-                                    <td>PUT</td>
-                                  {% else %}
-                                    <td>DELETE</td>
-                                  {% endif %}
-                                  <td>{{ case.create_time | date:"Y-m-d H:i:s" }}</td>
-                                  <td>
-                                      <a href="/testcase/edit_case/{{ case.id }}/">
-                                          <i class="glyphicon glyphicon-pencil">编辑</i>
-                                      </a>
-                                      <a href="/testcase/delete_case/{{ case.id }}/" style="margin-left:20px;">
-                                          <i class="glyphicon glyphicon-trash">删除</i>
-                                      </a>
-                                      <!--<button type="submit" name="update-data">更新</button>-->
-                                      <!--<button type="submit" name="delete-data">删除</button>-->
-                                  </td>
-
-                            </tr>
-
-                            {% endfor %}
-
-                        </tbody>
-                    </table>
-                </div>
-
-            </div>
-      </div>
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">项目接口测试平台</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">Settings</a></li>
+                <li><a href="/logout/">logout</a></li>
+            </ul>
+            <form class="navbar-form navbar-right">
+                <input type="text" class="form-control" placeholder="Search..."  disabled="disabled">
+            </form>
+        </div>
     </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li>
+                    <a href="/project/">
+                        <i class="glyphicon glyphicon-th-large"></i>&nbsp;&nbsp;项目管理
+                    </a>
+                </li>
+                <li>
+                    <a href="/module/">
+                        <i class="glyphicon glyphicon-th"></i>&nbsp;&nbsp;模块管理
+                    </a>
+                </li>
+            </ul>
+            <ul class="nav nav-sidebar">
+                <li class="active">
+                   <a href="/testcase/">
+                       <i class="glyphicon glyphicon-briefcase"></i>&nbsp;&nbsp;用例管理
+                   </a>
+                </li>
+                <li>
+                   <a href="">
+                       <i class="glyphicon glyphicon-th-list"></i>&nbsp;&nbsp;任务管理
+                   </a>
+                </li>
+            </ul>
+            <ul class="nav nav-sidebar">
+                <li><a href="">报告管理</a></li>
+                <li><a href="">测试平台设置</a></li>
+            </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
+            <!--用例list-->
+            <form class="module" method="get" name="module-page" action="search">
+                <input  type="text" name="search_name" placeholder="搜索用例名称">
+                <button class="btn btn-primary" type="submit" >搜索用例</button>
+            </form>
+
+            <h3 class="sub-header">用例列表
+                <button class="btn btn-primary" name="submit" style="float:right;"
+                        onclick="location.href='/testcase/add_case/'">创建用例</button>
+            </h3>
+            <div class="table-responsive op">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th class="op">用例编号</th>
+                            <th class="op">所属模块</th>
+                            <th class="op">用例名称</th>
+                            <th class="op">URL</th>
+                            <th class="op">请求方法</th>
+                            <th class="op">创建时间</th>
+                            <th class="op">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {% for case in cases %}
+
+                        <tr>
+                              <td>{{ case.id}}</td>
+                              <td>{{ case.module}}</td>
+                              <td>{{ case.name}}</td>
+                              <td>{{ case.url}}</td>
+                              {% if case.method == 1 %}
+                                <td>GET</td>
+                              {% elif case.method == 2 %}
+                                <td>POST</td>
+                              {% elif case.method == 3 %}
+                                <td>PUT</td>
+                              {% else %}
+                                <td>DELETE</td>
+                              {% endif %}
+                              <td>{{ case.create_time | date:"Y-m-d H:i:s" }}</td>
+                              <td>
+                                  <a href="/testcase/edit_case/{{ case.id }}/">
+                                      <i class="glyphicon glyphicon-pencil">编辑</i>
+                                  </a>
+
+                                  <a href="/testcase/delete_case/{{ case.id }}/" style="margin-left:10px;"
+                                          onclick="return del()">
+                                      <i class="glyphicon glyphicon-trash">删除</i>
+                                  </a>
+
+                                  <a href="#" style="margin-left:10px;">
+                                      <i class="glyphicon glyphicon-ok">执行</i>
+                                  </a>
+
+                                  <a href="#" style="margin-left:10px;">
+                                      <i class="glyphicon glyphicon-arrow-down">查看报告</i>
+                                  </a>
+
+                                  <!--<button type="submit" name="update-data">执行用例</button>-->
+                                  <!--<button type="submit" name="delete-data">查看测试报告</button>-->
+                              </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+                <div style="text-align: center;color:red">{{ search_error }}</div>
+
+            </div>
+
+        </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+
+    // 用例删除js判断
+    function del(){
+
+        msg_ = confirm("确定要删除吗？");
+
+        if (msg_ == true){
+
+            return true;
+
+            }
+
+        else{
+
+            return false;
+        }
+    };
+</script>
+
 {% endblock %}

@@ -126,7 +126,7 @@ var SelectModule = function(mid){
 		}
 	}
 };
-
+*/
 
 
 // 获取用例信息
@@ -143,7 +143,7 @@ var TestCaseInit = function() {
         {
             cid:cid
         },
-        function(resp,status) {
+        function(resp) {
 
             console.log("返回的结果", resp.data);
 
@@ -210,36 +210,14 @@ var TestCaseInit = function() {
             // 断言文本
             document.getElementById("assert").value = resp.data.assert_text;
 
-            // 获取下拉框项目列表所有option的list数据
-            let options = document.querySelectorAll("#project_name > option");
-
-            for (let i = 0; i < options.length; i++) {
-
-                // 获取下拉框列表第几条option数据value值
-                let v = options[i].value;
-
-                if (v == resp.data.project_id) {
-
-                    // 获取当前下拉框第几条option被选中
-                    options[i].selected = true;
-
-                    // 获取下拉框列表第几条option数据text值
-                    let text = options[i].text;
-
-                    // 更改获取下拉框列表选中第几条option类的text值
-                    document.querySelectorAll(".filter-option-inner-inner")[0].innerText = text;
-                }
-            }
-
-            ModuleInit=("module_name",resp.data.project_id);
-
-            SelectModule(resp.data.module_id);
+            // 调用js初始化下拉框数据
+            SelectInit(resp.data.project_id,resp.data.module_id);
 
         }
     )
 
 };
-*/
+
 
 
 
@@ -255,15 +233,17 @@ var  SelectInit = function(defaultProjectId,defaultModuleId){
      var cmbModule  = document.getElementById("selectModule");
      var datalist = [];
 
-     console.log("项目对象：",cmbProject);
-     console.log("模块对象：",cmbModule);
-     console.log("初始化项目前索引：",cmbProject.selectedIndex);
-     console.log("初始化模块前索引：",cmbModule.selectedIndex);
+
+     //console.log("项目对象：",cmbProject);
+     //console.log("模块对象：",cmbModule);
+     //console.log("初始化项目前索引：",cmbProject.selectedIndex);
+     //console.log("初始化模块前索引：",cmbModule.selectedIndex);
+
 
     //设置默认选项
     function setDefaultOption(obj,id){
 
-        console.log("项目list长度：",obj.options.length);
+        //console.log("项目list长度：",obj.options.length);
         //console.log("select项目value值索引：",obj.options[0].value);
         //console.log("select项目value值索引：",obj.options[obj.selectedIndex].value);
 
@@ -356,15 +336,12 @@ var  SelectInit = function(defaultProjectId,defaultModuleId){
                 cmbProject.onchange = changeProject;
             }
 
-            setDefaultOption(cmbProject,defaultProjectId);
-
         });
     };
 
     getSelectData();
 
 };
-
 
 
 

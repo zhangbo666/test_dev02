@@ -14,7 +14,8 @@ urlpatterns = [
     path('save_case',views.testcase_save),
     path('add_case/',views.add_case),
     path('edit_case/<int:cid>/',views.edit_case),
-    path('delete_case/',views.delete_case),
+    path('delete_case/<int:cid>/',views.delete_case),
+    path('search',views.testcase_search),
 
     # 获取用例数据接口
     path('get_case_info',views.get_case_info),

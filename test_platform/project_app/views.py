@@ -146,6 +146,28 @@ def delete_project(request,pid):
         return HttpResponseRedirect("/project/")
 
 
+@login_required
+def project_search(request):
+
+    '''模块搜索'''
+
+    if request.method == "GET":
+
+        search_name = request.GET.get("search_name","")
+
+        project_search_list = Project.objects.filter(name__contains=search_name).order_by('id')#升序
+
+        if (len(project_search_list) == 0):
+
+            return render(request,"project.html",
+                          {"projects":project_search_list,"search_error":"搜索结果为空","type":"list"})
+
+        else:
+
+
+            return render(request,"project.html",{"projects":project_search_list,"type":"list"})
+
+
 # 接口：获取项目list_info数据
 @login_required
 def get_project_list(request):

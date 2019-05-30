@@ -4,12 +4,14 @@
 
 from django.shortcuts import render
 
-from django.http import HttpResponse,JsonResponse
+from django.http import HttpResponse,JsonResponse,HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 
 from testcase_app.models import TestCase
 from module_app.models import Module
 from project_app.models import Project
 
+from django.contrib import messages
 import requests
 
 import json
@@ -21,6 +23,8 @@ import json
 
 
 # 用例管理
+
+@login_required
 def testcase_manage(request):
 
     '''测试用例管理列表页'''
@@ -30,6 +34,7 @@ def testcase_manage(request):
     return render(request,"case_list.html",{"cases":case_list})
 
 
+@login_required
 def add_case(request):
 
     '''测试用例添加页'''
@@ -37,6 +42,7 @@ def add_case(request):
     return render(request,"case_add.html")
 
 
+@login_required
 def edit_case(request,cid):
 
     '''测试用例修改页'''
@@ -44,13 +50,53 @@ def edit_case(request,cid):
     return render(request,"case_edit.html")
 
 
-def delete_case(request):
+@login_required
+def delete_case(request,cid):
 
     '''测试用例删除'''
 
-    return render(request,"case_list.html")
+    if request.method == "GET":
+
+        try:
+
+            cases = TestCase.objects.get(id=cid)
+
+            cases.delete()
+
+        except TestCase.DoesNotExist:
+
+            return HttpResponseRedirect("/testcase/")
+
+        return HttpResponseRedirect("/testcase/")
+
+    else:
+
+        return HttpResponseRedirect("/testcase/")
 
 
+@login_required
+def testcase_search(request):
+
+    '''测试用例搜索'''
+
+    if request.method == "GET":
+
+        search_name = request.GET.get("search_name","")
+
+        case_search_list = TestCase.objects.filter(name__contains=search_name).order_by('id')#升序
+
+        if (len(case_search_list) == 0):
+
+            return render(request,"case_list.html",
+                          {"cases":case_search_list,"search_error":"搜索结果为空"})
+
+        else:
+
+
+            return render(request,"case_list.html",{"cases":case_search_list})
+
+
+@login_required
 def testcase_debug(request):
 
     '''测试用例发送请求'''
@@ -205,6 +251,7 @@ def testcase_debug(request):
         return JsonResponse({"result":"请求方法错误"})
 
 
+@login_required
 def testcase_assert(request):
 
     '''测试用例断言'''
@@ -267,12 +314,13 @@ def testcase_assert(request):
 
 
 
-
+@login_required
 def testcase_save(request):
 
     '''测试用例保存'''
 
     if request.method == "POST":
+
 
         method    = request.POST.get("method","")
         url       = request.POST.get("url","")
@@ -286,6 +334,9 @@ def testcase_save(request):
         case_name = request.POST.get("name","")
         module_id = request.POST.get("mid","")
 
+        sub_type = request.POST.get("sub_type","")
+        cid = request.POST.get("cid","")
+
         # print (method)
         # print (url)
         # print (header)
@@ -294,7 +345,7 @@ def testcase_save(request):
         # print (assert_text)
         # print (assert_type)
         # print (case_name)
-        print ("module_id:",module_id)
+        # print ("module_id:",module_id)
 
 
         # 请求方法判断
@@ -344,22 +395,44 @@ def testcase_save(request):
 
             return JsonResponse({"message":"断言类型错误","status":10103})
 
+        # 创建用例
+        if sub_type == "1":
 
-        TestCase.objects.create(method=method_number,url=url,header=header,
-                                parameter_type=type_number,parameter_body=parameter,
-                                assert_text=assert_text,
-                                assert_type=assert_type_number,
-                                name=case_name,module_id=module_id)
+            TestCase.objects.create(method=method_number,url=url,header=header,
+                                    parameter_type=type_number,parameter_body=parameter,
+                                    assert_text=assert_text,
+                                    assert_type=assert_type_number,
+                                    name=case_name,module_id=module_id)
 
 
-        return JsonResponse({"message":"请求成功","status":10200})
+            return JsonResponse({"message":"保存成功","status":10200})
+
+        # 修改用例
+        elif sub_type == "2":
+
+            cases = TestCase.objects.get(id=cid)
+
+            cases.method = method_number
+            cases.url = url
+            cases.header = header
+            cases.parameter_type = type_number
+            cases.parameter_body = parameter
+            cases.assert_text = assert_text
+            cases.assert_type = assert_type_number
+            cases.name = case_name
+            cases.module_id = module_id
+
+            cases.save()
+
+            return JsonResponse({"message":"修改成功","status":10200})
 
     else:
 
         return JsonResponse({"message":"请求request方法错误","status":10104})
 
 
-
+@login_required
+# 获取用例数据
 def get_case_info(request):
 
 
@@ -398,7 +471,7 @@ def get_case_info(request):
         return JsonResponse({"status":10100,"message":"请求方法错误"})
 
 
-
+@login_required
 # 获取项目和模块数据
 def get_select_data(request):
 

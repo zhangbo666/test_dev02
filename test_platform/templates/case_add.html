@@ -10,7 +10,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>~~~
           </button>
-        <a class="navbar-brand" href="#">灵猫智能管理平台--CCIMP</a>
+        <a class="navbar-brand" href="#">项目接口测试平台</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
@@ -285,9 +285,9 @@
 
             console.log("返回结果：",data.result);
 
-//            document.querySelector("#assert").style.color = "blue";
-//
-//            document.querySelector("#assert").value = data.result;
+            document.querySelector("#assert").style.color = "blue";
+
+            //document.querySelector("#assert").value = data.result;
 
 
             }
@@ -344,29 +344,47 @@
 
         window.alert("parameter:" + parameter);
 
-        $.post("/testcase/save_case",
-            {
-                url:url,
-                header:header,
-                method:method,
-                type:type,
-                parameter:parameter,
-                assert:assert_text,
-                assert_type:assert_type,
-                mid:module_id,
-                name:case_name
-            },
+        let confirm_addmsg = confirm("确定要创建吗？");
 
-            function(data){
+        if (confirm_addmsg == true)
+        {
+            $.post("/testcase/save_case",
+                {
+                    url: url,
+                    header: header,
+                    method: method,
+                    type: type,
+                    parameter: parameter,
+                    assert: assert_text,
+                    assert_type: assert_type,
+                    mid: module_id,
+                    name: case_name,
+                    sub_type: 1
+                },
 
-                window.alert("数据：" + data.message);
+                function (data) {
 
-                console.log("返回结果：",data.message);
+                    if (data.status == 10200) {
 
-            }
+                        console.log("返回结果：", data.message);
 
-        )
+                        var message = confirm("创建成功，返回testcase首页？");
 
+                        if (message == true) {
+
+                            // js alert弹框后跳转链接
+                            window.location.replace("/testcase/");
+
+                        }
+                        // alert("数据1：" + data.message);
+
+                        // js alert弹框后跳转链接
+                        //window.location.replace("/testcase/");
+
+                    }
+                }
+            )
+        }
     }
 
 </script>

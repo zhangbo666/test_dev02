@@ -10,7 +10,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>~~~
           </button>
-        <a class="navbar-brand" href="#">灵猫智能管理平台--CCIMP</a>
+        <a class="navbar-brand" href="#">项目接口测试平台</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
@@ -83,7 +83,7 @@
                     <input type="radio" name="req_method" id="post" value="post"> POST
                 </label>
                 <label class="radio-inline">
-                    <input type="radio" name="req_method" id="put" value="pust"> PUT
+                    <input type="radio" name="req_method" id="put" value="put"> PUT
                 </label>
                 <label class="radio-inline">
                     <input type="radio" name="req_method" id="delete" value="delete"> DELETE
@@ -145,16 +145,19 @@
             </div>
 
             <div style="margin-top: 20px;">
-                <label>项目：</label>
-                <select class="selectpicker" id="project_name">
+                <label style="float:left">项目：</label>
+                <select class="form-control select2-single"
+                        id="selectProject" style="width:180px;">
                     <option value="">请选择</option>
                 </select>
 
-                <label>模块：</label>
-                <select class="selectpicker" id="module_name">
+                <label style="float:left;margin-top: 20px;">模块：</label>
+                <select class="form-control select2-single"
+                        id="selectModule" style="width:180px;;margin-top: 20px;">
                     <option value="">请选择</option>
                 </select>
             </div>
+
             <div style="float:right;margin-right: 10px;margin-top:15px;">
                 <button type="button" class="btn btn-primary" onclick="savetFun()"> 修改 </button>
             </div>
@@ -174,11 +177,9 @@
 
 <script type="text/javascript">
 
+    /**
     // 调用js中项目的初始化
     projectInit("project_name");
-
-    // TestCase初始化
-    TestCaseInit();
 
     // 监听项目列表变化
     $("#project_name").change(function(){
@@ -193,9 +194,10 @@
         ModuleInit("module_name",project_id);
 
     });
+     */
 
-
-
+    // TestCase初始化
+    TestCaseInit();
 
     // 发送方法
     function sendFun() {
@@ -278,8 +280,8 @@
 
             console.log("返回结果：",data.result);
 
-//            document.querySelector("#assert").style.color = "blue";
-//
+            document.querySelector("#assert").style.color = "blue";
+
 //            document.querySelector("#assert").value = data.result;
 
 
@@ -288,8 +290,14 @@
         )
     }
 
-    // 保存方法
+    // 修改方法
     function savetFun() {
+
+        //获取当前url地址
+        let location_url = document.location;
+
+        //获取当前url地址中，按照/截取过滤的末尾cid数值
+        let cid = location_url.pathname.split("/")[3];
 
         //接口的基本数据
         let url = document.querySelector("#req_url").value;
@@ -302,9 +310,10 @@
 
         let parameter = document.querySelector("#req_parameter").value;
 
+//        let result = document.querySelector("#result").value;
 
         //保存的数据
-        let module_id = $('select[id="module_name"]').val() //取模块下拉列表中value的值
+        let module_id = $('select[id="selectModule"]').val(); //取模块下拉列表中value的值
 
         let case_name = $("#case_name").val();
 
@@ -335,31 +344,58 @@
             window.alert("所属模块不能为空！");
             return;
         }
+//        else if (result == ""){
+//
+//            alert("还未debug，请先debug");
+//            return;
+//        }
 
         window.alert("parameter:" + parameter);
 
-        $.post("/testcase/save_case",
-            {
-                url:url,
-                header:header,
-                method:method,
-                type:type,
-                parameter:parameter,
-                assert:assert_text,
-                assert_type:assert_type,
-                mid:module_id,
-                name:case_name
-            },
+        let confirm_xgmsg = confirm("确定要修改吗？");
 
-            function(data){
+        if (confirm_xgmsg == true)
+        {
+            $.post("/testcase/save_case",
+                {
+                    url:url,
+                    header:header,
+                    method:method,
+                    type:type,
+                    parameter:parameter,
+                    assert:assert_text,
+                    assert_type:assert_type,
+                    mid:module_id,
+                    name:case_name,
+                    sub_type:2,
+                    cid:cid
+                },
 
-                window.alert("数据：" + data.message);
+                function(data){
 
-                console.log("返回结果：",data.message);
+                    if (data.status == 10200){
 
-            }
+                        console.log("返回结果：",data.message);
 
-        )
+                        var message = confirm("修改成功，返回testcase首页？");
+
+                        if (message == true){
+
+                            // js alert弹框后跳转链接
+                            window.location.replace("/testcase/");
+
+                        }
+                        // alert("数据1：" + data.message);
+
+                        // js alert弹框后跳转链接
+                        //window.location.replace("/testcase/");
+
+                    }
+
+                }
+
+            )
+        }
 
     }
 

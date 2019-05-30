@@ -151,6 +151,28 @@ def delete_module(request,mid):
         return HttpResponseRedirect("/module/")
 
 
+@login_required
+def module_search(request):
+
+    '''模块搜索'''
+
+    if request.method == "GET":
+
+        search_name = request.GET.get("search_name","")
+
+        module_search_list = Module.objects.filter(name__contains=search_name).order_by('id')#升序
+
+        if (len(module_search_list) == 0):
+
+            return render(request,"module.html",
+                          {"modules":module_search_list,"search_error":"搜索结果为空","type":"list"})
+
+        else:
+
+
+            return render(request,"module.html",{"modules":module_search_list,"type":"list"})
+
+
 # 接口：获取模块list_info数据
 @login_required
 def get_module_list(request):
