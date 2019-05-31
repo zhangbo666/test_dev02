@@ -6,6 +6,9 @@ from django.shortcuts import render
 
 from django.http import HttpResponse,JsonResponse,HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
+
+
 
 from testcase_app.models import TestCase
 from module_app.models import Module
@@ -31,7 +34,102 @@ def testcase_manage(request):
 
     case_list = TestCase.objects.all()
 
-    return render(request,"case_list.html",{"cases":case_list})
+    paginator = Paginator(case_list,5)
+
+    # # 多少条数据
+    # paginator_count = paginator.count
+    # print (paginator_count)
+    #
+    # # 最大分几页数字表示
+    paginator_num_pages = paginator.num_pages
+    print (paginator_num_pages)
+
+    # # 分几页表示range(1, 3)，循环顺序1，2
+    # paginator_num_pages_array_ = paginator.page_range
+    # print (paginator_num_pages_array_)
+    #
+    # # 当前第一页表示<Page 1 of 2>
+    # # 当前第二页表示<Page 2 of 2>
+    page1 = paginator.page(1)
+    page_num = page1.number
+    print (page1)
+    print (page_num)
+    # # 当前页对象
+    # page_object_list = page1.object_list
+    # print (page_object_list)
+    #
+    # # 当前页第一条数据索引
+    # print (page1.start_index())
+    #
+    # # 当前页最后一条数据索引
+    # print (page1.end_index())
+    #
+    # # 当前页是否有上一页
+    # print(page1.has_previous())
+    #
+    # # 当前页是否有下一页
+    # print(page1.has_next())
+    #
+    # # 当前页是否有其它页
+    # print (page1.has_other_pages())
+    #
+    # # 上一页是第几页
+    # # print (page1.previous_page_number())
+    #
+    # # 下一页是第几页
+    # print (page1.next_page_number())
+    #
+    #
+    #
+    # for p in page1:
+    #
+    #     print (p.id)
+    #
+    # l1 = []
+    #
+    # for n1 in range (1,paginator_num_pages+1):
+    #
+    #     l1.append(n1)
+    #
+    # print (l1)
+
+    # 传一个页面数据get参数的值
+    page = request.GET.get('page','')
+    print (page)
+
+
+    try:
+
+        # 获取page参数的值
+        contacts = paginator.page(page)
+        print ("contacts---------->1",contacts)
+
+    except PageNotAnInteger:
+
+        contacts = paginator.page(1)
+
+        print ("contacts---------->2",contacts)
+
+    except EmptyPage:
+
+        contacts = paginator.page(paginator.num_pages)
+
+        print ("contacts---------->3",contacts)
+
+    print (contacts)
+
+    print (contacts.number)
+
+    print (paginator.num_pages)
+
+    print (contacts.has_other_pages())
+
+    return render(request,"case_list.html",{"cases":contacts,"page":page,
+                                            "page_num":page_num,"paginator_num_pages":paginator_num_pages})
+
+
+
+
 
 
 @login_required
@@ -85,16 +183,51 @@ def testcase_search(request):
 
         case_search_list = TestCase.objects.filter(name__contains=search_name).order_by('id')#升序
 
+        paginator = Paginator(case_search_list,5)
+
+        # 最大分几页数字表示
+        paginator_num_pages = paginator.num_pages
+
+        # 当前第一页表示<Page 1 of 2>
+        page1 = paginator.page(1)
+        page_num = page1.number
+
         if (len(case_search_list) == 0):
 
             return render(request,"case_list.html",
-                          {"cases":case_search_list,"search_error":"搜索结果为空"})
+                          {"cases":case_search_list,"search_error":"搜索用例查询结果为空，请重新查询！！！"})
 
         else:
 
+            # 传一个页面数据get参数的值
+            page = request.GET.get('page','')
+            print (page)
 
-            return render(request,"case_list.html",{"cases":case_search_list})
+            try:
 
+                # 获取page参数的值
+                contacts = paginator.page(page)
+                print ("contacts---------->1",contacts)
+
+            except PageNotAnInteger:
+
+                contacts = paginator.page(1)
+
+                print ("contacts---------->2",contacts)
+
+            except EmptyPage:
+
+                contacts = paginator.page(paginator.num_pages)
+
+                print ("contacts---------->3",contacts)
+
+
+            # return render(request,"case_list.html",{"cases":case_search_list})
+
+            return render(request,"case_list.html",{"cases":contacts,"page":page,
+                                            "page_num":page_num,"search_name":search_name,
+                                            "paginator_num_pages":paginator_num_pages,
+                                            "search_result":"result_not"})
 
 @login_required
 def testcase_debug(request):
