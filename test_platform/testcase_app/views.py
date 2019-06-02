@@ -34,68 +34,67 @@ def testcase_manage(request):
 
     case_list = TestCase.objects.all()
 
-    paginator = Paginator(case_list,5)
+    paginator = Paginator(case_list,1)
 
-    # # 多少条数据
+    # 多少条数据
     # paginator_count = paginator.count
-    # print (paginator_count)
-    #
-    # # 最大分几页数字表示
-    paginator_num_pages = paginator.num_pages
-    print (paginator_num_pages)
+    # print ("共有：",str(paginator_count)+"条数据")
 
-    # # 分几页表示range(1, 3)，循环顺序1，2
-    # paginator_num_pages_array_ = paginator.page_range
-    # print (paginator_num_pages_array_)
-    #
-    # # 当前第一页表示<Page 1 of 2>
-    # # 当前第二页表示<Page 2 of 2>
+    # 最大分几页数字表示
+    paginator_num_pages = paginator.num_pages
+    print ("共分：",str(paginator_num_pages)+"页")
+
+    # 分几页表示range(1, 3)，循环顺序1，2
+    paginator_num_pages_array_ = paginator.page_range
+    print ("数组形式表示：",paginator_num_pages_array_)
+
+    for p1 in paginator_num_pages_array_:
+
+        print (p1)
+
+    # 当前第一页表示<Page 1 of 2>
+    # 当前第二页表示<Page 2 of 2>
     page1 = paginator.page(1)
+    print ("第一页：",page1)
+
     page_num = page1.number
-    print (page1)
-    print (page_num)
-    # # 当前页对象
+    print ("第一页：",page_num)
+
+    # 当前页对象
     # page_object_list = page1.object_list
     # print (page_object_list)
-    #
-    # # 当前页第一条数据索引
+
+    # 当前页第一条数据索引
     # print (page1.start_index())
     #
-    # # 当前页最后一条数据索引
+    # 当前页最后一条数据索引
     # print (page1.end_index())
     #
-    # # 当前页是否有上一页
+    # 当前页是否有上一页
     # print(page1.has_previous())
     #
-    # # 当前页是否有下一页
+    # 当前页是否有下一页
     # print(page1.has_next())
     #
-    # # 当前页是否有其它页
+    # 当前页是否有其它页
     # print (page1.has_other_pages())
     #
-    # # 上一页是第几页
-    # # print (page1.previous_page_number())
+    # 上一页是第几页
+    # print (page1.previous_page_number())
     #
-    # # 下一页是第几页
+    # 下一页是第几页
     # print (page1.next_page_number())
     #
     #
     #
     # for p in page1:
     #
-    #     print (p.id)
+    #     print (p.name)
     #
-    # l1 = []
-    #
-    # for n1 in range (1,paginator_num_pages+1):
-    #
-    #     l1.append(n1)
-    #
-    # print (l1)
 
     # 传一个页面数据get参数的值
     page = request.GET.get('page','')
-    print (page)
+    print ("urlpage传参：",page)
 
 
     try:
@@ -116,19 +115,14 @@ def testcase_manage(request):
 
         print ("contacts---------->3",contacts)
 
-    print (contacts)
+    print ("第二页索引：",contacts.number)
 
-    print (contacts.number)
-
-    print (paginator.num_pages)
-
-    print (contacts.has_other_pages())
-
-    return render(request,"case_list.html",{"cases":contacts,"page":page,
-                                            "page_num":page_num,"paginator_num_pages":paginator_num_pages})
-
-
-
+    print ("第几页：",contacts)
+    return render(request,"case_list.html",{"cases":contacts,
+                                            "page":page,
+                                            "page_num":page_num,
+                                            "paginator_num_pages":paginator_num_pages,
+                                            "paginator_num_pages_array_":paginator_num_pages_array_})
 
 
 
