@@ -313,10 +313,12 @@
 
                       {% endif %}
 
-
                   </ul>
+
                </nav>
+
             </div>
+
 
             <!--分页器-->
             <div style="text-align: center;">
@@ -325,19 +327,44 @@
 
                       {% if cases %}
 
-                          <li>
-                              <a href="?page={{ page_num }}" aria-label="Previous">
-                                  <span aria-hidden="true">首页</span>
-                              </a>
-                          </li>
+                          {% if search_name %}
+
+                              <li>
+                                  <a href="?search_name={{ search_name }}&page={{ page_num }}" aria-label="Previous">
+                                      <span aria-hidden="true">首页</span>
+                                  </a>
+                              </li>
+
+                          {% else %}
+
+                              <li>
+                                  <a href="?page={{ page_num }}" aria-label="Previous">
+                                      <span aria-hidden="true">首页</span>
+                                  </a>
+                              </li>
+
+                          {% endif %}
+
 
                           {% if cases.has_previous %}
 
-                              <li>
-                                  <a href="?page={{ cases.previous_page_number}}" aria-label="Previous">
-                                      <span aria-hidden="true">&laquo;</span>
-                                  </a>
-                              </li>
+                              {% if search_name %}
+
+                                  <li>
+                                      <a href="?search_name={{ search_name }}&page={{ cases.previous_page_number}}" aria-label="Previous">
+                                          <span aria-hidden="true">&laquo;</span>
+                                      </a>
+                                  </li>
+
+                              {% else %}
+
+                                  <li>
+                                      <a href="?page={{ cases.previous_page_number}}" aria-label="Previous">
+                                          <span aria-hidden="true">&laquo;</span>
+                                      </a>
+                                  </li>
+
+                              {% endif %}
 
                           {% else %}
 
@@ -354,66 +381,133 @@
 
                               {% if cases.has_previous %}
 
-                                  {% if p1 == cases.number %}
+                                  {% if search_name %}
 
-                                      <li class="active">
+                                      {% if p1 == cases.number %}
 
-                                          <a href="?page={{ p1 }}">
-                                              {{ p1 }}
-                                          </a>
+                                          <li class="active">
 
-                                      </li>
+                                              <a href="?search_name={{ search_name }}&page={{ p1 }}">
+                                                  {{ p1 }}
+                                              </a>
+
+                                          </li>
+
+                                      {% else %}
+
+                                          <li>
+
+                                              <a href="?search_name={{ search_name }}&page={{ p1 }}">
+                                                  {{ p1 }}
+                                              </a>
+
+                                          </li>
+
+                                      {% endif %}
+
 
                                   {% else %}
 
-                                      <li>
+                                      {% if p1 == cases.number %}
 
-                                          <a href="?page={{ p1 }}">
-                                              {{ p1 }}
-                                          </a>
+                                          <li class="active">
 
-                                      </li>
+                                              <a href="?page={{ p1 }}">
+                                                  {{ p1 }}
+                                              </a>
+
+                                          </li>
+
+                                      {% else %}
+
+                                          <li>
+
+                                              <a href="?page={{ p1 }}">
+                                                  {{ p1 }}
+                                              </a>
+
+                                          </li>
+
+                                      {% endif %}
 
                                   {% endif %}
 
                               {% else %}
 
-                                  {% if p1 == cases.number %}
+                                  {% if search_name %}
 
-                                      <li class="active">
+                                      {% if p1 == cases.number %}
 
-                                          <a href="?page={{ p1 }}">
-                                              {{ p1 }}
-                                          </a>
+                                          <li class="active">
 
-                                      </li>
+                                              <a href="?search_name={{ search_name }}&page={{ p1 }}">
+                                                  {{ p1 }}
+                                              </a>
+
+                                          </li>
+
+                                      {% else %}
+
+                                          <li>
+
+                                              <a href="?search_name={{ search_name }}&page={{ p1 }}">
+                                                  {{ p1 }}
+                                              </a>
+
+                                          </li>
+
+                                      {% endif %}
 
                                   {% else %}
 
-                                      <li>
+                                      {% if p1 == cases.number %}
 
-                                          <a href="?page={{ p1 }}">
-                                              {{ p1 }}
-                                          </a>
+                                          <li class="active">
 
-                                      </li>
+                                              <a href="?page={{ p1 }}">
+                                                  {{ p1 }}
+                                              </a>
+
+                                          </li>
+
+                                      {% else %}
+
+                                          <li>
+
+                                              <a href="?page={{ p1 }}">
+                                                  {{ p1 }}
+                                              </a>
+
+                                          </li>
+
+                                      {% endif %}
 
                                   {% endif %}
 
                               {% endif %}
-
-
 
                           {% endfor %}
 
 
                           {% if cases.has_next %}
 
-                              <li>
-                                  <a href="?page={{ cases.next_page_number}}" aria-label="Previous">
-                                      <span aria-hidden="true">&raquo;</span>
-                                  </a>
-                              </li>
+                              {% if search_name %}
+
+                                  <li>
+                                      <a href="?search_name={{ search_name }}&page={{ cases.next_page_number}}" aria-label="Previous">
+                                          <span aria-hidden="true">&raquo;</span>
+                                      </a>
+                                  </li>
+
+                              {% else %}
+
+                                  <li>
+                                      <a href="?page={{ cases.next_page_number}}" aria-label="Previous">
+                                          <span aria-hidden="true">&raquo;</span>
+                                      </a>
+                                  </li>
+
+                              {% endif %}
 
                           {% else %}
 
@@ -425,11 +519,23 @@
 
                           {% endif%}
 
-                          <li>
-                              <a href="?page={{ paginator_num_pages }}" aria-label="Previous">
-                                  <span aria-hidden="true">末页</span>
-                              </a>
-                          </li>
+                          {% if search_name %}
+
+                              <li>
+                                  <a href="?search_name={{ search_name }}&page={{ paginator_num_pages }}" aria-label="Previous">
+                                      <span aria-hidden="true">末页</span>
+                                  </a>
+                             </li>
+
+                          {% else %}
+
+                              <li>
+                                  <a href="?page={{ paginator_num_pages }}" aria-label="Previous">
+                                      <span aria-hidden="true">末页</span>
+                                  </a>
+                             </li>
+
+                          {% endif %}
 
                       {% endif %}
 

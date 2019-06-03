@@ -34,7 +34,7 @@ def testcase_manage(request):
 
     case_list = TestCase.objects.all()
 
-    paginator = Paginator(case_list,1)
+    paginator = Paginator(case_list,2)
 
     # 多少条数据
     # paginator_count = paginator.count
@@ -48,9 +48,9 @@ def testcase_manage(request):
     paginator_num_pages_array_ = paginator.page_range
     print ("数组形式表示：",paginator_num_pages_array_)
 
-    for p1 in paginator_num_pages_array_:
+    # for p1 in paginator_num_pages_array_:
 
-        print (p1)
+        # print (p1)
 
     # 当前第一页表示<Page 1 of 2>
     # 当前第二页表示<Page 2 of 2>
@@ -177,19 +177,33 @@ def testcase_search(request):
 
         case_search_list = TestCase.objects.filter(name__contains=search_name).order_by('id')#升序
 
-        paginator = Paginator(case_search_list,5)
+        paginator = Paginator(case_search_list,2)
 
         # 最大分几页数字表示
         paginator_num_pages = paginator.num_pages
+        print ("共分：",str(paginator_num_pages)+"页")
 
-        # 当前第一页表示<Page 1 of 2>
+
+        # 分几页表示range(1, 3)，循环顺序1，2
+        paginator_num_pages_array_ = paginator.page_range
+        print ("数组形式表示：",paginator_num_pages_array_)
+
+        # 当前第一页表示<Page 1 of 3>
+        # 当前第二页表示<Page 2 of 3>
+        # 当前第三页表示<Page 3 of 3>
+
         page1 = paginator.page(1)
+        print ("第一页：",page1)
+
         page_num = page1.number
+        print ("第一页：",page_num)
+
 
         if (len(case_search_list) == 0):
 
             return render(request,"case_list.html",
-                          {"cases":case_search_list,"search_error":"搜索用例查询结果为空，请重新查询！！！"})
+                          {"cases":case_search_list,
+                           "search_error":"搜索用例查询结果为空，请重新查询！！！"})
 
         else:
 
@@ -215,13 +229,12 @@ def testcase_search(request):
 
                 print ("contacts---------->3",contacts)
 
-
-            # return render(request,"case_list.html",{"cases":case_search_list})
-
-            return render(request,"case_list.html",{"cases":contacts,"page":page,
-                                            "page_num":page_num,"search_name":search_name,
-                                            "paginator_num_pages":paginator_num_pages,
-                                            "search_result":"result_not"})
+            return render(request,"case_list.html",{"cases":contacts,
+                                                    "page":page,
+                                                    "page_num":page_num,
+                                                    "search_name":search_name,
+                                                    "paginator_num_pages":paginator_num_pages,
+                                                    "paginator_num_pages_array_":paginator_num_pages_array_})
 
 @login_required
 def testcase_debug(request):
