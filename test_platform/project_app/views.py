@@ -10,6 +10,9 @@ from django.shortcuts import render
 
 from django.contrib.auth.decorators import login_required
 
+from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
+
+
 from project_app.models import Project
 
 from datetime import datetime
@@ -24,7 +27,60 @@ def project_manage(request):
 
     project_all = Project.objects.all()
 
-    return render(request,"project.html",{"projects":project_all,"type":"list"})
+    paginator = Paginator(project_all,5)
+
+    # 最大分几页数字表示
+    paginator_num_pages = paginator.num_pages
+    print ("共分：",str(paginator_num_pages)+"页")
+
+    # 分几页表示range(1, 3)，循环顺序1，2
+    paginator_num_pages_array_ = paginator.page_range
+    print ("数组形式表示：",paginator_num_pages_array_)
+
+
+    # 当前第一页表示<Page 1 of 2>
+    # 当前第二页表示<Page 2 of 2>
+    page1 = paginator.page(1)
+    print ("第一页：",page1)
+
+    page_num = page1.number
+    print ("第一页：",page_num)
+
+
+    # 传一个页面数据get参数的值
+    page = request.GET.get('page','')
+    print ("urlpage传参：",page)
+
+
+    try:
+
+        # 获取page参数的值
+        contacts = paginator.page(page)
+        print ("contacts---------->1",contacts)
+
+    except PageNotAnInteger:
+
+        contacts = paginator.page(1)
+
+        print ("contacts---------->2",contacts)
+
+    except EmptyPage:
+
+        contacts = paginator.page(paginator.num_pages)
+
+        print ("contacts---------->3",contacts)
+
+    print ("第二页索引：",contacts.number)
+
+    print ("第几页：",contacts)
+
+
+    return render(request,"project.html",{"projects":contacts,
+                                          "type":"list",
+                                          "page":page,
+                                          "page_num":page_num,
+                                          "paginator_num_pages":paginator_num_pages,
+                                          "paginator_num_pages_array_":paginator_num_pages_array_})
 
 
 # 添加项目
@@ -146,6 +202,7 @@ def delete_project(request,pid):
         return HttpResponseRedirect("/project/")
 
 
+# 搜索项目
 @login_required
 def project_search(request):
 
@@ -157,15 +214,67 @@ def project_search(request):
 
         project_search_list = Project.objects.filter(name__contains=search_name).order_by('id')#升序
 
+        paginator = Paginator(project_search_list,1)
+
+        # 最大分几页数字表示
+        paginator_num_pages = paginator.num_pages
+        print ("共分：",str(paginator_num_pages)+"页")
+
+
+        # 分几页表示range(1, 3)，循环顺序1，2
+        paginator_num_pages_array_ = paginator.page_range
+        print ("数组形式表示：",paginator_num_pages_array_)
+
+        # 当前第一页表示<Page 1 of 3>
+        # 当前第二页表示<Page 2 of 3>
+        # 当前第三页表示<Page 3 of 3>
+
+        page1 = paginator.page(1)
+        print ("第一页：",page1)
+
+        page_num = page1.number
+        print ("第一页：",page_num)
+
+
+
         if (len(project_search_list) == 0):
 
-            return render(request,"project.html",
-                          {"projects":project_search_list,"search_error":"搜索结果为空","type":"list"})
+            return render(request,"project.html",{"projects":project_search_list,
+                                                  "search_error":"搜索项目查询结果为空，请重新查询",
+                                                  "type":"list"})
 
         else:
 
+            # 传一个页面数据get参数的值
+            page = request.GET.get('page','')
+            print (page)
 
-            return render(request,"project.html",{"projects":project_search_list,"type":"list"})
+            try:
+
+                # 获取page参数的值
+                contacts = paginator.page(page)
+                print ("contacts---------->1",contacts)
+
+            except PageNotAnInteger:
+
+                contacts = paginator.page(1)
+
+                print ("contacts---------->2",contacts)
+
+            except EmptyPage:
+
+                contacts = paginator.page(paginator.num_pages)
+
+                print ("contacts---------->3",contacts)
+
+
+            return render(request,"project.html",{"projects":contacts,
+                                                  "type":"list",
+                                                  "page":page,
+                                                  "page_num":page_num,
+                                                  "search_name":search_name,
+                                                  "paginator_num_pages":paginator_num_pages,
+                                                  "paginator_num_pages_array_":paginator_num_pages_array_})
 
 
 # 接口：获取项目list_info数据

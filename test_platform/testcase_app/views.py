@@ -201,9 +201,8 @@ def testcase_search(request):
 
         if (len(case_search_list) == 0):
 
-            return render(request,"case_list.html",
-                          {"cases":case_search_list,
-                           "search_error":"搜索用例查询结果为空，请重新查询！！！"})
+            return render(request,"case_list.html",{"cases":case_search_list,
+                                                    "search_error":"搜索用例查询结果为空，请重新查询！！！"})
 
         else:
 

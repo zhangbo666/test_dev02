@@ -306,10 +306,245 @@
 
                 {% endif %}
 
+                {% if type == "list" %}
+
+                    <!--分页器-->
+                    <div style="text-align: center;">
+                       <nav aria-label="Page navigation">
+                          <ul class="pagination">
+
+                              {% if modules %}
+
+                                  {% if search_name %}
+
+                                      <li>
+                                          <a href="?search_name={{ search_name }}&page={{ page_num }}" aria-label="Previous">
+                                              <span aria-hidden="true">首页</span>
+                                          </a>
+                                      </li>
+
+                                  {% else %}
+
+                                      <li>
+                                          <a href="?page={{ page_num }}" aria-label="Previous">
+                                              <span aria-hidden="true">首页</span>
+                                          </a>
+                                      </li>
+
+                                  {% endif %}
+
+
+                                  {% if modules.has_previous %}
+
+                                      {% if search_name %}
+
+                                          <li>
+                                              <a href="?search_name={{ search_name }}&page={{ modules.previous_page_number}}" aria-label="Previous">
+                                                  <span aria-hidden="true">&laquo;</span>
+                                              </a>
+                                          </li>
+
+                                      {% else %}
+
+                                          <li>
+                                              <a href="?page={{ modules.previous_page_number}}" aria-label="Previous">
+                                                  <span aria-hidden="true">&laquo;</span>
+                                              </a>
+                                          </li>
+
+                                      {% endif %}
+
+                                  {% else %}
+
+                                      <li class="disabled">
+                                              <a href="#" aria-label="Next">
+                                                  <span aria-hidden="true">&laquo;</span>
+                                              </a>
+                                      </li>
+
+                                  {% endif%}
+
+
+                                  {% for p1 in paginator_num_pages_array_ %}
+
+                                      {% if modules.has_previous %}
+
+                                          {% if search_name %}
+
+                                              {% if p1 == modules.number %}
+
+                                                  <li class="active">
+
+                                                      <a href="?search_name={{ search_name }}&page={{ p1 }}">
+                                                          {{ p1 }}
+                                                      </a>
+
+                                                  </li>
+
+                                              {% else %}
+
+                                                  <li>
+
+                                                      <a href="?search_name={{ search_name }}&page={{ p1 }}">
+                                                          {{ p1 }}
+                                                      </a>
+
+                                                  </li>
+
+                                              {% endif %}
+
+
+                                          {% else %}
+
+                                              {% if p1 == modules.number %}
+
+                                                  <li class="active">
+
+                                                      <a href="?page={{ p1 }}">
+                                                          {{ p1 }}
+                                                      </a>
+
+                                                  </li>
+
+                                              {% else %}
+
+                                                  <li>
+
+                                                      <a href="?page={{ p1 }}">
+                                                          {{ p1 }}
+                                                      </a>
+
+                                                  </li>
+
+                                              {% endif %}
+
+                                          {% endif %}
+
+                                      {% else %}
+
+                                          {% if search_name %}
+
+                                              {% if p1 == modules.number %}
+
+                                                  <li class="active">
+
+                                                      <a href="?search_name={{ search_name }}&page={{ p1 }}">
+                                                          {{ p1 }}
+                                                      </a>
+
+                                                  </li>
+
+                                              {% else %}
+
+                                                  <li>
+
+                                                      <a href="?search_name={{ search_name }}&page={{ p1 }}">
+                                                          {{ p1 }}
+                                                      </a>
+
+                                                  </li>
+
+                                              {% endif %}
+
+                                          {% else %}
+
+                                              {% if p1 == modules.number %}
+
+                                                  <li class="active">
+
+                                                      <a href="?page={{ p1 }}">
+                                                          {{ p1 }}
+                                                      </a>
+
+                                                  </li>
+
+                                              {% else %}
+
+                                                  <li>
+
+                                                      <a href="?page={{ p1 }}">
+                                                          {{ p1 }}
+                                                      </a>
+
+                                                  </li>
+
+                                              {% endif %}
+
+                                          {% endif %}
+
+                                      {% endif %}
+
+                                  {% endfor %}
+
+
+                                  {% if modules.has_next %}
+
+                                      {% if search_name %}
+
+                                          <li>
+                                              <a href="?search_name={{ search_name }}&page={{ modules.next_page_number}}" aria-label="Previous">
+                                                  <span aria-hidden="true">&raquo;</span>
+                                              </a>
+                                          </li>
+
+                                      {% else %}
+
+                                          <li>
+                                              <a href="?page={{ modules.next_page_number}}" aria-label="Previous">
+                                                  <span aria-hidden="true">&raquo;</span>
+                                              </a>
+                                          </li>
+
+                                      {% endif %}
+
+                                  {% else %}
+
+                                      <li class="disabled">
+                                              <a href="#" aria-label="Next">
+                                                  <span aria-hidden="true">&raquo;</span>
+                                              </a>
+                                      </li>
+
+                                  {% endif %}
+
+                                  {% if search_name %}
+
+                                      <li>
+                                          <a href="?search_name={{ search_name }}&page={{ paginator_num_pages }}" aria-label="Previous">
+                                              <span aria-hidden="true">末页</span>
+                                          </a>
+                                     </li>
+
+                                  {% else %}
+
+                                      <li>
+                                          <a href="?page={{ paginator_num_pages }}" aria-label="Previous">
+                                              <span aria-hidden="true">末页</span>
+                                          </a>
+                                     </li>
+
+                                  {% endif %}
+
+                              {% endif %}
+
+                          </ul>
+
+                       </nav>
+
+                    </div>
+
+                {% endif %}
+
+
             </div>
+
       </div>
+
     </div>
+
 {% endblock %}
+
+
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
