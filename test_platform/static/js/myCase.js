@@ -294,11 +294,11 @@ var  SelectInit = function(defaultProjectId,defaultModuleId){
 
             if (datalist[i].id == pid) {
 
-                let modules = datalist[i].moduleList;
+                var modules = datalist[i].moduleList;
 
                 console.log("改变后模块信息：",modules);
 
-                for (let j = 0 ; j < modules.length; j++){
+                for (var j = 0 ; j < modules.length; j++){
 
                     addOption(cmbModule,modules[j]);
 

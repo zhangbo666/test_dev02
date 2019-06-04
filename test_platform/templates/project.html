@@ -136,7 +136,8 @@
                                       <a href="/project/edit_project/{{ project.id }}/">
                                           <i class="glyphicon glyphicon-pencil">编辑</i>
                                       </a>
-                                      <a href="/project/delete_project/{{ project.id }}/" style="margin-left:20px;">
+                                      <a href="/project/delete_project/{{ project.id }}/" style="margin-left:20px;"
+                                              onclick="return project_del()">
                                           <i class="glyphicon glyphicon-trash">删除</i>
                                       </a>
                                       <!--<button type="submit" name="update-data"/>更新</button>-->
@@ -306,14 +307,15 @@
 
                 {% if type == "edit" %}
 
-                <form action="/project/edit_project/{{ pid }}/" method="post">
+                    <form action="/project/edit_project/{{ pid }}/" method="post">
 
-                    {{ form.as_p }}
+                        {{ form.as_p }}
 
-                    <input class="btn btn-success" type="submit" value="修改">
-                    <button onclick="javascript:this.form.action='/project/';"
-                            class="btn btn-info">返回</button>
-                </form>
+                        <input class="btn btn-success" type="submit" value="修改"
+                                onclick="return edit_project_method()">
+                        <button onclick="javascript:this.form.action='/project/';"
+                                class="btn btn-info">返回</button>
+                    </form>
 
                 {% endif %}
 
@@ -554,6 +556,48 @@
         </div>
 
      </div>
+
+
+<script type="text/javascript">
+
+    // 项目删除js判断
+    function project_del(){
+
+        msg_ = confirm("确定要删除项目吗？");
+
+        if (msg_ == true){
+
+            return true;
+
+            }
+
+        else{
+
+            return false;
+        }
+    };
+
+    // 项目编辑js判断
+    function edit_project_method(){
+
+        msg = confirm("确定要修改项目吗？");
+
+        if (msg == true){
+
+            return true;
+
+        }
+
+        else{
+
+            return false;
+
+        }
+    };
+
+</script>
+
+
 
 {% endblock %}
 

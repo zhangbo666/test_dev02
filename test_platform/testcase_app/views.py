@@ -34,7 +34,7 @@ def testcase_manage(request):
 
     case_list = TestCase.objects.all()
 
-    paginator = Paginator(case_list,2)
+    paginator = Paginator(case_list,10)
 
     # 多少条数据
     # paginator_count = paginator.count

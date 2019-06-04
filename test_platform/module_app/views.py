@@ -23,7 +23,7 @@ def moduel_manage(request):
 
     module_all = Module.objects.all()
 
-    paginator = Paginator(module_all,10)
+    paginator = Paginator(module_all,2)
 
     # 最大分几页数字表示
     paginator_num_pages = paginator.num_pages
