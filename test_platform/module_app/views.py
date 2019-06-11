@@ -23,7 +23,7 @@ def moduel_manage(request):
 
     module_all = Module.objects.all()
 
-    paginator = Paginator(module_all,2)
+    paginator = Paginator(module_all,5)
 
     # 最大分几页数字表示
     paginator_num_pages = paginator.num_pages
@@ -215,7 +215,7 @@ def module_search(request):
 
         module_search_list = Module.objects.filter(name__contains=search_name).order_by('id')#升序
 
-        paginator = Paginator(module_search_list,1)
+        paginator = Paginator(module_search_list,5)
 
         # 最大分几页数字表示
         paginator_num_pages = paginator.num_pages

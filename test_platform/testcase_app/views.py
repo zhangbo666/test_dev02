@@ -34,7 +34,7 @@ def testcase_manage(request):
 
     case_list = TestCase.objects.all()
 
-    paginator = Paginator(case_list,10)
+    paginator = Paginator(case_list,5)
 
     # 多少条数据
     # paginator_count = paginator.count
@@ -177,7 +177,7 @@ def testcase_search(request):
 
         case_search_list = TestCase.objects.filter(name__contains=search_name).order_by('id')#升序
 
-        paginator = Paginator(case_search_list,2)
+        paginator = Paginator(case_search_list,5)
 
         # 最大分几页数字表示
         paginator_num_pages = paginator.num_pages
