@@ -21,7 +21,7 @@
     </div>
 
     <div style="float:right;margin-top: 20px;">
-        <button type="button" class="btn btn-primary">保存</button>
+        <button type="button" class="btn btn-primary" onclick="saveFun()">保存</button>
     </div>
 </div>
 
@@ -37,6 +37,24 @@
 
     //初始化用例树
     caseTreeInit();
+
+    function saveFun(){
+
+//        window.alert("123");
+
+        var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+
+        var nodes   = treeObj.getCheckedNodes(true);
+
+        console.log(nodes);
+
+        for (let i=0; i<nodes.length; i++){
+
+            console.log("被选中的节点：" + nodes[i].name)
+        }
+
+    }
+
 
 </script>
 

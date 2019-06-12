@@ -9,7 +9,7 @@ urlpatterns = [
     # 任务管理
     path('',views.testtask_manage),
     path('add_task/',views.add_task),
-    path('get_cases_tree/',views.get_cases_tree),
+    path('get_case_tree/',views.get_case_tree),
 
 
 ]
