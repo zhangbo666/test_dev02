@@ -40,7 +40,18 @@
 
     function saveFun(){
 
-//        window.alert("123");
+        //接口任务名称与描述
+        let name = $("#task_name").val();
+        let desc = $("#describe").val();
+
+        if (name === ""){
+
+            window.alert("任务名称不能为空！");
+            return;
+
+        }
+
+        var cases = new Array();
 
         var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
 
@@ -50,10 +61,39 @@
 
         for (let i=0; i<nodes.length; i++){
 
-            console.log("被选中的节点：" + nodes[i].name)
+            //判断是否为父节点，false：没有父节点、true：有父节点
+            if (nodes[i].isParent == false){
+
+                //获取选中节点的值
+                console.log("节点id：",nodes[i].id,nodes[i].name);
+
+                cases.push(nodes[i].id);
+
+            }
         }
 
-    }
+        console.log("用例列表",cases);
+
+        //将列表转为字符串
+        casesStr = JSON.stringify(cases);
+
+        $.post("/testtask/save_task/",{
+
+                name:name,
+                desc:desc,
+                cases:casesStr
+
+            },
+            function (resp){
+
+                if (resp.status == 10200){
+
+                    window.alert("创建任务成功！")
+                }
+            }
+        );
+
+    };
 
 
 </script>

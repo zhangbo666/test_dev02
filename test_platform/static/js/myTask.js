@@ -63,11 +63,10 @@ var caseTreeInit = function(){
    //    }
    //];
 
+   //初始化
    $(document).ready(function (){
 
-       $.get("/testtask/get_case_tree/",{},
-
-       function (resp) {
+       $.get("/testtask/get_case_tree/",{}, function (resp) {
 
            if (resp.status === 10200){
 
@@ -77,10 +76,10 @@ var caseTreeInit = function(){
 
                zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
 
-               zTreeObj.expandAll(true);
+               zTreeObj.expandAll(true);//设置默认展开
 
            }
-       })
+       });
    });
 
 };

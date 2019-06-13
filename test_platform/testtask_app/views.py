@@ -8,6 +8,8 @@ from testcase_app.models import TestCase
 
 from django.http import JsonResponse
 
+import json
+
 
 # Create your views here.
 
@@ -27,6 +29,34 @@ def add_task(request):
     return render(request,"task_add.html",{"type":"add"})
 
 
+def save_task(request):
+
+    '''保存任务'''
+
+    if request.method == "POST":
+
+        name = request.POST.get("name","")
+        desc = request.POST.get("desc","")
+        cases = request.POST.get("cases","")
+
+        print ("任务名称&描述：",name,desc)
+        print ("任务用例：",cases)
+
+        # casesList = json.loads(cases)
+        # print (type(casesList))
+
+        if name == "" or cases == "[]":
+
+            return JsonResponse({"status":10102,"message":"参数不能为空！"})
+
+
+        return JsonResponse({"status":10200,"message":"success"})
+
+    else:
+
+        return JsonResponse({"status":10101,"message":"请求方法错误！"})
+
+
 def get_case_tree(request):
 
     '''获取用例树'''
@@ -41,7 +71,8 @@ def get_case_tree(request):
 
             project_dict = {
 
-                "name":project.name
+                "name":project.name,
+                "isParent":True
 
             }
             modules = Module.objects.filter(project_id=project.id)
@@ -52,7 +83,8 @@ def get_case_tree(request):
 
                 module_dict = {
 
-                    "name":module.name
+                    "name":module.name,
+                    "isParent":True
 
                 }
 
@@ -64,7 +96,9 @@ def get_case_tree(request):
 
                     case_dict = {
 
-                        "name":case.name
+                        "name":case.name,
+                        "isParent":False,
+                        "id":case.id
 
                     }
 
