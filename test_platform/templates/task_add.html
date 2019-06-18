@@ -88,7 +88,16 @@
 
                 if (resp.status == 10200){
 
-                    window.alert("创建任务成功！")
+                    var message = confirm("创建任务成功，返回testtask首页？");
+
+                        if (message == true) {
+
+                            // js alert弹框后跳转链接
+                            window.location.replace("/testtask/");
+
+                        }
+
+//                    window.alert("创建任务成功！")
                 }
             }
         );

@@ -31,7 +31,7 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
+        <div class="col-sm-3 col-md-2 sidebar" style="width:150px;">
             <ul class="nav nav-sidebar">
                 <li>
                     <a href="/project/">
@@ -61,7 +61,7 @@
                 <li><a href="">测试平台设置</a></li>
             </ul>
         </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div style="margin-left: 135px;" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
             <!--任务list-->
             {% if type == "list" %}
@@ -79,55 +79,72 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th class="op">用例编号</th>
-                                <th class="op">所属模块</th>
-                                <th class="op">用例名称</th>
-                                <th class="op">URL</th>
-                                <th class="op">请求方法</th>
+                                <th class="op">编号</th>
+                                <th class="op">名称</th>
+                                <th class="op">状态</th>
                                 <th class="op">创建时间</th>
                                 <th class="op">操作</th>
                             </tr>
                         </thead>
                         <tbody>
 
-                            {% for case in cases %}
+                            {% for task in tasks %}
 
                             <tr>
-                                  <td>{{ case.id}}</td>
-                                  <td>{{ case.module}}</td>
-                                  <td>{{ case.name}}</td>
-                                  <td>{{ case.url}}</td>
-                                  {% if case.method == 1 %}
-                                    <td>GET</td>
-                                  {% elif case.method == 2 %}
-                                    <td>POST</td>
-                                  {% elif case.method == 3 %}
-                                    <td>PUT</td>
-                                  {% else %}
-                                    <td>DELETE</td>
-                                  {% endif %}
-                                  <td>{{ case.create_time | date:"Y-m-d H:i:s" }}</td>
-                                  <td>
-                                      <a href="/testtask/edit_task/{{ case.id }}/">
-                                          <i class="glyphicon glyphicon-pencil">编辑</i>
-                                      </a>
+                                <td>{{ task.id}}</td>
 
-                                      <a href="/testtask/delete_task/{{ case.id }}/" style="margin-left:10px;"
+                                <td>{{ task.name}}</td>
+
+                                {% if task.status == 0 %}
+
+                                    <td>未执行</td>
+
+                                {% elif task.status == 1 %}
+
+                                    <td>执行中</td>
+
+                                {% elif task.status == 2 %}
+
+                                    <td>已完成</td>
+
+                                {% else %}
+
+                                    <td>失败</td>
+
+                                {% endif %}
+
+                                <td>{{ task.create_time | date:"Y-m-d H:i:s" }}</td>
+
+                                <td>
+
+                                    <a href="/testtask/edit_task/{{ task.id }}/">
+
+                                          <i class="glyphicon glyphicon-edit">编辑</i>
+                                    </a>
+
+                                    <a href="/testtask/delete_task/{{ task.id }}/" style="margin-left:10px;"
                                               onclick="return del()">
+
                                           <i class="glyphicon glyphicon-trash">删除</i>
-                                      </a>
 
-                                      <a href="#" style="margin-left:10px;">
-                                          <i class="glyphicon glyphicon-ok">执行</i>
-                                      </a>
+                                    </a>
 
-                                      <a href="#" style="margin-left:10px;">
-                                          <i class="glyphicon glyphicon-arrow-down">查看报告</i>
-                                      </a>
+                                    <a href="#" style="margin-left:10px;">
 
-                                      <!--<button type="submit" name="update-data">执行用例</button>-->
-                                      <!--<button type="submit" name="delete-data">查看测试报告</button>-->
-                                  </td>
+                                          <i class="glyphicon glyphicon-play">执行</i>
+
+                                    </a>
+
+                                    <a href="#" style="margin-left:10px;">
+
+                                          <i class="glyphicon glyphicon-list-alt">结果</i>
+
+                                    </a>
+
+                                    <!--<button type="submit" name="update-data">执行用例</button>-->
+                                    <!--<button type="submit" name="delete-data">查看测试报告</button>-->
+
+                                </td>
 
                             </tr>
 
@@ -151,6 +168,16 @@
 
             {% endif %}
 
+            <!--任务edit-->
+            {% if type == "edit" %}
+
+                {% block taskedit %}
+
+                    <!--其他页面可以继承task_list.html-->
+
+                {% endblock %}
+
+            {% endif %}
 
             <!--分页器-->
             <!--<div style="text-align: center;">-->

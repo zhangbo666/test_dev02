@@ -1,0 +1,153 @@
+{% extends "task_list.html" %}
+{% block taskedit %}
+
+<div>
+
+    <h4 class="sub-header">编辑任务</h4>
+
+    <div style="margin-top: 30px;">
+        <p>任务名称:</p>
+        <input id="task_name" type="text" class="form-control">
+    </div>
+
+    <div style="margin-top: 10px;">
+        <p>任务描述:</p>
+        <textarea id="describe" class="form-control" rows="3" name=textarea"></textarea>
+    </div>
+
+    <div style="margin-top: 10px;">
+        <p>用例列表:</p>
+        <ul id="treeDemo" class="ztree"></ul>
+    </div>
+
+    <div style="float:right;margin-top: 20px;">
+        <button type="button" class="btn btn-primary" onclick="saveFun()">修改</button>
+    </div>
+</div>
+
+<!--在线引用jquery-->
+<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+<!--在线引用ztree-->
+<link href="http://cdn.bootcss.com/zTree.v3/3.5.23/css/zTreeStyle/zTreeStyle.css" rel="stylesheet">
+<script src="http://cdn.bootcss.com/zTree.v3/3.5.23/js/jquery.ztree.all.js"></script>
+
+
+<script type="text/javascript">
+
+   //初始化用例树
+   //caseTreeInit();
+
+   var zTreeObj;
+
+   //zTree 的参数配置，深入使用请参考 API 文档（setting 配置详解）
+   var setting = {
+
+       check: {
+
+           enable:true,
+           chkStyle: 'checkbox'
+
+       }
+   };
+
+   //初始化加载编辑树
+   $(document).ready(function (){
+
+       let local_url = document.location;
+       let tid = local_url.pathname.split("/")[3];
+
+       console.log("任务id",tid);
+
+       $.post("/testtask/get_case_tree/",{
+
+           "tid":tid
+
+       }, function (resp) {
+
+           if (resp.status === 10200){
+
+               var zNodes = resp.data.case;
+
+               let name = document.querySelector("#task_name").value=resp.data.name;
+               let describe = document.querySelector("#describe").value=resp.data.describe;
+
+               zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+
+               zTreeObj.expandAll(true);//设置默认展开
+
+           }
+       });
+   });
+
+   function saveFun(){
+
+       //接口任务名称与描述
+       let name = $("#task_name").val();
+       let desc = $("#describe").val();
+
+       let local_url = document.location;
+       let tid = local_url.pathname.split("/")[3];
+
+       if (name === ""){
+
+           window.alert("任务名称不能为空！");
+           return;
+
+       }
+
+       var cases = new Array();
+
+       var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+
+       var nodes   = treeObj.getCheckedNodes(true);
+
+       console.log(nodes);
+
+       for (let i=0; i<nodes.length; i++){
+
+           //判断是否为父节点，false：没有父节点、true：有父节点
+           if (nodes[i].isParent == false){
+
+               //获取选中节点的值
+               console.log("节点id：",nodes[i].id,nodes[i].name);
+
+               cases.push(nodes[i].id);
+
+           }
+       }
+
+       console.log("用例列表",cases);
+
+       //将列表转为字符串
+       casesStr = JSON.stringify(cases);
+
+       $.post("/testtask/save_task/", {
+
+           name: name,
+           desc: desc,
+           cases: casesStr,
+           tid:tid
+           },
+
+           function (resp){
+
+               if (resp.status == 10200){
+
+                   window.alert("修改任务成功！")
+
+               }
+           }
+       );
+
+   };
+
+
+</script>
+
+
+
+
+
+
+{% endblock %}
