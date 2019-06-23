@@ -67,10 +67,10 @@
 
            if (resp.status === 10200){
 
-               var zNodes = resp.data.case;
-
                let name = document.querySelector("#task_name").value=resp.data.name;
                let describe = document.querySelector("#describe").value=resp.data.describe;
+
+               var zNodes = resp.data.case;
 
                zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
 
@@ -110,7 +110,7 @@
            if (nodes[i].isParent == false){
 
                //获取选中节点的值
-               console.log("节点id：",nodes[i].id,nodes[i].name);
+               console.log("节点id&节点name：",nodes[i].id,nodes[i].name);
 
                cases.push(nodes[i].id);
 
@@ -127,15 +127,30 @@
            name: name,
            desc: desc,
            cases: casesStr,
-           tid:tid
+           task_id :tid
+
            },
 
            function (resp){
 
                if (resp.status == 10200){
 
-                   window.alert("修改任务成功！")
+                   var message = confirm("修改任务成功，返回testtask首页？");
 
+                   if (message == true) {
+
+                       // js alert弹框后跳转链接
+                       window.location.replace("/testtask/");
+
+                   }
+
+                   // window.alert("修改任务成功！")
+
+               }
+
+               else if (resp.status == 10102){
+
+                    window.alert("修改失败：用例为空")
                }
            }
        );

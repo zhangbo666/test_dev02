@@ -1,0 +1,18 @@
+{
+  "3": {
+      "method":"get",
+      "url":"https://api.github.com/events",
+      "par":"{}",
+      "assert_text":"github"
+
+  },
+
+  "10": {
+      "method":"post",
+      "url":"http://httpbin.org/post",
+      "par":"{'key':'value'}",
+      "assert_text":"123.112.251.124"
+
+  }
+
+}

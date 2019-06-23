@@ -8,12 +8,10 @@ from testcase_app.models import TestCase
 
 from testtask_app.models import TestTask
 
-from django.http import JsonResponse
+from django.http import JsonResponse,HttpResponseRedirect
 
 import json
 
-
-# Create your views here.
 
 
 def testtask_manage(request):
@@ -39,6 +37,19 @@ def edit_task(request,tid):
     return render(request,"task_edit.html",{"type":"edit"})
 
 
+def delete_task(request,tid):
+
+    '''删除任务'''
+
+    if request.method == "GET":
+
+        task = TestTask.objects.get(id=tid)
+
+        task.delete()
+
+        return HttpResponseRedirect("/testtask/")
+
+
 def save_task(request):
 
     '''保存任务'''
@@ -48,10 +59,11 @@ def save_task(request):
         name = request.POST.get("name","")
         desc = request.POST.get("desc","")
         cases = request.POST.get("cases","")
-        tid  = request.POST.get("tid","")
+        task_id  = request.POST.get("task_id","")
 
         print ("任务名称&描述：",name,desc)
         print ("任务用例：",cases)
+        print ("任务id：",task_id)
 
         # 字符串转list
         # casesList = json.loads(cases)
@@ -61,7 +73,17 @@ def save_task(request):
 
             return JsonResponse({"status":10102,"message":"参数不能为空！"})
 
-        TestTask.objects.create(name=name,describe=desc,cases=cases)
+        if task_id == "0":
+
+            TestTask.objects.create(name=name,describe=desc,cases=cases)
+
+        else:
+
+            task = TestTask.objects.get(id=task_id)
+            task.name = name
+            task.describe = desc
+            task.cases = cases
+            task.save()
 
         return JsonResponse({"status":10200,"message":"success"})
 
@@ -144,7 +166,7 @@ def get_case_tree(request):
         task_dict = {
 
             "name":task.name,
-            "describe":task.describe,
+            "describe":task.describe
 
         }
 

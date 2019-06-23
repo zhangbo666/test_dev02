@@ -70,8 +70,6 @@ var caseTreeInit = function(){
 
            if (resp.status === 10200){
 
-               //window.alert("创建任务成功！");
-
                var zNodes = resp.data;
 
                zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);

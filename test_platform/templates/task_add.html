@@ -57,7 +57,7 @@
 
         var nodes   = treeObj.getCheckedNodes(true);
 
-        console.log(nodes);
+        console.log("nodes",nodes);
 
         for (let i=0; i<nodes.length; i++){
 
@@ -79,6 +79,7 @@
 
         $.post("/testtask/save_task/",{
 
+                task_id:0,
                 name:name,
                 desc:desc,
                 cases:casesStr
@@ -90,14 +91,19 @@
 
                     var message = confirm("创建任务成功，返回testtask首页？");
 
-                        if (message == true) {
+                    if (message == true) {
 
-                            // js alert弹框后跳转链接
-                            window.location.replace("/testtask/");
+                        // js alert弹框后跳转链接
+                        window.location.replace("/testtask/");
 
-                        }
+                    }
 
-//                    window.alert("创建任务成功！")
+                    //window.alert("创建任务成功！")
+                }
+
+                else if (resp.status == 10102){
+
+                    window.alert("创建失败：用例为空")
                 }
             }
         );
