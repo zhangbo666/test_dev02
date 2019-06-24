@@ -24,18 +24,18 @@ class FooTestCase(unittest.TestCase):
     def test_list_extracted_info_arguments1(self,method,url,par,assert_text):
 
         print ("test_list_extracted_info_arguments1:")
-        print ("请求方法",method)
-        print ("请求地址",url)
-        print ("请求参数",par)
-        print ("断言的结果",assert_text)
+        # print ("请求方法",method)
+        # print ("请求地址",url)
+        # print ("请求参数",par)
+        # print ("断言的结果",assert_text)
 
         json_par = par.replace("\'","\"")
-        print (json_par)
-        print (type(json_par))
+        # print (json_par)
+        # print (type(json_par))
         try:
 
             payload = json.loads(json_par)
-            print (type(payload))
+            # print (type(payload))
 
         except json.decoder.JSONDecodeError:
 
@@ -45,7 +45,7 @@ class FooTestCase(unittest.TestCase):
 
             r = requests.post(url,data=payload)
             result1 = r.text
-            print ("结果",result1)
+            # print ("结果",result1)
             print ("\n")
 
             self.assertIn(assert_text,result1)
@@ -54,7 +54,7 @@ class FooTestCase(unittest.TestCase):
 
             r = requests.get(url,params=payload)
             result2 = r.text
-            print ("结果",result2)
+            # print ("结果",result2)
             print ("\n")
 
             self.assertIn(assert_text,result2)
@@ -65,18 +65,18 @@ class FooTestCase(unittest.TestCase):
 
         print ("test_list_extracted_info_arguments2:")
 
-        print ("请求方法",method)
-        print ("请求地址",url)
-        print ("请求参数",par)
-        print ("断言的结果",assert_text)
+        # print ("请求方法",method)
+        # print ("请求地址",url)
+        # print ("请求参数",par)
+        # print ("断言的结果",assert_text)
 
         json_par = par.replace("\'","\"")
-        print (json_par)
-        print (type(json_par))
+        # print (json_par)
+        # print (type(json_par))
         try:
 
             payload = json.loads(json_par)
-            print (type(payload))
+            # print (type(payload))
 
         except json.decoder.JSONDecodeError:
 
@@ -86,7 +86,7 @@ class FooTestCase(unittest.TestCase):
 
             r = requests.post(url,data=payload)
             result1 = r.text
-            print ("结果",result1)
+            # print ("结果",result1)
             print ("\n")
 
             self.assertIn(assert_text,result1)
@@ -95,7 +95,7 @@ class FooTestCase(unittest.TestCase):
 
             r = requests.get(url,params=payload)
             result2 = r.text
-            print ("结果",result2)
+            # print ("结果",result2)
             print ("\n")
 
             self.assertIn(assert_text,result2)
