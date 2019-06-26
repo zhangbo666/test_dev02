@@ -129,7 +129,7 @@
 
                                     </a>
 
-                                    <a href="#" style="margin-left:10px;">
+                                    <a href="#" onclick="RunTask('{{ task.id }}')" style="margin-left:10px;">
 
                                           <i class="glyphicon glyphicon-play">执行</i>
 
@@ -140,9 +140,6 @@
                                           <i class="glyphicon glyphicon-list-alt">结果</i>
 
                                     </a>
-
-                                    <!--<button type="submit" name="update-data">执行用例</button>-->
-                                    <!--<button type="submit" name="delete-data">查看测试报告</button>-->
 
                                 </td>
 
@@ -596,10 +593,26 @@
 </div>
 
 
-
+<!--<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>-->
 
 <script type="text/javascript">
 
+    function RunTask(tid){
+
+        console.log("选中到任务id：",tid);
+
+        $.post("/testtask/run_task/",{
+
+        },function(resp){
+
+            if (resp.status == 10200){
+
+                window.alert(resp.message);
+            }
+        }
+
+        )
+    }
     // 用例删除js判断
     function del(){
 
