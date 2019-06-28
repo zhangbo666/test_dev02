@@ -326,17 +326,17 @@
             window.alert("URL不能为空！");
             return;
         }
-        else if (assert_type == "" || assert_text == ""){
+        else if (assert_type === "" || assert_text === ""){
 
             window.alert("断言的类型或参数不能为空！");
             return;
         }
-        else if (case_name == ""){
+        else if (case_name === ""){
 
             window.alert("用例名称不能为空！");
             return;
         }
-        else if (module_id == null || module_id == ""){
+        else if (module_id === null || module_id === ""){
 
             window.alert("所属模块不能为空！");
             return;
@@ -346,7 +346,7 @@
 
         let confirm_addmsg = confirm("确定要创建吗？");
 
-        if (confirm_addmsg == true)
+        if (confirm_addmsg === true)
         {
             $.post("/testcase/save_case",
                 {
@@ -364,13 +364,13 @@
 
                 function (data) {
 
-                    if (data.status == 10200) {
+                    if (data.status === 10200) {
 
                         console.log("返回结果：", data.message);
 
                         var message = confirm("创建成功，返回testcase首页？");
 
-                        if (message == true) {
+                        if (message === true) {
 
                             // js alert弹框后跳转链接
                             window.location.replace("/testcase/");

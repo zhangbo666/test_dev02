@@ -15,6 +15,6 @@ urlpatterns = [
 
     # 接口
     path('get_case_tree/',views.get_case_tree),
-    path('run_task/',views.get.run_task),
+    path('run_task/',views.run_task),
 
 ]

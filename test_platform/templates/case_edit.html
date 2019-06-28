@@ -373,13 +373,13 @@
 
                 function(data){
 
-                    if (data.status == 10200){
+                    if (data.status === 10200){
 
                         console.log("返回结果：",data.message);
 
                         var message = confirm("修改成功，返回testcase首页？");
 
-                        if (message == true){
+                        if (message === true){
 
                             // js alert弹框后跳转链接
                             window.location.replace("/testcase/");
