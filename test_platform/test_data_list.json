@@ -1,0 +1,32 @@
+{
+    "40": {
+          "header": "{}",
+          "assert_type": "contains",
+          "parameter_body": "{\"key1\":\"value1\",\"key2\":\"value2\"}",
+          "method": "post",
+          "assert_text": "requests",
+          "parameter_type": "from",
+          "url": "http://httpbin.org/post"
+    },
+    "42": {
+          "header": "{}",
+          "assert_type": "contains",
+          "parameter_body": "{\"key1\":\"value1\",\"key2\":\"value2\"}",
+          "method": "post",
+          "assert_text": "1",
+          "parameter_type": "from",
+          "url": "http://httpbin.org/post"
+    },
+    "43": {
+          "header": "{}",
+          "assert_type": "contains",
+          "parameter_body": "{\"key1\":\"value1\",\"key2\":\"value2\"}",
+          "method": "post",
+          "assert_text": "4",
+          "parameter_type": "from",
+          "url": "http://httpbin.org/post"
+    }}
+
+
+
+

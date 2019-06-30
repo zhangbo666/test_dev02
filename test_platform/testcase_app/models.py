@@ -39,7 +39,7 @@ class TestCase(models.Model):
       # 断言内容
       assert_text = models.TextField("断言内容",null=False)
 
-      # 断言类型(1:包含 2:匹配)
+      # 断言类型(1:包含contains 2:匹配mathches)
       assert_type = models.IntegerField("断言类型",null=False)
 
       # 创建时间

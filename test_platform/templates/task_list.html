@@ -129,7 +129,7 @@
 
                                     </a>
 
-                                    <a href="#" onclick="RunTask('{{ task.id }}')" style="margin-left:10px;">
+                                    <a href="#" onclick="return RunTask('{{ task.id }}')" style="margin-left:10px;">
 
                                           <i class="glyphicon glyphicon-play">执行</i>
 
@@ -599,36 +599,48 @@
 
     function RunTask(tid){
 
-        console.log("选中到任务id：",tid);
+        msg_ = confirm("需要执行此测试用例吗？");
 
-        $.post("/testtask/run_task/",{
+        if (msg_ == true)
+            {
+            console.log("选中到任务id：",tid);
 
-        },function(resp){
+            $.post("/testtask/run_task/",
+                {
+                    task_id:tid
+                },
+            function(resp){
 
-            if (resp.status == 10200){
+                if (resp.status == 10200){
 
-                window.alert(resp.message);
+                    window.alert(resp.message);
+                }
             }
+
+            )
         }
-
-        )
-    }
-    // 用例删除js判断
-    function del(){
-
-        msg_ = confirm("确定要删除任务吗？");
-
-        if (msg_ == true){
-
-            return true;
-
-            }
-
         else{
-
             return false;
         }
     };
+
+
+    // 用例删除js判断
+//    function del(){
+//
+//        msg_ = confirm("确定要删除任务吗？");
+//
+//        if (msg_ == true){
+//
+//            return true;
+//
+//            }
+//
+//        else{
+//
+//            return false;
+//        }
+//    };
 
 </script>
 

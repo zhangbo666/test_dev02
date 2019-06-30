@@ -11,8 +11,24 @@
       "method":"post",
       "url":"http://httpbin.org/post",
       "par":"{'key':'value'}",
-      "assert_text":"123.112.251.124"
+      "assert_text":"61.149.103.121"
 
   }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

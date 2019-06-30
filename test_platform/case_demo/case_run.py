@@ -13,13 +13,22 @@ import json
 @ddt
 class FooTestCase(unittest.TestCase):
 
-    # @data(3,4,12,33)
-    # def test_larger_than_two(self,value):
+    @data(3,4,12,33)
+    def test_larger_than_one(self,value):
 
-    #     print ("参数--->",value)
+        print ("参数--->",value)
+
+
+    @data([3,2],[4,3],[5,3])
+    @unpack
+    def test_larget_than_two(self,first,second):
+
+        print ("第一个数",first)
+        print ("第二个数",second)
+
 
     @data(["get","https://api.github.com/events","{}","github"],
-          ["post","http://httpbin.org/post","{'key':'value'}","123.112.251.124"])
+          ["post","http://httpbin.org/post","{'key':'value'}","61.149.103.121"])
     @unpack
     def test_list_extracted_info_arguments1(self,method,url,par,assert_text):
 
@@ -32,6 +41,7 @@ class FooTestCase(unittest.TestCase):
         json_par = par.replace("\'","\"")
         # print (json_par)
         # print (type(json_par))
+
         try:
 
             payload = json.loads(json_par)
@@ -45,7 +55,8 @@ class FooTestCase(unittest.TestCase):
 
             r = requests.post(url,data=payload)
             result1 = r.text
-            # print ("结果",result1)
+            print ("结果-->post",result1)
+            print (type(result1))
             print ("\n")
 
             self.assertIn(assert_text,result1)
@@ -54,13 +65,15 @@ class FooTestCase(unittest.TestCase):
 
             r = requests.get(url,params=payload)
             result2 = r.text
-            # print ("结果",result2)
+            print ("结果-->get",result2)
+            print (type(result2))
+
             print ("\n")
 
             self.assertIn(assert_text,result2)
 
+
     @file_data("test_data_list.json")
-    @unpack
     def test_list_extracted_info_arguments2(self,method,url,par,assert_text):
 
         print ("test_list_extracted_info_arguments2:")
@@ -108,25 +121,33 @@ class FooTestCase(unittest.TestCase):
 #
 #         r = requests.get('https://api.github.com/events')
 #         result = r.text
-#         # print (type(result))
-#         # print(result)
-#         # print (result[0]["id"])
+#         print (type(result))
+#         print(result)
+#         print (result[0]["id"])
 #         self.assertIn("github",result)
 #         self.assertEqual(2+2,4)
 #
 #     def test_case2(self):
 #
 #         r = requests.post('http://httpbin.org/post',data = {'key':'value'})
-#
 #         result = r.text
-#
+#         print (type(result))
 #         print (result)
-#
-#         self.assertIn("123.112.251.124",result)
+#         self.assertIn("61.149.103.121",result)
 #
 #     def test_case3(self):
 #
+#         r = requests.post('http://httpbin.org/post',data = {'key':'value'})
+#         result = r.json()
+#         print (type(result))
+#         print (result)
+#         self.assertIn("61.149.103.121, 61.149.103.121",result["origin"])
+#
+#     def test_case4(self):
+#
 #         self.assertEqual(2+2,4)
+
+
 
 if __name__ == '__main__':
 

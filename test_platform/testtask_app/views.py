@@ -12,17 +12,22 @@ from django.http import JsonResponse,HttpResponseRedirect
 
 import json
 
+from test_platform import settings
+
+import os
 
 
+'''任务list'''
 def testtask_manage(request):
 
-    '''任务管理'''
+    '''任务list'''
 
     tasks = TestTask.objects.all()
 
     return render(request,"task_list.html",{"type":"list","tasks":tasks})
 
 
+'''创建任务'''
 def add_task(request):
 
     '''创建任务'''
@@ -30,6 +35,7 @@ def add_task(request):
     return render(request,"task_add.html",{"type":"add"})
 
 
+'''编辑任务'''
 def edit_task(request,tid):
 
     '''编辑任务'''
@@ -37,6 +43,7 @@ def edit_task(request,tid):
     return render(request,"task_edit.html",{"type":"edit"})
 
 
+'''删除任务'''
 def delete_task(request,tid):
 
     '''删除任务'''
@@ -50,6 +57,7 @@ def delete_task(request,tid):
         return HttpResponseRedirect("/testtask/")
 
 
+'''保存任务'''
 def save_task(request):
 
     '''保存任务'''
@@ -91,7 +99,91 @@ def save_task(request):
 
         return JsonResponse({"status":10101,"message":"请求方法错误！"})
 
+'''运行任务'''
+def run_task(request):
 
+    '''运行任务'''
+    if request.method == "POST":
+
+        tid = request.POST.get("task_id")
+
+        if tid == "":
+
+            return JsonResponse({"status":10101,"message":"task id is null"})
+
+        task = TestTask.objects.get(id=tid)
+
+        print (task.cases)
+        print (type(task.cases))
+
+        case_list = json.loads(task.cases)
+        print (type(case_list))
+
+        test_data = {}
+        for cid in case_list:
+
+            case = TestCase.objects.get(id=cid)
+
+            if case.method == 1:
+
+                method = "get"
+
+            elif case.method == 2:
+
+                method = "post"
+
+            if case.parameter_type == 1:
+
+                parameter_type = "from"
+
+            elif case.parameter_type == 2:
+
+                parameter_type = "json"
+
+            if case.assert_type == 1:
+
+                assert_type = "contains"
+
+            elif case.assert_type == 2:
+
+                assert_type = "mathches"
+
+            test_data[case.id] = {
+
+                "url":case.url,
+                "method":method,
+                "header":case.header,
+                "parameter_type":parameter_type,
+                "parameter_body":case.parameter_body,
+                "assert_type":assert_type,
+                "assert_text":case.assert_text,
+
+            }
+        print ("任务下面的用例：",json.dumps(test_data))
+
+        case_data = json.dumps(test_data)
+
+        BASE_PATH = settings.BASE_DIR + "/testtask_app/extend/"
+        with(open(BASE_PATH + "test_data_list.json","w"))as f:
+
+            f.write(case_data)
+
+        run_cmd = "pytest -vs " + BASE_PATH + "run_task.py --junitxml="+BASE_PATH+"result.html"
+        print ("运行的命令",run_cmd)
+
+        os.system("pytest -vs " + BASE_PATH + "run_task.py --junitxml="+BASE_PATH+"result.html")
+
+        return JsonResponse({"status":10200,"message":"任务执行完成！"})
+
+
+    else:
+
+        return JsonResponse({"status":10101,"message":"请求方法错误！"})
+
+
+
+
+'''获取用例树形结构'''
 def get_case_tree(request):
 
     '''获取用例树形结构'''
@@ -162,6 +254,7 @@ def get_case_tree(request):
 
         # 字符串转list
         caseList = json.loads(task.cases)
+
 
         task_dict = {
 
