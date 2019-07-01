@@ -14,6 +14,10 @@ import json
 
 from test_platform import settings
 
+import unittest
+
+import xmlrunner
+
 import os
 
 
@@ -160,7 +164,6 @@ def run_task(request):
 
             }
         print ("任务下面的用例：",json.dumps(test_data))
-
         case_data = json.dumps(test_data)
 
         BASE_PATH = settings.BASE_DIR + "/testtask_app/extend/"
@@ -169,7 +172,7 @@ def run_task(request):
             f.write(case_data)
 
         run_cmd = "pytest -vs " + BASE_PATH + "run_task.py --junitxml="+BASE_PATH+"result.html"
-        print ("运行的命令",run_cmd)
+        # print ("运行的命令",run_cmd)
 
         os.system("pytest -vs " + BASE_PATH + "run_task.py --junitxml="+BASE_PATH+"result.html")
 

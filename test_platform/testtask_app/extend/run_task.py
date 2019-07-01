@@ -4,19 +4,20 @@ import sys
 import json
 import unittest
 import requests
+import xmlrunner
 from ddt import ddt,data,file_data,unpack
 from os.path import dirname,abspath
 
 BASE_DIR = dirname(dirname(dirname(abspath(__file__))))
-print ("运行测试文件：",BASE_DIR)
+# print ("运行测试文件：",BASE_DIR)
 
 BASE_PATH = BASE_DIR.replace("\\","/")
-print ("运行测试文件：",BASE_PATH)
+# print ("运行测试文件：",BASE_PATH)
 
 sys.path.append(BASE_PATH)
 
 TASK_PATH = BASE_PATH + "/testtask_app/extend/"
-print ("运行测试文件：",TASK_PATH)
+# print ("运行测试文件：",TASK_PATH)
 
 @ddt
 class InterfaceTest(unittest.TestCase):
@@ -67,7 +68,15 @@ class InterfaceTest(unittest.TestCase):
                 # self.assertIn(assert_text,r.text)
 
 
+def run_cases():
+
+    with open(TASK_PATH + 'results.xml','wb') as output:
+
+        unittest.main(
+
+            testRunner=xmlrunner.XMLTestRunner(output=output),
+            failfast=False,buffer=False,catchbreak=False)
+
 if __name__ == '__main__':
 
-    unittest.main()
-
+    run_cases()
