@@ -14,10 +14,6 @@ import json
 
 from test_platform import settings
 
-import unittest
-
-import xmlrunner
-
 import os
 
 
@@ -124,6 +120,7 @@ def run_task(request):
         print (type(case_list))
 
         test_data = {}
+
         for cid in case_list:
 
             case = TestCase.objects.get(id=cid)
@@ -163,6 +160,7 @@ def run_task(request):
                 "assert_text":case.assert_text,
 
             }
+
         print ("任务下面的用例：",json.dumps(test_data))
         case_data = json.dumps(test_data)
 
@@ -172,7 +170,7 @@ def run_task(request):
             f.write(case_data)
 
         run_cmd = "pytest -vs " + BASE_PATH + "run_task.py --junitxml="+BASE_PATH+"result.html"
-        # print ("运行的命令",run_cmd)
+        print ("运行的命令",run_cmd)
 
         os.system("pytest -vs " + BASE_PATH + "run_task.py --junitxml="+BASE_PATH+"result.html")
 
