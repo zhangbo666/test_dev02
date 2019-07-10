@@ -16,6 +16,8 @@ from test_platform import settings
 
 import os
 
+from testtask_app.extend.task_thread import TaskThread
+
 
 '''任务list'''
 def testtask_manage(request):
@@ -111,68 +113,8 @@ def run_task(request):
 
             return JsonResponse({"status":10101,"message":"task id is null"})
 
-        task = TestTask.objects.get(id=tid)
-
-        print (task.cases)
-        print (type(task.cases))
-
-        case_list = json.loads(task.cases)
-        print (type(case_list))
-
-        test_data = {}
-
-        for cid in case_list:
-
-            case = TestCase.objects.get(id=cid)
-
-            if case.method == 1:
-
-                method = "get"
-
-            elif case.method == 2:
-
-                method = "post"
-
-            if case.parameter_type == 1:
-
-                parameter_type = "from"
-
-            elif case.parameter_type == 2:
-
-                parameter_type = "json"
-
-            if case.assert_type == 1:
-
-                assert_type = "contains"
-
-            elif case.assert_type == 2:
-
-                assert_type = "mathches"
-
-            test_data[case.id] = {
-
-                "url":case.url,
-                "method":method,
-                "header":case.header,
-                "parameter_type":parameter_type,
-                "parameter_body":case.parameter_body,
-                "assert_type":assert_type,
-                "assert_text":case.assert_text,
-
-            }
-
-        print ("任务下面的用例：",json.dumps(test_data))
-        case_data = json.dumps(test_data)
-
-        BASE_PATH = settings.BASE_DIR + "/testtask_app/extend/"
-        with(open(BASE_PATH + "test_data_list.json","w"))as f:
-
-            f.write(case_data)
-
-        run_cmd = "pytest -vs " + BASE_PATH + "run_task.py --junitxml="+BASE_PATH+"result.html"
-        print ("运行的命令",run_cmd)
-
-        os.system("pytest -vs " + BASE_PATH + "run_task.py --junitxml="+BASE_PATH+"result.html")
+        # 通过多线程运行测试任务
+        TaskThread(tid).run()
 
         return JsonResponse({"status":10200,"message":"任务执行完成！"})
 

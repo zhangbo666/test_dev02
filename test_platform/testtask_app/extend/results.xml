@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+	<testsuite errors="0" failures="0" file=".py" name="InterfaceTest-20190710190915" skipped="0" tests="2" time="1.146" timestamp="2019-07-10T19:09:16">
+		<testcase classname="InterfaceTest" file="testtask_app/extend/run_task.py" line="143" name="test_run_casess_00001_39" time="0.608" timestamp="2019-07-10T19:09:15">
+			<system-out>
+<![CDATA[{
+  "args": {}, 
+  "data": "", 
+  "files": {}, 
+  "form": {
+    "key1": "value1", 
+    "key2": "value2"
+  }, 
+  "headers": {
+    "Accept": "*/*", 
+    "Accept-Encoding": "gzip, deflate", 
+    "Content-Length": "23", 
+    "Content-Type": "application/x-www-form-urlencoded", 
+    "Host": "httpbin.org", 
+    "User-Agent": "python-requests/2.21.0"
+  }, 
+  "json": null, 
+  "origin": "221.218.232.24, 221.218.232.24", 
+  "url": "https://httpbin.org/post"
+}
+
+]]>			</system-out>
+			<system-err>
+<![CDATA[]]>			</system-err>
+		</testcase>
+		<testcase classname="InterfaceTest" file="testtask_app/extend/run_task.py" line="143" name="test_run_casess_00002_41" time="0.538" timestamp="2019-07-10T19:09:16">
+			<system-out>
+<![CDATA[{
+  "args": {}, 
+  "data": "", 
+  "files": {}, 
+  "form": {
+    "key1": "value1", 
+    "key2": "value2"
+  }, 
+  "headers": {
+    "Accept": "*/*", 
+    "Accept-Encoding": "gzip, deflate", 
+    "Content-Length": "23", 
+    "Content-Type": "application/x-www-form-urlencoded", 
+    "Host": "httpbin.org", 
+    "User-Agent": "python-requests/2.21.0"
+  }, 
+  "json": null, 
+  "origin": "221.218.232.24, 221.218.232.24", 
+  "url": "https://httpbin.org/post"
+}
+
+]]>			</system-out>
+			<system-err>
+<![CDATA[]]>			</system-err>
+		</testcase>
+	</testsuite>
+</testsuites>

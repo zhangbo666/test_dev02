@@ -49,6 +49,8 @@ class InterfaceTest(unittest.TestCase):
 
                 r = requests.get(url,headers=header_dict,params=parameter_dict)
 
+                print (r.text)
+
                 # self.assertIn(assert_text,r.text)
 
         if method == "post":
@@ -64,6 +66,8 @@ class InterfaceTest(unittest.TestCase):
             elif parameter_type == "json":
 
                 r = requests.post(url,headers=header_dict,json=parameter_dict)
+
+                print (r.text)
 
                 # self.assertIn(assert_text,r.text)
 

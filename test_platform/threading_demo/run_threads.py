@@ -10,16 +10,15 @@ import time
 
 def task1():
 
-    time.sleep(1)
-
     print ("task_1")
+    time.sleep(1)
 
 
 def task2():
 
-    # time.sleep(2)
-
     print ("task_2")
+
+    time.sleep(2)
 
 def run_talk1():
 
@@ -65,11 +64,6 @@ if __name__ == '__main__':
 
     print ("parse")
 
-    run_talk1()
+    # run_talk1()
 
-    print ("end")
-
-
-
-
-    
+    # print ("end")
