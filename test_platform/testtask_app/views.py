@@ -113,11 +113,25 @@ def run_task(request):
 
             return JsonResponse({"status":10101,"message":"task id is null"})
 
+        tasks = TestTask.objects.all()
+
+        for t in tasks:
+
+            if t.status == 1:
+
+                return JsonResponse({"status":10200,"message":"任务执行中，请稍后再试！"})
+
+        # 修改任务状态为，执行中
+        task = TestTask.objects.get(id=tid)
+
+        task.status = 1
+
+        task.save()
+
         # 通过多线程运行测试任务
         TaskThread(tid).run()
 
-        return JsonResponse({"status":10200,"message":"任务执行完成！"})
-
+        return JsonResponse({"status":10200,"message":"任务开始执行！"})
 
     else:
 

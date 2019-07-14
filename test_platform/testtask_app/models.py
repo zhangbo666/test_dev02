@@ -30,3 +30,42 @@ class TestTask(models.Model):
 
             return self.name
 
+
+class TestResult(models.Model):
+
+      '''
+
+      结果表
+
+      '''
+
+      # 结果名称
+      name = models.CharField("名称",max_length=100,blank=False,default="")
+
+      # 任务id
+      task = models.ForeignKey(TestTask,on_delete=models.CASCADE)
+
+      # 错误用例数
+      error = models.IntegerField("错误用例")
+
+      # 失败用例数
+      failure = models.IntegerField("失败用例")
+
+      # 跳过用例数
+      skipped = models.IntegerField("跳过用例")
+
+      # 总用例数
+      tests = models.IntegerField("总用例数")
+
+      # 运行时长
+      run_time = models.IntegerField("运行时长")
+
+      # 结果详情
+      result = models.TextField("详情",default="")
+
+      # 创建时间
+      create_time = models.DateTimeField("创建时间",auto_now_add=True)
+
+      def __str__(self):
+
+            return self.name

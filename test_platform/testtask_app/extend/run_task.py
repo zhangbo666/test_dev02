@@ -51,7 +51,7 @@ class InterfaceTest(unittest.TestCase):
 
                 print (r.text)
 
-                # self.assertIn(assert_text,r.text)
+                self.assertIn(assert_text,r.text)
 
         if method == "post":
 
@@ -61,7 +61,7 @@ class InterfaceTest(unittest.TestCase):
 
                 print (r.text)
 
-                # self.assertIn(assert_text,r.text)
+                self.assertIn(assert_text,r.text)
 
             elif parameter_type == "json":
 
@@ -69,7 +69,7 @@ class InterfaceTest(unittest.TestCase):
 
                 print (r.text)
 
-                # self.assertIn(assert_text,r.text)
+                self.assertIn(assert_text,r.text)
 
 
 def run_cases():

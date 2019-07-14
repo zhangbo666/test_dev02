@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-	<testsuite errors="0" failures="0" file=".py" name="InterfaceTest-20190710190915" skipped="0" tests="2" time="1.146" timestamp="2019-07-10T19:09:16">
-		<testcase classname="InterfaceTest" file="testtask_app/extend/run_task.py" line="143" name="test_run_casess_00001_39" time="0.608" timestamp="2019-07-10T19:09:15">
+	<testsuite errors="0"
+               failures="0"
+               file=".py"
+               name="InterfaceTest-20190714145842"
+               skipped="0"
+               tests="2"
+               time="3.649"
+               timestamp="2019-07-14T14:58:46">
+		<testcase classname="InterfaceTest"
+                  file="testtask_app/extend/run_task.py"
+                  line="143"
+                  name="test_run_casess_00001_41"
+                  time="1.104"
+                  timestamp="2019-07-14T14:58:43">
 			<system-out>
 <![CDATA[{
   "args": {}, 
@@ -20,7 +32,7 @@
     "User-Agent": "python-requests/2.21.0"
   }, 
   "json": null, 
-  "origin": "221.218.232.24, 221.218.232.24", 
+  "origin": "221.218.236.213, 221.218.236.213", 
   "url": "https://httpbin.org/post"
 }
 
@@ -28,7 +40,12 @@
 			<system-err>
 <![CDATA[]]>			</system-err>
 		</testcase>
-		<testcase classname="InterfaceTest" file="testtask_app/extend/run_task.py" line="143" name="test_run_casess_00002_41" time="0.538" timestamp="2019-07-10T19:09:16">
+		<testcase classname="InterfaceTest"
+                  file="testtask_app/extend/run_task.py"
+                  line="143"
+                  name="test_run_casess_00002_39"
+                  time="2.545"
+                  timestamp="2019-07-14T14:58:46">
 			<system-out>
 <![CDATA[{
   "args": {}, 
@@ -47,7 +64,7 @@
     "User-Agent": "python-requests/2.21.0"
   }, 
   "json": null, 
-  "origin": "221.218.232.24, 221.218.232.24", 
+  "origin": "221.218.236.213, 221.218.236.213", 
   "url": "https://httpbin.org/post"
 }
 

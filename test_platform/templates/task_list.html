@@ -614,12 +614,16 @@
                 if (resp.status == 10200){
 
                     window.alert(resp.message);
+
+                    window.location.reload();
+
                 }
             }
 
             )
         }
         else{
+
             return false;
         }
     };
@@ -638,24 +642,6 @@
             return false;
         }
     }
-
-
-    // 用例删除js判断
-//    function del(){
-//
-//        msg_ = confirm("确定要删除任务吗？");
-//
-//        if (msg_ == true){
-//
-//            return true;
-//
-//            }
-//
-//        else{
-//
-//            return false;
-//        }
-//    };
 
 </script>
 
