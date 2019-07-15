@@ -10,6 +10,7 @@ import json
 import os
 from testtask_app.models import TestTask
 from testcase_app.models import TestCase
+from testtask_app.models import TestResult
 from test_platform import settings
 from xml.dom.minidom import parse
 
@@ -100,6 +101,8 @@ class TaskThread:
 
         # 4. 读取result.xml文件，把这里面的结果放到表里面
 
+        self.save_result()
+
         # 5. 修改任务的状态，执行完成
         task = TestTask.objects.get(id=self.tid)
 
@@ -107,10 +110,10 @@ class TaskThread:
 
         task.save()
 
-    def save_result(self ):
+    def save_result(self):
 
         # 打开xml文档
-        dom = parse(EXTEND_DIR + 'results.html')
+        dom = parse(EXTEND_DIR + 'results.xml')
 
         # 得到文档元素对象
         root = dom.documentElement
@@ -118,7 +121,37 @@ class TaskThread:
         #获取（一组）标签
         testsuite = root.getElementsByTagName('testsuite')
 
-        testsuite[0].getAttribute("errors")
+        name = testsuite[0].getAttribute("name")
+        errors = testsuite[0].getAttribute("errors")
+        failures = testsuite[0].getAttribute("failures")
+        skipped = testsuite[0].getAttribute("skipped")
+        tests = testsuite[0].getAttribute("tests")
+        run_time = testsuite[0].getAttribute("time")
+
+        with(open(EXTEND_DIR + 'results.xml',"r",encoding='utf-8')) as f:
+
+            result = f.read()
+
+        # print("name-->",name)
+        # print("errors-->",errors)
+        # print("failures-->",failures)
+        # print("skipped-->",skipped)
+        # print("tests-->",tests)
+        # print("run_time-->",run_time)
+        # print("result-->",result)
+
+        TestResult.objects.create(
+
+            name = name,
+            task_id=self.tid,
+            error = errors,
+            failure = failures,
+            skipped = skipped,
+            tests = tests,
+            run_time = run_time,
+            result = result,
+
+        )
 
 
     def run_tasks(self):

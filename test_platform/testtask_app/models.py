@@ -58,7 +58,7 @@ class TestResult(models.Model):
       tests = models.IntegerField("总用例数")
 
       # 运行时长
-      run_time = models.IntegerField("运行时长")
+      run_time = models.FloatField("运行时长")
 
       # 结果详情
       result = models.TextField("详情",default="")

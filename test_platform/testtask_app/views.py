@@ -8,6 +8,8 @@ from testcase_app.models import TestCase
 
 from testtask_app.models import TestTask
 
+from testtask_app.models import TestResult
+
 from django.http import JsonResponse,HttpResponseRedirect
 
 import json
@@ -137,6 +139,13 @@ def run_task(request):
 
         return JsonResponse({"status":10101,"message":"请求方法错误！"})
 
+
+'''查看结果'''
+def result(request,tid):
+
+    results = TestResult.objects.filter(task_id=tid).order_by("-name")
+
+    return render(request,"task_result.html",{"type":"result","results":results})
 
 
 
