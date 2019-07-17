@@ -103,6 +103,26 @@ def save_task(request):
 
         return JsonResponse({"status":10101,"message":"请求方法错误！"})
 
+'''查看结果'''
+def see_log(request):
+
+    if request.method == "POST":
+
+        rid = request.POST.get("result_id")
+
+        if rid == "":
+
+            return JsonResponse({"status":10102,"message":"id不能为空"})
+
+        r = TestResult.objects.get(id=rid)
+
+        return JsonResponse({"status":10200,"message":"","data":r.result})
+
+    else:
+
+        return JsonResponse({"status":10101,"message":"请求方法错误！"})
+
+
 '''运行任务'''
 def run_task(request):
 

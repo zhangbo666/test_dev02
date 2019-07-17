@@ -9,6 +9,7 @@
         <table class="table table-striped">
             <thead>
                 <tr>
+                    <th class="op">编号</th>
                     <th class="op">名称</th>
                     <th class="op">错误</th>
                     <th class="op">失败 </th>
@@ -23,6 +24,7 @@
                 {% for r in results %}
 
                 <tr>
+                    <td>{{ r.id }}</td>
                     <td>{{ r.name }}</td>
                     <td>{{ r.error }}</td>
                     <td>{{ r.failure }}</td>
@@ -31,11 +33,15 @@
                     <td>{{ r.run_time }}</td>
                     <td>
 
-                        <a href="#" style="margin-left:10px;">
+                        <div style="margin-left:10px;">
 
-                              <i class="glyphicon glyphicon-list-alt">详情</i>
+                            <button class="btn btn-primary btn-sm"
+                                    data-toggle="modal"
+                                    data-target="#myModal"
+                                    onclick="SeeLog('{{ r.id }}')">log
+                            </button>
 
-                        </a>
+                        </div>
 
                     </td>
 
@@ -45,6 +51,33 @@
 
             </tbody>
         </table>
+    </div>
+
+
+    <!--查看日志的模态框（Modal）-->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        日志详情
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    测试文档
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                    <button type="button" class="btn btn-primary">
+                        提交更改
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
     </div>
 
 </div>
@@ -59,72 +92,20 @@
 
 <script type="text/javascript">
 
-    function saveFun(){
+    function SeeLog(rid){
 
-        //接口任务名称与描述
-        let name = $("#task_name").val();
-        let desc = $("#describe").val();
+        console.log("查看日志",rid);
 
-        if (name === ""){
+        $.post("/testtask/see_log/",{
 
-            window.alert("任务名称不能为空！");
-            return;
-
-        }
-
-        var cases = new Array();
-
-        var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
-
-        var nodes   = treeObj.getCheckedNodes(true);
-
-        console.log("nodes",nodes);
-
-        for (let i=0; i<nodes.length; i++){
-
-            //判断是否为父节点，false：没有父节点、true：有父节点
-            if (nodes[i].isParent == false){
-
-                //获取选中节点的值
-                console.log("节点id：",nodes[i].id,nodes[i].name);
-
-                cases.push(nodes[i].id);
-
-            }
-        }
-
-        console.log("用例列表",cases);
-
-        //将列表转为字符串
-        casesStr = JSON.stringify(cases);
-
-        $.post("/testtask/save_task/",{
-
-                task_id:0,
-                name:name,
-                desc:desc,
-                cases:casesStr
+                result_id:rid
 
             },
             function (resp){
 
                 if (resp.status == 10200){
 
-                    var message = confirm("创建任务成功，返回testtask首页？");
-
-                    if (message == true) {
-
-                        // js alert弹框后跳转链接
-                        window.location.replace("/testtask/");
-
-                    }
-
-                    //window.alert("创建任务成功！")
-                }
-
-                else if (resp.status == 10102){
-
-                    window.alert("创建任务失败：测试用例未勾选!")
+                    console.log(resp.data)
                 }
             }
         );

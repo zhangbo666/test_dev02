@@ -17,5 +17,6 @@ urlpatterns = [
     path('get_case_tree/',views.get_case_tree),
     path('save_task/',views.save_task),
     path('run_task/',views.run_task),
+    path('see_log/',views.see_log),
 
 ]
