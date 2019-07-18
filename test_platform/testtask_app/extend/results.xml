@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-	<testsuite errors="0" failures="0" file=".py" name="InterfaceTest-20190716060838" skipped="0" tests="6" time="7.149" timestamp="2019-07-16T06:08:46">
-		<testcase classname="InterfaceTest" file="testtask_app/extend/run_task.py" line="143" name="test_run_casess_00001_40" time="2.033" timestamp="2019-07-16T06:08:40">
+	<testsuite errors="0" failures="1" file=".py" name="InterfaceTest-20190717155807" skipped="0" tests="3" time="3.347" timestamp="2019-07-17T15:58:10">
+		<testcase classname="InterfaceTest" file="testtask_app/extend/run_task.py" line="143" name="test_run_casess_00001_42" time="1.199" timestamp="2019-07-17T15:58:08">
 			<system-out>
 <![CDATA[{
   "args": {}, 
@@ -20,7 +20,7 @@
     "User-Agent": "python-requests/2.21.0"
   }, 
   "json": null, 
-  "origin": "202.106.49.22, 202.106.49.22", 
+  "origin": "221.218.236.213, 221.218.236.213", 
   "url": "https://httpbin.org/post"
 }
 
@@ -28,7 +28,7 @@
 			<system-err>
 <![CDATA[]]>			</system-err>
 		</testcase>
-		<testcase classname="InterfaceTest" file="testtask_app/extend/run_task.py" line="143" name="test_run_casess_00002_41" time="1.021" timestamp="2019-07-16T06:08:41">
+		<testcase classname="InterfaceTest" file="testtask_app/extend/run_task.py" line="143" name="test_run_casess_00003_40" time="1.023" timestamp="2019-07-17T15:58:10">
 			<system-out>
 <![CDATA[{
   "args": {}, 
@@ -47,7 +47,7 @@
     "User-Agent": "python-requests/2.21.0"
   }, 
   "json": null, 
-  "origin": "202.106.49.22, 202.106.49.22", 
+  "origin": "221.218.236.213, 221.218.236.213", 
   "url": "https://httpbin.org/post"
 }
 
@@ -55,7 +55,15 @@
 			<system-err>
 <![CDATA[]]>			</system-err>
 		</testcase>
-		<testcase classname="InterfaceTest" file="testtask_app/extend/run_task.py" line="143" name="test_run_casess_00003_43" time="1.023" timestamp="2019-07-16T06:08:42">
+		<testcase classname="InterfaceTest" file="testtask_app/extend/run_task.py" line="143" name="test_run_casess_00002_43" time="1.125" timestamp="2019-07-17T15:58:09">
+			<failure message="'4' not found in '{\n  &quot;args&quot;: {}, \n  &quot;data&quot;: &quot;&quot;, \n  &quot;files&quot;: {}, \n  &quot;form&quot;: {\n    &quot;key1&quot;: &quot;value1&quot;, \n    &quot;key2&quot;: &quot;value2&quot;\n  }, \n  &quot;headers&quot;: {\n    &quot;Accept&quot;: &quot;*/*&quot;, \n    &quot;Accept-Encoding&quot;: &quot;gzip, deflate&quot;, \n    &quot;Content-Length&quot;: &quot;23&quot;, \n    &quot;Content-Type&quot;: &quot;application/x-www-form-urlencoded&quot;, \n    &quot;Host&quot;: &quot;httpbin.org&quot;, \n    &quot;User-Agent&quot;: &quot;python-requests/2.21.0&quot;\n  }, \n  &quot;json&quot;: null, \n  &quot;origin&quot;: &quot;221.218.236.213, 221.218.236.213&quot;, \n  &quot;url&quot;: &quot;https://httpbin.org/post&quot;\n}\n'" type="AssertionError">
+<![CDATA[Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.4/lib/python3.4/site-packages/ddt.py", line 145, in wrapper
+    return func(self, *args, **kwargs)
+  File "/Users/zhangbo/51talk/test_django/DjangoTest_ZB/django_3/django_example/test_dev02/test_platform/testtask_app/extend/run_task.py", line 64, in test_run_casess
+    self.assertIn(assert_text,r.text)
+AssertionError: '4' not found in '{\n  "args": {}, \n  "data": "", \n  "files": {}, \n  "form": {\n    "key1": "value1", \n    "key2": "value2"\n  }, \n  "headers": {\n    "Accept": "*/*", \n    "Accept-Encoding": "gzip, deflate", \n    "Content-Length": "23", \n    "Content-Type": "application/x-www-form-urlencoded", \n    "Host": "httpbin.org", \n    "User-Agent": "python-requests/2.21.0"\n  }, \n  "json": null, \n  "origin": "221.218.236.213, 221.218.236.213", \n  "url": "https://httpbin.org/post"\n}\n'
+]]>			</failure>
 			<system-out>
 <![CDATA[{
   "args": {}, 
@@ -74,88 +82,7 @@
     "User-Agent": "python-requests/2.21.0"
   }, 
   "json": null, 
-  "origin": "202.106.49.22, 202.106.49.22", 
-  "url": "https://httpbin.org/post"
-}
-
-]]>			</system-out>
-			<system-err>
-<![CDATA[]]>			</system-err>
-		</testcase>
-		<testcase classname="InterfaceTest" file="testtask_app/extend/run_task.py" line="143" name="test_run_casess_00004_42" time="1.023" timestamp="2019-07-16T06:08:43">
-			<system-out>
-<![CDATA[{
-  "args": {}, 
-  "data": "", 
-  "files": {}, 
-  "form": {
-    "key1": "value1", 
-    "key2": "value2"
-  }, 
-  "headers": {
-    "Accept": "*/*", 
-    "Accept-Encoding": "gzip, deflate", 
-    "Content-Length": "23", 
-    "Content-Type": "application/x-www-form-urlencoded", 
-    "Host": "httpbin.org", 
-    "User-Agent": "python-requests/2.21.0"
-  }, 
-  "json": null, 
-  "origin": "202.106.49.22, 202.106.49.22", 
-  "url": "https://httpbin.org/post"
-}
-
-]]>			</system-out>
-			<system-err>
-<![CDATA[]]>			</system-err>
-		</testcase>
-		<testcase classname="InterfaceTest" file="testtask_app/extend/run_task.py" line="143" name="test_run_casess_00005_38" time="1.028" timestamp="2019-07-16T06:08:45">
-			<system-out>
-<![CDATA[{
-  "args": {}, 
-  "data": "", 
-  "files": {}, 
-  "form": {
-    "key1": "value1", 
-    "key2": "value2"
-  }, 
-  "headers": {
-    "Accept": "*/*", 
-    "Accept-Encoding": "gzip, deflate", 
-    "Content-Length": "23", 
-    "Content-Type": "application/x-www-form-urlencoded", 
-    "Host": "httpbin.org", 
-    "User-Agent": "python-requests/2.21.0"
-  }, 
-  "json": null, 
-  "origin": "202.106.49.22, 202.106.49.22", 
-  "url": "https://httpbin.org/post"
-}
-
-]]>			</system-out>
-			<system-err>
-<![CDATA[]]>			</system-err>
-		</testcase>
-		<testcase classname="InterfaceTest" file="testtask_app/extend/run_task.py" line="143" name="test_run_casess_00006_39" time="1.020" timestamp="2019-07-16T06:08:46">
-			<system-out>
-<![CDATA[{
-  "args": {}, 
-  "data": "", 
-  "files": {}, 
-  "form": {
-    "key1": "value1", 
-    "key2": "value2"
-  }, 
-  "headers": {
-    "Accept": "*/*", 
-    "Accept-Encoding": "gzip, deflate", 
-    "Content-Length": "23", 
-    "Content-Type": "application/x-www-form-urlencoded", 
-    "Host": "httpbin.org", 
-    "User-Agent": "python-requests/2.21.0"
-  }, 
-  "json": null, 
-  "origin": "202.106.49.22, 202.106.49.22", 
+  "origin": "221.218.236.213, 221.218.236.213", 
   "url": "https://httpbin.org/post"
 }
 
