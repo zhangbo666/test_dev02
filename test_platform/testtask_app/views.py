@@ -20,10 +20,14 @@ from test_platform import settings
 
 import os
 
+from django.contrib.auth.decorators import login_required
+
 from testtask_app.extend.task_thread import TaskThread
 
 
+
 '''任务list'''
+@login_required
 def testtask_manage(request):
 
     '''任务list'''
@@ -33,7 +37,7 @@ def testtask_manage(request):
     paginator = Paginator(tasks,2)
 
     # 最大分几页数字表示
-    paginator_num_page = paginator.num_pages
+    paginator_num_pages = paginator.num_pages
 
     # 分几页表示range(1, 3)，循环顺序1，2
     paginator_num_pages_array_ = paginator.page_range
@@ -66,10 +70,16 @@ def testtask_manage(request):
 
         print ("contacts---------->3",contacts)
 
-    return render(request,"task_list.html",{"type":"list","tasks":tasks})
+    return render(request,"task_list.html",{"type":"list",
+                                            "tasks":contacts,
+                                            "page":page,
+                                            "page_num":page_num,
+                                            "paginator_num_pages":paginator_num_pages,
+                                            "paginator_num_pages_array_":paginator_num_pages_array_})
 
 
 '''创建任务'''
+@login_required
 def add_task(request):
 
     '''创建任务'''
@@ -78,6 +88,7 @@ def add_task(request):
 
 
 '''编辑任务'''
+@login_required
 def edit_task(request,tid):
 
     '''编辑任务'''
@@ -86,6 +97,7 @@ def edit_task(request,tid):
 
 
 '''删除任务'''
+@login_required
 def delete_task(request,tid):
 
     '''删除任务'''
@@ -100,6 +112,7 @@ def delete_task(request,tid):
 
 
 '''保存任务'''
+@login_required
 def save_task(request):
 
     '''保存任务'''
@@ -141,7 +154,9 @@ def save_task(request):
 
         return JsonResponse({"status":10101,"message":"请求方法错误！"})
 
+
 '''查看结果'''
+@login_required
 def see_log(request):
 
     if request.method == "POST":
@@ -162,6 +177,7 @@ def see_log(request):
 
 
 '''运行任务'''
+@login_required
 def run_task(request):
 
     '''运行任务'''
@@ -199,6 +215,7 @@ def run_task(request):
 
 
 '''查看结果'''
+@login_required
 def result(request,tid):
 
     results = TestResult.objects.filter(task_id=tid).order_by("-name")
@@ -206,8 +223,81 @@ def result(request,tid):
     return render(request,"task_result.html",{"type":"result","results":results})
 
 
+'''任务搜索'''
+@login_required
+def testtask_search(request):
+
+    '''任务搜索'''
+
+    if request.method == "GET":
+
+        search_name = request.GET.get("search_name","")
+
+        task_search_list = TestTask.objects.filter(name__contains=search_name).order_by('id')#升序
+
+        paginator = Paginator(task_search_list,2)
+
+        # 最大分几页数字表示
+        paginator_num_pages = paginator.num_pages
+        print ("共分：",str(paginator_num_pages)+"页")
+
+
+        # 分几页表示range(1, 3)，循环顺序1，2
+        paginator_num_pages_array_ = paginator.page_range
+        print ("数组形式表示：",paginator_num_pages_array_)
+
+        # 当前第一页表示<Page 1 of 3>
+        # 当前第二页表示<Page 2 of 3>
+        # 当前第三页表示<Page 3 of 3>
+
+        page1 = paginator.page(1)
+        print ("第一页：",page1)
+
+        page_num = page1.number
+        print ("第一页：",page_num)
+
+
+        if (len(task_search_list) == 0):
+
+            return render(request,"task_list.html",{"type":"list",
+                                                    "tasks":task_search_list,
+                                                    "search_error":"搜索任务查询结果为空，请重新查询！！！"})
+
+        else:
+
+            # 传一个页面数据get参数的值
+            page = request.GET.get('page','')
+            print (page)
+
+            try:
+
+                # 获取page参数的值
+                contacts = paginator.page(page)
+                print ("contacts---------->1",contacts)
+
+            except PageNotAnInteger:
+
+                contacts = paginator.page(1)
+
+                print ("contacts---------->2",contacts)
+
+            except EmptyPage:
+
+                contacts = paginator.page(paginator.num_pages)
+
+                print ("contacts---------->3",contacts)
+
+            return render(request,"task_list.html",{"type":"list",
+                                                    "tasks":contacts,
+                                                    "page":page,
+                                                    "page_num":page_num,
+                                                    "search_name":search_name,
+                                                    "paginator_num_pages":paginator_num_pages,
+                                                    "paginator_num_pages_array_":paginator_num_pages_array_})
+
 
 '''获取用例树形结构'''
+@login_required
 def get_case_tree(request):
 
     '''获取用例树形结构'''
