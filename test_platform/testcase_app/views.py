@@ -14,7 +14,7 @@ from testcase_app.models import TestCase
 from module_app.models import Module
 from project_app.models import Project
 
-from django.contrib import messages
+
 import requests
 
 import json
@@ -115,9 +115,10 @@ def testcase_manage(request):
 
         print ("contacts---------->3",contacts)
 
-    print ("第二页索引：",contacts.number)
+    # print ("第二页索引：",contacts.number)
 
-    print ("第几页：",contacts)
+    # print ("第几页：",contacts)
+
     return render(request,"case_list.html",{"cases":contacts,
                                             "page":page,
                                             "page_num":page_num,

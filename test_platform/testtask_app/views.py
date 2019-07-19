@@ -12,6 +12,8 @@ from testtask_app.models import TestResult
 
 from django.http import JsonResponse,HttpResponseRedirect
 
+from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
+
 import json
 
 from test_platform import settings
@@ -27,6 +29,42 @@ def testtask_manage(request):
     '''任务list'''
 
     tasks = TestTask.objects.all()
+
+    paginator = Paginator(tasks,2)
+
+    # 最大分几页数字表示
+    paginator_num_page = paginator.num_pages
+
+    # 分几页表示range(1, 3)，循环顺序1，2
+    paginator_num_pages_array_ = paginator.page_range
+
+    # 当前第一页表示<Page 1 of 2>
+    # 当前第二页表示<Page 2 of 2>
+    page1 = paginator.page(1)
+
+    # 第一页编号
+    page_num = page1.number
+
+    page = request.GET.get('page','')
+    print ("urlpage传参：",page)
+
+    try:
+
+        # 获取page参数的值
+        contacts = paginator.page(page)
+        print ("contacts---------->1",contacts)
+
+    except PageNotAnInteger:
+
+        contacts = paginator.page(1)
+
+        print ("contacts---------->2",contacts)
+
+    except EmptyPage:
+
+        contacts = paginator.page(paginator.num_pages)
+
+        print ("contacts---------->3",contacts)
 
     return render(request,"task_list.html",{"type":"list","tasks":tasks})
 
