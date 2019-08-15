@@ -202,11 +202,11 @@ def delete_project(request,pid):
         return HttpResponseRedirect("/project/")
 
 
-# 搜索项目
+# 项目搜索
 @login_required
 def project_search(request):
 
-    '''模块搜索'''
+    '''项目搜索'''
 
     if request.method == "GET":
 

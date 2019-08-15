@@ -36,9 +36,9 @@ def run_talk1():
 
         t.start()
 
-    # for t in threads:
+    for t in threads:
     
-    #     t.join()
+        t.join()
 
 def run_talk2():
 
